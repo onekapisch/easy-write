@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/social-preview.jpg" alt="Easy Write — translate text anywhere on your Mac, formal or informal, 100% on-device with Apple Intelligence" width="100%">
+<img src="docs/icon.png" width="120" height="120" alt="Easy Write app icon">
 
 # Easy Write
 

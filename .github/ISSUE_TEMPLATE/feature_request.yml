@@ -1,0 +1,25 @@
+name: 💡 Feature request
+description: Suggest an idea for Easy Write
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: What are you trying to do that Easy Write doesn't help with yet?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+      description: How might it work? A shortcut, a language, a mode…
+    validations:
+      required: true
+  - type: checkboxes
+    id: principles
+    attributes:
+      label: Does it fit Easy Write's principles?
+      options:
+        - label: It keeps everything on-device / private (no required cloud calls)
+        - label: It keeps the app small and focused

@@ -1,0 +1,15 @@
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# Build output
+EasyWrite.app/
+*.app
+
+# macOS
+.DS_Store
+
+# Xcode (if opened there)
+*.xcuserstate
+xcuserdata/

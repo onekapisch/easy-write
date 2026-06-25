@@ -1,0 +1,51 @@
+name: 🐛 Bug report
+description: Something isn't working as expected
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Easy Write collects no logs by design, so clear
+        reproduction steps are the most helpful thing you can give.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+      placeholder: I selected German text in Safari, pressed ⌥⌘E, and …
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open …
+        2. Select …
+        3. Press …
+    validations:
+      required: true
+  - type: input
+    id: app
+    attributes:
+      label: Which app were you translating in?
+      placeholder: Safari / Mail / WhatsApp / TextEdit …
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version
+      placeholder: "26.x"
+    validations:
+      required: true
+  - type: dropdown
+    id: apple-intelligence
+    attributes:
+      label: Is Apple Intelligence enabled?
+      options:
+        - "Yes"
+        - "No"
+        - "Not sure"
+    validations:
+      required: true

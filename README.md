@@ -1,6 +1,8 @@
 <div align="center">
 
-# 📝 Easy Write
+<img src="docs/icon.png" width="120" height="120" alt="Easy Write app icon">
+
+# Easy Write
 
 ### Translate & rewrite text anywhere on your Mac — formal or informal — 100% on-device.
 

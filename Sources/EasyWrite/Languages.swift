@@ -6,6 +6,8 @@ struct Lang: Identifiable {
     let name: String
     let formal: String?
     let informal: String?
+    /// Optional per-language guidance appended to the model instruction (e.g. dialect choice).
+    var note: String? = nil
 }
 
 enum Languages {
@@ -22,6 +24,8 @@ enum Languages {
         Lang(code: "en", name: "English",    formal: nil,        informal: nil),
         Lang(code: "ja", name: "Japanese",   formal: nil,        informal: nil),
         Lang(code: "zh", name: "Chinese",    formal: nil,        informal: nil),
+        Lang(code: "ar", name: "Arabic",     formal: nil,        informal: nil,
+             note: "Use clear Modern Standard Arabic (الفصحى); do not mix in colloquial dialect."),
     ]
 
     static func named(_ code: String) -> Lang { all.first { $0.code == code } ?? all[0] }

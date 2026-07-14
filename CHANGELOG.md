@@ -2,6 +2,20 @@
 
 All notable changes to Easy Write are documented here.
 
+## [1.1] — 2026-07-13
+
+### Added
+- **Arabic** — added to the language list by user request. It's one of Apple's supported
+  Foundation Models languages, tuned here to produce **Modern Standard Arabic (الفصحى)** rather than
+  mixed dialect. Uses natural-register translation (no forced formal/informal split, since Arabic
+  formality doesn't reduce to a single pronoun pair the way German *Sie/du* does — same treatment as
+  English, Japanese, and Chinese). Strong on everyday messages; like any on-device translation it can
+  occasionally slip on more complex sentences, so double-check anything important.
+
+### Changed
+- The translation prompt now explicitly emphasises subject/object direction (who does what to whom),
+  improving accuracy across all languages.
+
 ## [1.0] — 2026-06-25
 
 First public release. 🎉

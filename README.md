@@ -53,7 +53,7 @@ understands formality, which a plain dictionary translator can't.
 - ⚡ **Translate in place** — select → shortcut → the selection is replaced with the translation, in any app
 - 🗣️ **Formal / informal** — one keystroke for German *Sie* vs *du*, French *vous* vs *tu*, Spanish *usted* vs *tú*…
 - 📖 **Read mode** — translate incoming foreign text *to English* in a popup (for web pages, emails, chats you can't edit)
-- 🌍 **12 languages** — German, French, Spanish, Italian, Portuguese, Dutch, Turkish, Polish, Russian, English, Japanese, Chinese
+- 🌍 **13 languages** — German, French, Spanish, Italian, Portuguese, Dutch, Turkish, Polish, Russian, English, Japanese, Chinese, Arabic
 - 🧠 **Personal style & glossary** — teach it your preferred terms so the output sounds like *you*
 - ⌨️ **Custom shortcuts** — rebind every action
 - 🔒 **100% local** — no account, no API key, no telemetry, zero network code

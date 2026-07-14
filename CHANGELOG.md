@@ -2,6 +2,15 @@
 
 All notable changes to Easy Write are documented here.
 
+## [1.1.1] — 2026-07-14
+
+### Fixed
+- **Clearer "Apple Intelligence unavailable" message.** The app used to show a single generic
+  "enable it in Settings" line for every reason the on-device model wasn't ready — even for users
+  who *had* already enabled Apple Intelligence but whose model was still downloading. It now reads
+  the actual reason and tells you which one it is: device not supported, Apple Intelligence turned
+  off, or **model still downloading in the background** (the most common case right after enabling).
+
 ## [1.1] — 2026-07-13
 
 ### Added

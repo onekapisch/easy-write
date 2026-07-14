@@ -139,8 +139,12 @@ translation back. That's the only way to work in *every* app, not just one.
 **Why not the Mac App Store?** Posting synthetic keystrokes is incompatible with App Store sandboxing,
 so it's distributed build-from-source (a notarized download may come later).
 
-**"Apple Intelligence isn't available."** Enable it in System Settings → *Apple Intelligence & Siri*
-(requires Apple Silicon + macOS 26).
+**"Apple Intelligence isn't available."** First, requires Apple Silicon + macOS 26 with Apple
+Intelligence enabled (System Settings → *Apple Intelligence & Siri*). If it's already enabled and you
+still see this, the model is most likely **still downloading in the background** — that happens the
+first time you turn Apple Intelligence on and can take a while. Wait until Settings shows it's ready
+(needs free storage + a network connection), then try again. As of 1.1.1 the app tells you which of
+these it is.
 
 **How is this different from Apple's built-in Translate?** Apple's right-click Translate opens a
 separate popover you copy from, and it can't do formal vs. informal. Easy Write swaps the text in

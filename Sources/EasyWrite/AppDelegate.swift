@@ -178,9 +178,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func translate(register: LLMTranslator.Register?, toEnglish: Bool = false) {
         guard !busy else { return }
         guard ensureAccessibility(prompt: true) else { return }
-        guard llm.isAvailable else {
-            notify("Apple Intelligence isn’t available. Enable it in System Settings → "
-                   + "Apple Intelligence & Siri, then try again.")
+        if let reason = llm.unavailableReason {
+            notify(reason.message)
             return
         }
 

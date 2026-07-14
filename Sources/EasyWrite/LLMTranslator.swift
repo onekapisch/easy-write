@@ -15,9 +15,51 @@ final class LLMTranslator {
     private let model = SystemLanguageModel(useCase: .general,
                                             guardrails: .permissiveContentTransformations)
 
-    var isAvailable: Bool {
-        if case .available = model.availability { return true }
-        return false
+    var isAvailable: Bool { unavailableReason == nil }
+
+    /// Why the on-device model can't run — nil when it's available. Lets the UI show a
+    /// reason-specific message instead of a single generic "enable it" line (which is wrong
+    /// for users who already enabled Apple Intelligence but whose model is still downloading).
+    enum Unavailable {
+        case deviceNotEligible
+        case notEnabled
+        case modelNotReady
+        case other
+
+        var message: String {
+            switch self {
+            case .deviceNotEligible:
+                return "Apple Intelligence isn’t supported on this Mac. It needs Apple Silicon "
+                     + "(M1 or newer) and macOS 26."
+            case .notEnabled:
+                return "Apple Intelligence is turned off. Enable it in System Settings → "
+                     + "Apple Intelligence & Siri, then try again."
+            case .modelNotReady:
+                return "Apple Intelligence is still setting up — it downloads its model in the "
+                     + "background the first time you enable it, which can take a while. Open System "
+                     + "Settings → Apple Intelligence & Siri, wait until it finishes preparing, then "
+                     + "try again. (Needs enough free storage and a network connection to download.)"
+            case .other:
+                return "Apple Intelligence isn’t available right now. Check System Settings → "
+                     + "Apple Intelligence & Siri, then try again."
+            }
+        }
+    }
+
+    var unavailableReason: Unavailable? {
+        switch model.availability {
+        case .available:
+            return nil
+        case .unavailable(let reason):
+            switch reason {
+            case .deviceNotEligible:          return .deviceNotEligible
+            case .appleIntelligenceNotEnabled: return .notEnabled
+            case .modelNotReady:              return .modelNotReady
+            @unknown default:                 return .other
+            }
+        @unknown default:
+            return .other
+        }
     }
 
     func prewarm() {

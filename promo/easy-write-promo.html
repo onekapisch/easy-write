@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Easy Write — Promo</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    height: 100%; background: #000; overflow: hidden;
+    font-family: -apple-system, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  #wrap { position: absolute; top: 50%; left: 50%; transform-origin: center center; }
+  #stage {
+    position: relative; width: 1080px; height: 1350px; overflow: hidden;
+    /* Bright macOS-style mesh wallpaper */
+    background:
+      radial-gradient(60% 55% at 18% 12%, #FFC48A 0%, rgba(255,196,138,0) 60%),
+      radial-gradient(55% 55% at 88% 16%, #C6A5FF 0%, rgba(198,165,255,0) 60%),
+      radial-gradient(65% 60% at 82% 88%, #6FB7FF 0%, rgba(111,183,255,0) 62%),
+      radial-gradient(60% 60% at 15% 92%, #FF9ED8 0%, rgba(255,158,216,0) 60%),
+      linear-gradient(150deg, #7E74F1 0%, #5B8DEF 55%, #59C2E8 100%);
+  }
+  #frame { position: absolute; left: 0; width: 1080px; height: 1350px; top: 50%; transform: translateY(-50%); }
+
+  /* Menu bar */
+  #menubar {
+    position: absolute; top: 0; left: 0; width: 100%; height: 46px; z-index: 2;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 26px;
+    background: rgba(255,255,255,.22);
+    -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(255,255,255,.18);
+    color: rgba(0,0,0,.78); font-size: 25px; font-weight: 400;
+  }
+  #menuL { display: flex; align-items: center; gap: 26px; }
+  #menuL .apple { font-size: 27px; }
+  #menuL .b { font-weight: 600; }
+  #menuR { display: flex; align-items: center; gap: 18px; }
+  .batt { width: 40px; height: 20px; border: 2px solid rgba(0,0,0,.7); border-radius: 5px; position: relative; }
+  .batt::before { content:""; position:absolute; left:2px; top:2px; bottom:2px; width:26px; background: rgba(0,0,0,.7); border-radius: 2px; }
+  .batt::after { content:""; position:absolute; right:-5px; top:6px; width:3px; height:6px; background: rgba(0,0,0,.7); border-radius: 0 2px 2px 0; }
+
+  /* App layer */
+  #app { position: absolute; inset: 0; z-index: 3; }
+
+  /* Title zone sits entirely above the editor; chip is bottom-anchored so a two-line
+     title grows upward into empty space instead of behind the window. */
+  .topTitle { position: absolute; top: 110px; left: 0; width: 100%; height: 335px; z-index: 2;
+    display: flex; align-items: flex-end; justify-content: center; padding: 0 40px; }
+  .topTitle span {
+    display: inline-block; padding: 16px 34px; border-radius: 38px; text-align: center;
+    background: rgba(12,12,20,.58); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+    color: #fff; font-size: 50px; font-weight: 600; letter-spacing: -.4px; line-height: 1.18;
+    box-shadow: 0 12px 40px rgba(0,0,0,.28); max-width: 940px;
+  }
+
+  #editor {
+    position: absolute; top: 470px; left: 150px; width: 780px; min-height: 300px; z-index: 1;
+    background: #1C1C22; border: 1px solid rgba(255,255,255,.08); border-radius: 16px;
+    box-shadow: 0 50px 110px rgba(30,20,60,.45); padding: 0 0 44px 0;
+  }
+  #titlebar { height: 52px; display: flex; align-items: center; gap: 10px; padding: 0 22px;
+    border-bottom: 1px solid rgba(255,255,255,.05); }
+  .dot { width: 14px; height: 14px; border-radius: 50%; }
+  .r{background:#FF5F57;} .y{background:#FEBC2E;} .g{background:#28C840;}
+  #textArea { position: relative; padding: 40px 44px 0; }
+  #enWrap { position: relative; }
+  #enText, #deText { font-size: 46px; line-height: 1.45; color: #EDEDF0; font-weight: 400; }
+  #deText { position: absolute; top: 0; left: 0; width: 100%; opacity: 0; }
+  #caret { display: inline-block; width: 3px; height: 46px; background: #7C5CFF; vertical-align: -8px; margin-left: 3px; border-radius: 2px; }
+
+  #keys { position: absolute; top: 858px; left: 0; width: 100%; display: flex; align-items: center; justify-content: center; gap: 22px; }
+  .key { min-width: 96px; height: 96px; padding: 0 26px; border-radius: 20px;
+    background: linear-gradient(180deg, #2A2A32 0%, #1E1E25 100%); border: 1px solid rgba(255,255,255,.10);
+    box-shadow: 0 12px 30px rgba(20,15,50,.4), inset 0 1px 0 rgba(255,255,255,.08);
+    display: flex; align-items: center; justify-content: center; font-size: 50px; font-weight: 500; color: #fff; }
+
+  #pills { position: absolute; top: 866px; left: 0; width: 100%; display: flex; align-items: center; justify-content: center; gap: 18px; }
+  .pill { padding: 16px 30px; border-radius: 999px; font-size: 30px; font-weight: 500; color: #fff;
+    background: rgba(12,12,20,.55); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,.14); box-shadow: 0 10px 30px rgba(0,0,0,.2); }
+  .pill.accent { color: #E9E2FF; background: rgba(124,92,255,.55); border-color: rgba(255,255,255,.28); }
+
+  /* Scrims for intro + end card */
+  .scrim { position: absolute; inset: 0; opacity: 0;
+    background: linear-gradient(160deg, #0C0B14 0%, #171226 100%); }
+  #introScrim { z-index: 5; } #endScrim { z-index: 7; }
+
+  #titleCard { position: absolute; inset: 0; z-index: 6; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 34px; }
+  .iconTile { width: 190px; height: 190px; border-radius: 44px;
+    background: linear-gradient(160deg, #8A6BFF 0%, #6D4BF0 100%);
+    box-shadow: 0 30px 70px rgba(124,92,255,.4); display: flex; align-items: center; justify-content: center; }
+  .bubble { position: relative; width: 108px; height: 92px; border-radius: 30px; background: #fff;
+    display: flex; align-items: center; justify-content: center; }
+  .bubble::after { content:""; position:absolute; bottom:-12px; left:26px; width:30px; height:30px;
+    background:#fff; border-radius:0 0 0 8px; transform: rotate(45deg) skew(-8deg,-8deg); }
+  .bubble span { font-size: 62px; font-weight: 700; color: #6D4BF0; line-height: 1; }
+  #wordmark { font-size: 96px; font-weight: 600; color: #fff; letter-spacing: -1px; }
+  #subline { font-size: 34px; font-weight: 400; color: #B9B4D6; letter-spacing: .2px; }
+
+  #endCard { position: absolute; inset: 0; z-index: 8; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 30px; opacity: 0; padding: 0 120px; }
+  #pitch { text-align: center; font-size: 60px; font-weight: 600; color: #fff; letter-spacing: -.6px; line-height: 1.26; max-width: 860px; }
+  #pitch b { color: #A98BFF; font-weight: 600; }
+  #endSub { text-align: center; font-size: 33px; font-weight: 400; color: #B9B4D6; max-width: 720px; line-height: 1.4; }
+  #endMeta { text-align: center; margin-top: 12px; }
+  #endMark { font-size: 44px; font-weight: 600; color: #fff; }
+  #endUrl { margin-top: 8px; font-size: 30px; color: #8E88AD; }
+</style>
+</head>
+<body>
+  <div id="wrap"><div id="stage"><div id="frame">
+
+    <div id="menubar">
+      <div id="menuL"><span class="apple">&#xF8FF;</span><span class="b">Notes</span><span>File</span><span>Edit</span><span>Format</span><span>View</span></div>
+      <div id="menuR"><div class="batt"></div><span>Fri 9:41</span></div>
+    </div>
+
+    <div id="app">
+      <div class="topTitle" id="t1"><span>Type in any app</span></div>
+      <div class="topTitle" id="t2"><span>Press one shortcut</span></div>
+      <div class="topTitle" id="t3"><span>Replaced in place</span></div>
+      <div class="topTitle" id="t4"><span>The AI is already in your Mac</span></div>
+
+      <div id="editor">
+        <div id="titlebar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+        <div id="textArea"><div id="enWrap">
+          <span id="enText"></span><span id="caret"></span>
+          <div id="deText">Schreib mir, wenn du ankommst.</div>
+        </div></div>
+      </div>
+
+      <div id="keys"><div class="key" id="k1">&#8997;</div><div class="key" id="k2">&#8984;</div><div class="key" id="k3">I</div></div>
+
+      <div id="pills">
+        <div class="pill accent" id="p1">Apple on-device AI</div>
+        <div class="pill" id="p2">100% private</div>
+        <div class="pill" id="p3">Free &amp; open source</div>
+      </div>
+    </div>
+
+    <div class="scrim" id="introScrim"></div>
+    <div id="titleCard">
+      <div class="iconTile"><div class="bubble"><span>A</span></div></div>
+      <div id="wordmark">Easy Write</div>
+      <div id="subline">On-device translation for Mac</div>
+    </div>
+
+    <div class="scrim" id="endScrim"></div>
+    <div id="endCard">
+      <div id="pitch">Your Mac already understands every language. Now it <b>writes</b> them.</div>
+      <div id="endSub">Free and open source. Powered by Apple's on-device model, so nothing ever leaves your Mac.</div>
+      <div id="endMeta"><div id="endMark">Easy Write</div><div id="endUrl">github.com/onekapisch/easy-write</div></div>
+    </div>
+
+  </div></div></div>
+
+<script>
+  const EN = "Text me when you land.";
+  const LOOP = 13.8;
+  const enText = document.getElementById('enText');
+  const caret  = document.getElementById('caret');
+  const deText = document.getElementById('deText');
+  const clamp = (v,a,b) => Math.min(b, Math.max(a, v));
+  const ease  = t => t<.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2;
+  function win(t, s, e, fin=.25, fout=.25){ if(t<s||t>e) return 0;
+    return ease(Math.min(clamp((t-s)/fin,0,1), clamp((e-t)/fout,0,1))); }
+  const op = (id,o) => document.getElementById(id).style.opacity = o;
+
+  function render(t){
+    // Intro (hold ~1.3s so the brand registers)
+    const intro = win(t, 0.0, 1.90, 0.5, 0.4);
+    op('introScrim', intro);
+    const tc = document.getElementById('titleCard');
+    tc.style.opacity = intro;
+    tc.style.transform = `scale(${0.98 + 0.02*ease(clamp(t/0.7,0,1))})`;
+
+    // Editor
+    op('editor', win(t, 1.90, 10.60, 0.4, 0.4));
+
+    // Titles (each held long enough to read comfortably)
+    op('t1', win(t, 2.15, 4.35, 0.40, 0.30));
+    op('t2', win(t, 4.45, 6.05, 0.30, 0.30));
+    op('t3', win(t, 6.15, 8.25, 0.30, 0.35));
+    op('t4', win(t, 8.35, 10.60, 0.40, 0.35));
+
+    // Typing 2.5 -> 4.0 (relaxed pace)
+    const p = clamp((t-2.5)/(4.0-2.5), 0, 1);
+    enText.textContent = EN.slice(0, Math.round(p*EN.length));
+    caret.style.opacity = (t>2.4 && t<4.15 && Math.floor(t/0.53)%2===0) ? 1 : 0;
+
+    // Swap at 6.55 (slower, more legible morph; German then holds ~3s)
+    const swap = 6.55;
+    if (t < swap){ enText.style.opacity=1; enText.style.filter='none'; deText.style.opacity=0; }
+    else {
+      const k=clamp((t-swap)/0.35,0,1), k2=clamp((t-(swap+0.10))/0.38,0,1);
+      enText.style.opacity=1-k; enText.style.filter=`blur(${7*k}px)`;
+      deText.style.opacity=k2;  deText.style.filter=`blur(${7*(1-k2)}px)`;
+    }
+
+    // Keys + press at 5.05 (slower, more visible press)
+    op('keys', win(t, 4.50, 6.00, 0.35, 0.30));
+    const press = clamp(1 - Math.abs(t-5.05)/0.18, 0, 1);
+    ['k1','k2','k3'].forEach(id=>{
+      const el = document.getElementById(id);
+      el.style.transform = `scale(${1-0.06*press})`;
+      el.style.boxShadow = press>0
+        ? `0 0 0 ${3*press}px rgba(124,92,255,${0.5*press}), 0 12px 30px rgba(20,15,50,.4)`
+        : `0 12px 30px rgba(20,15,50,.4), inset 0 1px 0 rgba(255,255,255,.08)`;
+    });
+
+    // Pills (staggered), fade out before end card
+    const fo = clamp((10.55 - t)/0.3, 0, 1);
+    op('p1', Math.min(win(t, 8.50, 99, 0.3, 99), fo));
+    op('p2', Math.min(win(t, 8.72, 99, 0.3, 99), fo));
+    op('p3', Math.min(win(t, 8.94, 99, 0.3, 99), fo));
+
+    // End card (holds ~3s)
+    const end = win(t, 10.65, LOOP, 0.5, 0.001);
+    op('endScrim', end); op('endCard', end);
+  }
+
+  function fit(){
+    const isTall = new URLSearchParams(location.search).get('ratio')==='9x16';
+    const H = isTall ? 1920 : 1350;
+    document.getElementById('stage').style.height = H+'px';
+    const s = Math.min(window.innerWidth/1080, window.innerHeight/H);
+    document.getElementById('wrap').style.transform = `translate(-50%,-50%) scale(${s})`;
+  }
+  window.addEventListener('resize', fit); fit();
+
+  let t0=null;
+  function frame(now){ if(t0===null)t0=now; render(((now-t0)/1000)%LOOP); requestAnimationFrame(frame); }
+  requestAnimationFrame(frame);
+</script>
+</body>
+</html>

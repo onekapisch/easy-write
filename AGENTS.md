@@ -34,8 +34,10 @@ Cross-app Accessibility, VoiceOver and end-to-end signed updates require separat
 ## Website content and search evidence
 The native app has no web stack. Dated SEO research and draft snapshots live in `docs/seo/`.
 The OneKapisch website maintains deployable guide content separately in its existing static
-generator. Keep public 1.x source distinct from the local 2.0 preview. Do not claim exclusive
-features, verified search volumes, user outcomes or app compatibility without evidence.
+generator. Easy Write 2.0 build 24 is approved for public launch on 2026-10-23; publication
+is in progress, not yet verified live. Keep historical 1.x evidence distinct from 2.0.
+Do not claim exclusive features, verified search volumes, user outcomes or app compatibility
+without evidence.
 
 ## Publication policy
 Preserve existing branches and dirty work. Stage only scoped changes. No merge, push,
@@ -44,3 +46,10 @@ approval. Do not run `release.sh` as a test: it writes tags and creates a remote
 Keep README, CHANGELOG, TODO and SECURITY aligned with verified delivery, not future intent.
 For the verified build-24 packaging procedure and artifact hashes, see
 `docs/notarization-2.0-build24.md`. Never mutate signed app Finder metadata in a DMG.
+For this launch, the owner explicitly approved publication; the coordinating task handles
+GitHub and website deployment. Documentation work must not publish, commit, tag, push,
+rebuild or modify runtime/artifacts. Record public availability only after the coordinator
+verifies the version-pinned DMG, product page and appcast. Homebrew is not live.
+Do not mark clean-Mac installation, physical compatibility, VoiceOver or installed Sparkle
+upgrade acceptance complete without separate evidence. Pre-Sparkle 1.x upgrades manually;
+source builds keep updates disabled by default.

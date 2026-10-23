@@ -2,7 +2,18 @@
 
 All notable changes to Easy Write are documented here.
 
-## [2.0] (unreleased)
+## [2.0] — 2026-10-23
+
+### Approved public launch — publication in progress
+
+- Owner approved publishing the existing notarized 2.0 build 24. Public GitHub download,
+  product page and signed appcast availability await the coordinating task's live checks.
+- Updated launch documentation for official manual DMG installation, manual 1.x upgrades,
+  source builds with updates off by default, and ordinary network/clipboard privacy cautions.
+- Homebrew is not live. Clean-Mac installation, physical app/VoiceOver checks and installed
+  Sparkle upgrade acceptance remain unverified; authorization does not complete those checks.
+- This documentation update changes no source/runtime or release artifacts and performs no
+  publication, commit, tag or push. Earlier preparation entries below describe their own scope.
 
 ### Notarized local installer, 2026-10-23
 - Apple accepted the app and corrected DMG for 2.0 build 24. Both are stapled and
@@ -12,7 +23,7 @@ All notable changes to Easy Write are documented here.
 - Prepared and cryptographically verified a local signed appcast for the exact final DMG.
   No credentials or private keys were exported. No public release or deployment performed.
 - Clean-Mac installation, physical app/VoiceOver checks and installed Sparkle upgrade acceptance
-  remain separate gates. The website download remains disabled until publication is verified.
+  remain separate gates. Public download availability still requires coordinator verification.
 
 ### Website research and content, 2026-10-23
 - Added source-backed SEO/GEO research, a 62-query candidate map with explicit evidence labels,
@@ -49,17 +60,18 @@ All notable changes to Easy Write are documented here.
   during idle use and after wake. Early preview implicit consent is not migrated.
 - Streaming and normal model requests have deadlines. Context budgeting includes instructions,
   glossary, style notes, output and framing overhead.
-- Download and Homebrew claims are marked pending; source builds disable updates by default.
+- At review time, download and Homebrew claims were marked pending; source builds disable updates by default.
 - Added regression tests and release-acceptance documentation.
 - Retested the signed build: 75 isolated checks and six real-model checks passed. Automated
-  global-shortcut and replacement acceptance remains unverified; release is still blocked.
+  global-shortcut and replacement acceptance remains unverified. Publication is now approved,
+  without changing that acceptance status.
 
 The biggest update yet: a new interface, one shortcut for everything, your own actions, and a
-release tooling for a notarized download with optional updates.
+notarized installer with optional update checks.
 
 ### Added
-- **Release pipeline (pending validation).** Tooling for a notarized download and opt-in updates.
-  No 2.0 binary or feed is published yet.
+- **Notarized installer and optional update checks.** Build 24 and its exact signed payload/feed
+  passed local verification. Publication is in progress; installed upgrade acceptance is unverified.
 - **Easy Write Bar** (⌥⌘K). Opens next to your selection with every language, tone and action. Type
   to filter, or type any instruction ("sound more excited") and run it once. The result streams in
   before anything changes; ↩ replaces, ⌘C copies, ⌘R tries again.

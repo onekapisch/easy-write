@@ -11,12 +11,9 @@ tone you choose (German *Sie* vs *du*, French *vous* vs *tu*, …). Or run your 
 grammar, make it shorter, reply politely. Powered entirely by Apple's **on-device** model (Apple
 Intelligence). **No accounts. No API keys. No cloud.** Your text never leaves your Mac.
 
-See [launch preparation status](docs/launch-handoff.md) for the website preview,
-local candidate checks and remaining release gates. Local 2.0 build 24 is notarized
-and passes Gatekeeper; installation and installed-update acceptance remain separate gates.
-
-**2.0 preview branch.** Build from source below. Signed downloads and automatic updates are
-not published yet. The latest public release is 1.1.1.
+**Easy Write 2.0.** [Download free for macOS](https://github.com/onekapisch/easy-write/releases/download/v2.0/EasyWrite-2.0.dmg).
+Developer-ID signed and notarized. Requires Apple Silicon, macOS 26+, and Apple Intelligence ready.
+See [launch status](docs/launch-handoff.md) for verification evidence and compatibility limits.
 
 ![macOS 26+](https://img.shields.io/badge/macOS-26%2B-black?logo=apple&logoColor=white)
 ![Apple Silicon](https://img.shields.io/badge/Apple%20Silicon-required-black?logo=apple&logoColor=white)
@@ -57,7 +54,7 @@ up, and it understands formality, which a plain dictionary translator can't.
 - 🧠 **Remembered per app** — formal in Mail, informal in Slack, without touching a setting.
 - ✨ **Actions** — your own instructions on a shortcut, shareable as a link.
 - 🏝️ **Notch HUD** — progress and results right at the top of the screen, with ⌘Z to undo.
-- 📥 **Release tooling** for a notarized download and optional updates, pending validation.
+- 📥 **Notarized installer** with optional update checks. Installed automatic upgrades remain unverified.
 
 See the full [changelog](CHANGELOG.md).
 
@@ -72,7 +69,7 @@ See the full [changelog](CHANGELOG.md).
 - 🕘 **Opt-in history**: originals and results stay local; disabling it deletes the history file
 - ⌨️ **Custom shortcuts** — rebind everything
 - ♿️ **VoiceOver** — labelled controls and spoken results
-- 🔒 **100% local** — no account, no API key, no telemetry; the only network access is the optional update check
+- 🔒 **Local AI** — no account, no API key, no telemetry; optional updates and external links use the network, never your selected text
 
 ## 🆚 How it compares
 
@@ -85,9 +82,9 @@ private, nothing to set up, register-aware).
 | No account or API key | ✅ | ❌ | ⚠️ | ✅ | ⚠️ needs setup |
 | Formal vs informal (Sie/du) | ✅ | Pro only | ❌ | ❌ | ✅ |
 | Replace selection in place | ✅ | app only | ❌ | ✅ | varies |
-| Works in any app | ✅ | ✅ | ❌ | ⚠️ some | ✅ |
+| Cross-app text access | supported Accessibility fields | ✅ | ❌ | ⚠️ some | varies |
 | Your own rewrite actions | ✅ | ❌ | ❌ | ❌ | varies |
-| Setup | build from source (2.0 preview) | account | — | built-in | install Ollama + model |
+| Setup | manual DMG install, or source build | account | — | built-in | install Ollama + model |
 | Open source | ✅ | ❌ | ❌ | ❌ | ✅ |
 | Price | **Free** | Free / Pro | Free | Free | Free |
 
@@ -98,25 +95,40 @@ private, nothing to set up, register-aware).
 
 ## ⬇️ Install
 
-**2.0 is a source-only preview.** The notarized DMG, Homebrew tap and update feed are not live.
-The welcome window checks Accessibility and Apple Intelligence, then offers a practice swap.
-For this unreleased preview, use the local 2.0 checkout; the public default branch is still 1.x.
+**Official manual DMG install (2.0, build 24).**
 
-**Build from source.**
+1. Quit any running copy of Easy Write or EasyWrite before installing or upgrading.
+2. Download [EasyWrite-2.0.dmg](https://github.com/onekapisch/easy-write/releases/download/v2.0/EasyWrite-2.0.dmg),
+   open it, and drag **Easy Write.app** to **Applications**. Replace the existing copy if prompted.
+3. Launch **Easy Write** from Applications. Grant access in System Settings → Privacy & Security →
+   Accessibility. If an old grant no longer works, remove the stale entry and enable the installed copy.
+4. Enable Apple Intelligence and wait until its model is ready. The welcome window checks
+   Accessibility and model readiness, then offers a practice swap. Use disposable text first.
+
+The installer is 3,987,107 bytes. SHA-256:
+`586ab04082d3542d4796d3b930b15f750f01a1e44c0c760569b346a438ed4c6c`.
+The [product page](https://www.onekapisch.com/products/easy-write/) is the canonical site.
+Homebrew is **not live**; no Homebrew installation is offered for this launch.
+
+**Build from source (still supported).** Default source builds disable update configuration.
+Use the version tag below to build this release.
 
 ```bash
 git clone https://github.com/onekapisch/easy-write.git
 cd easy-write
+git checkout v2.0
 ./setup-signing.sh      # once, if you don't have a Developer ID: keeps the Accessibility grant across rebuilds
 ./build.sh              # compile + bundle + sign → "Easy Write.app"
 cp -R "Easy Write.app" /Applications/
 open "/Applications/Easy Write.app"
 ```
 
-**Upgrading from 1.x?** Your settings move over automatically. macOS asks for Accessibility again
+**Upgrading from 1.x?** Install the DMG manually: pre-Sparkle 1.x cannot receive this upgrade
+automatically. Your settings move over automatically. macOS asks for Accessibility again
 because the app is now signed by OneKapisch. If the old "EasyWrite" entry is still in
 System Settings → Privacy & Security → Accessibility, remove it, then delete the old
-`EasyWrite.app` from Applications.
+`EasyWrite.app` from Applications. Optional update checks in 2.0 concern future releases and
+require consent; a successful installed Sparkle upgrade has not yet been verified.
 
 ## Usage
 
@@ -134,10 +146,13 @@ shortcut can be changed in **Settings → Shortcuts**, and any action can get on
 ## 🔒 Privacy & security
 
 Your text never leaves your Mac. The model runs locally; there is no analytics, no telemetry, and no
-account. The only time Easy Write goes online is to check for updates, and only if you allow it — it
-sends no selected text. The permission it needs is **Accessibility**, to
+account. Optional update checks and downloads contact the website and GitHub; they send no selected
+text, but those servers can observe ordinary request metadata, including your IP address and app
+version. The permission it needs is **Accessibility**, to
 read your selection and paste the result back. Your clipboard is restored
-after temporary pastes. Opening Studio or support links visits the destination in your browser.
+after temporary pastes while Easy Write still owns it; newer clipboard copies are preserved.
+Clipboard-manager behavior varies. Opening Studio, support or shared-action links visits the
+destination in your browser and exposes normal browser request metadata.
 
 Automatic replacement requires the original window, field, selection range and text to remain
 verifiable. Otherwise the result appears for review instead of being pasted. The HUD says
@@ -165,15 +180,17 @@ PDF) and read it in your language, on-device. Ideas and PRs welcome — open an 
 
 **Is it really free?** Yes — free and open source (MIT). No account, no subscription, no upsell.
 
-**Does it send my data anywhere?** No. Your text is only ever processed on your Mac. The optional
-update check sends the app version, nothing else.
+**Does it send my text anywhere?** No selected text is sent by Easy Write. AI processing stays
+on your Mac. Optional update checks include the app version; hosting services can also observe
+ordinary HTTP metadata such as your IP address. External links open in your browser.
 
 **Why does it need Accessibility permission?** To read your current selection and paste the result
 back using macOS APIs. The app must expose its selected text through Accessibility. If it does
 not, capture fails safely instead of using unrelated clipboard contents.
 
 **Why not the Mac App Store?** Posting keystrokes to other apps is incompatible with App Store
-sandboxing. Source builds are available; a notarized download is being prepared.
+sandboxing. Source builds remain supported; the official notarized DMG launch is approved
+and publication is in progress.
 
 **"Apple Intelligence is still preparing."** Apple Intelligence is on but still downloading its model
 — that happens the first time you turn it on and can take a while. Wait until System Settings →

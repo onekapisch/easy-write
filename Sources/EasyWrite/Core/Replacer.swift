@@ -8,7 +8,32 @@ import CoreGraphics
 /// Selection capture never uses the clipboard. Temporary output pastes restore it only while owned.
 @MainActor
 final class Replacer {
+    /// AX is an external process boundary. Keep reads injectable for synthetic regression tests.
+    struct Accessibility {
+        var focused: () -> AXUIElement?
+        var attribute: (AXUIElement, CFString) -> CFTypeRef?
+        var parameter: (AXUIElement, CFString, CFTypeRef) -> CFTypeRef?
+
+        static let system = Accessibility(focused: {
+            var value: CFTypeRef?
+            guard AXUIElementCopyAttributeValue(AXUIElementCreateSystemWide(),
+                                               kAXFocusedUIElementAttribute as CFString, &value) == .success,
+                  let value, CFGetTypeID(value) == AXUIElementGetTypeID() else { return nil }
+            return (value as! AXUIElement)
+        }, attribute: { element, name in
+            var value: CFTypeRef?
+            guard AXUIElementCopyAttributeValue(element, name, &value) == .success else { return nil }
+            return value
+        }, parameter: { element, name, parameter in
+            var value: CFTypeRef?
+            guard AXUIElementCopyParameterizedAttributeValue(element, name, parameter, &value) == .success
+            else { return nil }
+            return value
+        })
+    }
+
     private let pasteboard: NSPasteboard
+    private let accessibility: Accessibility
     private let command: ((CGKeyCode) -> Void)?
     private let schedule: (@escaping () -> Void) -> Void
     private let targetIsCurrent: ((SelectionTarget) -> Bool)?
@@ -16,11 +41,13 @@ final class Replacer {
     init(pasteboard: NSPasteboard = .general, command: ((CGKeyCode) -> Void)? = nil,
          schedule: @escaping (@escaping () -> Void) -> Void = {
              DispatchQueue.main.asyncAfter(deadline: .now() + 0.6, execute: DispatchWorkItem(block: $0))
-         }, targetIsCurrent: ((SelectionTarget) -> Bool)? = nil) {
+         }, targetIsCurrent: ((SelectionTarget) -> Bool)? = nil,
+         accessibility: Accessibility = .system) {
         self.pasteboard = pasteboard
         self.command = command
         self.schedule = schedule
         self.targetIsCurrent = targetIsCurrent
+        self.accessibility = accessibility
     }
     /// Raw data rather than NSPasteboardItems: an item can only be written to a pasteboard once,
     /// and a read followed by Replace restores twice.
@@ -41,10 +68,7 @@ final class Replacer {
 
     func selectedText() -> String? {
         guard let element = focusedElement() else { return nil }
-        var value: CFTypeRef?
-        guard AXUIElementCopyAttributeValue(element, kAXSelectedTextAttribute as CFString, &value) == .success
-        else { return nil }
-        return value as? String
+        return selection(in: element)?.text
     }
 
     /// Replaces the current selection with `newText`, then restores the clipboard.
@@ -118,14 +142,32 @@ final class Replacer {
         var pid: pid_t
         var element: AXUIElement
         var window: AXUIElement
-        var range: CFRange
+        var range: SelectionRange
         var text: String
+    }
+
+    /// WebKit selections have opaque endpoints, not a character offset in an AXValue string.
+    /// Keep that identity in memory and compare it; never serialize or log marker contents.
+    enum SelectionRange {
+        case characters(CFRange)
+        case textMarker(CFTypeRef)
+
+        func matches(_ other: SelectionRange) -> Bool {
+            switch (self, other) {
+            case (.characters(let a), .characters(let b)):
+                return a.location == b.location && a.length == b.length
+            case (.textMarker(let a), .textMarker(let b)):
+                return CFEqual(a, b)
+            default:
+                return false
+            }
+        }
     }
 
     static func sameSelection(_ original: SelectionTarget?, _ current: SelectionTarget?) -> Bool {
         guard let a = original, let b = current else { return false }
         return a.pid == b.pid && CFEqual(a.element, b.element) && CFEqual(a.window, b.window)
-            && a.range.location == b.range.location && a.range.length == b.range.length
+            && a.range.matches(b.range)
             && a.text == b.text
     }
 
@@ -133,26 +175,39 @@ final class Replacer {
         guard let element = focusedElement() else { return nil }
         var pid: pid_t = 0
         guard AXUIElementGetPid(element, &pid) == .success else { return nil }
-        var windowValue: CFTypeRef?
-        var rangeValue: CFTypeRef?
-        var textValue: CFTypeRef?
-        guard AXUIElementCopyAttributeValue(element, kAXWindowAttribute as CFString, &windowValue) == .success,
-              let window = windowValue, CFGetTypeID(window) == AXUIElementGetTypeID(),
-              AXUIElementCopyAttributeValue(element, kAXSelectedTextRangeAttribute as CFString, &rangeValue) == .success,
-              let rangeObject = rangeValue, CFGetTypeID(rangeObject) == AXValueGetTypeID(),
-              AXUIElementCopyAttributeValue(element, kAXSelectedTextAttribute as CFString, &textValue) == .success,
-              let text = textValue as? String, !text.isEmpty else { return nil }
-        var range = CFRange(location: 0, length: 0)
-        guard AXValueGetValue(rangeObject as! AXValue, .cfRange, &range), range.length > 0 else { return nil }
-        return SelectionTarget(pid: pid, element: element, window: window as! AXUIElement, range: range, text: text)
+        guard let window = accessibility.attribute(element, kAXWindowAttribute as CFString),
+              CFGetTypeID(window) == AXUIElementGetTypeID(),
+              let selected = selection(in: element), let range = selected.range else { return nil }
+        return SelectionTarget(pid: pid, element: element, window: window as! AXUIElement,
+                               range: range, text: selected.text)
+    }
+
+    private func selection(in element: AXUIElement) -> (text: String, range: SelectionRange?)? {
+        let direct = accessibility.attribute(element, kAXSelectedTextAttribute as CFString) as? String
+        if let direct, !direct.isEmpty,
+           let value = accessibility.attribute(element, kAXSelectedTextRangeAttribute as CFString),
+           CFGetTypeID(value) == AXValueGetTypeID(), AXValueGetType(value as! AXValue) == .cfRange {
+            var range = CFRange(location: 0, length: 0)
+            if AXValueGetValue(value as! AXValue, .cfRange, &range), range.location >= 0, range.length > 0 {
+                return (direct, .characters(range))
+            }
+        }
+        // Mail's rich-text composer exposes these WebKit attributes instead of AXSelectedText.
+        // Read the text from its exact range; do not simulate Copy or consult clipboard contents.
+        if let marker = accessibility.attribute(element, "AXSelectedTextMarkerRange" as CFString),
+           let text = accessibility.parameter(element, "AXStringForTextMarkerRange" as CFString, marker) as? String,
+           !text.isEmpty,
+           let current = accessibility.attribute(element, "AXSelectedTextMarkerRange" as CFString),
+           CFEqual(marker, current) {
+            return (text, .textMarker(marker))
+        }
+        // Read-only hosts may expose text but no verifiable range: review is still possible.
+        guard let direct, !direct.isEmpty else { return nil }
+        return (direct, nil)
     }
 
     private func focusedElement() -> AXUIElement? {
-        let system = AXUIElementCreateSystemWide()
-        var value: CFTypeRef?
-        guard AXUIElementCopyAttributeValue(system, kAXFocusedUIElementAttribute as CFString, &value) == .success,
-              let v = value, CFGetTypeID(v) == AXUIElementGetTypeID() else { return nil }
-        return (v as! AXUIElement)
+        accessibility.focused()
     }
 
     /// Whether the focused element accepts text, so read mode can offer Replace only where
@@ -167,14 +222,20 @@ final class Replacer {
     /// Screen rectangle of the current selection in Cocoa coordinates, when the focused app
     /// exposes it. Used to open the Bar right next to the text. Many apps do; some don't.
     func selectionBounds() -> NSRect? {
-        guard let el = focusedElement() else { return nil }
-        var rangeValue: CFTypeRef?
-        guard AXUIElementCopyAttributeValue(el, kAXSelectedTextRangeAttribute as CFString, &rangeValue) == .success,
-              let range = rangeValue else { return nil }
-        var boundsValue: CFTypeRef?
-        guard AXUIElementCopyParameterizedAttributeValue(el, kAXBoundsForRangeParameterizedAttribute as CFString,
-                                                         range, &boundsValue) == .success,
-              let b = boundsValue, CFGetTypeID(b) == AXValueGetTypeID() else { return nil }
+        guard let el = focusedElement(), let selected = selection(in: el), let range = selected.range else { return nil }
+        let parameter: CFTypeRef
+        let attribute: CFString
+        switch range {
+        case .characters(var characters):
+            guard let value = AXValueCreate(.cfRange, &characters) else { return nil }
+            parameter = value
+            attribute = kAXBoundsForRangeParameterizedAttribute as CFString
+        case .textMarker(let marker):
+            parameter = marker
+            attribute = "AXBoundsForTextMarkerRange" as CFString
+        }
+        guard let b = accessibility.parameter(el, attribute, parameter),
+              CFGetTypeID(b) == AXValueGetTypeID(), AXValueGetType(b as! AXValue) == .cgRect else { return nil }
         var rect = CGRect.zero
         guard AXValueGetValue(b as! AXValue, .cgRect, &rect), rect.width > 0 || rect.height > 0 else { return nil }
         // AX uses a top-left origin on the primary display; Cocoa uses bottom-left.

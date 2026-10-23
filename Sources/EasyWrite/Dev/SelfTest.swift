@@ -20,6 +20,7 @@ enum SelfTest {
         privacyDefaults()
         clipboardOwnership()
         selectionSafety()
+        webKitSelectionCapture()
         historyPrivacy()
         await requestSafety()
         contextBudget()
@@ -86,7 +87,7 @@ enum SelfTest {
         var restores: [() -> Void] = []
         let element = AXUIElementCreateApplication(100)
         let target = Replacer.SelectionTarget(pid: 100, element: element, window: element,
-                                              range: CFRange(location: 0, length: 4), text: "text")
+                                              range: .characters(CFRange(location: 0, length: 4)), text: "text")
         var sent = 0
         var valid = true
         let replacer = Replacer(pasteboard: pb, command: { _ in sent += 1 },
@@ -119,14 +120,14 @@ enum SelfTest {
         let element = AXUIElementCreateApplication(100)
         let other = AXUIElementCreateApplication(101)
         let target = Replacer.SelectionTarget(pid: 100, element: element, window: element,
-                                              range: CFRange(location: 2, length: 4), text: "text")
+                                              range: .characters(CFRange(location: 2, length: 4)), text: "text")
         check(Replacer.sameSelection(target, target), "same field and selection are eligible")
         var changed = target
         changed.element = other
         check(!Replacer.sameSelection(target, changed), "different field blocks replacement")
         changed = target; changed.window = other
         check(!Replacer.sameSelection(target, changed), "different window blocks replacement")
-        changed = target; changed.range.location += 1
+        changed = target; changed.range = .characters(CFRange(location: 3, length: 4))
         check(!Replacer.sameSelection(target, changed), "moved selection blocks replacement")
         changed = target; changed.text = "edit"
         check(!Replacer.sameSelection(target, changed), "edited text blocks replacement")
@@ -134,6 +135,60 @@ enum SelfTest {
         check(!Replacer.sameSelection(target, changed), "different process blocks replacement")
         check(!Replacer.sameSelection(nil, target) && !Replacer.sameSelection(target, nil),
               "unverifiable targets never auto-paste")
+    }
+
+    private static func webKitSelectionCapture() {
+        let element = AXUIElementCreateApplication(100)
+        // Synthetic opaque identities stand in for OS-owned WebKit marker objects.
+        var marker = Data([1, 2, 3]) as CFData
+        var selected = "Synthetic selection"
+        var hasWindow = true
+        var changeDuringRead = false
+        let pb = NSPasteboard.withUniqueName()
+        defer { pb.releaseGlobally() }
+        pb.setString("clipboard must stay untouched", forType: .string)
+        let before = pb.changeCount
+        let access = Replacer.Accessibility(focused: { element }, attribute: { _, name in
+            switch name as String {
+            case kAXWindowAttribute: return hasWindow ? element : nil
+            case "AXSelectedTextMarkerRange": return marker
+            default: return nil // Mail's AXWebArea has neither ordinary selected-text attribute.
+            }
+        }, parameter: { _, name, value in
+            if name as String == "AXBoundsForTextMarkerRange", CFEqual(value, marker) {
+                var rect = CGRect(x: 10, y: 20, width: 320, height: 24)
+                return AXValueCreate(.cgRect, &rect)
+            }
+            guard name as String == "AXStringForTextMarkerRange", CFEqual(value, marker) else { return nil }
+            if changeDuringRead { marker = Data([9]) as CFData }
+            return selected as CFString
+        })
+        let replacer = Replacer(pasteboard: pb, accessibility: access)
+        check(replacer.selectedText() == "Synthetic selection", "WebKit marker selection reads without Copy")
+        check(replacer.selectionTarget()?.text == "Synthetic selection", "WebKit marker selection has a verifiable target")
+        let original = replacer.selectionTarget()
+        check(Replacer.sameSelection(original, replacer.selectionTarget()), "unchanged WebKit markers match")
+        check(replacer.selectionBounds()?.width == 320 && replacer.selectionBounds()?.height == 24,
+              "WebKit marker bounds position the Bar")
+        marker = Data([1, 2, 4]) as CFData
+        check(!Replacer.sameSelection(original, replacer.selectionTarget()), "moved WebKit markers block replacement of identical text")
+        marker = Data([1, 2, 3]) as CFData
+        selected = "Changed selection"
+        check(!Replacer.sameSelection(original, replacer.selectionTarget()), "edited WebKit text blocks replacement")
+        selected = ""
+        check(replacer.selectedText() == nil && replacer.selectionTarget() == nil,
+              "collapsed WebKit selection is not captured")
+        selected = "Synthetic selection"
+        hasWindow = false
+        check(replacer.selectedText() == selected && replacer.selectionTarget() == nil,
+              "WebKit text without a verified window is review only")
+        hasWindow = true
+        changeDuringRead = true
+        check(replacer.selectionTarget() == nil, "WebKit range changing during capture is rejected")
+        check(!Replacer.SelectionRange.characters(CFRange(location: 0, length: 19))
+            .matches(.textMarker(marker)), "character and WebKit range identities cannot be confused")
+        check(pb.changeCount == before && pb.string(forType: .string) == "clipboard must stay untouched",
+              "WebKit capture never writes to the clipboard")
     }
 
     private static func historyPrivacy() {

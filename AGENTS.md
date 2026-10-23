@@ -20,6 +20,9 @@ controls. Respect Reduce Motion and preserve VoiceOver labels. No unrelated rede
 Never log selected text. History requires explicit consent. Never paste unless the source
 process, window, element, selection range and selected text can still be verified.
 Preserve externally changed clipboard contents. Never retain secrets in diagnostics.
+Selection identity may be a native character range or an opaque WebKit text-marker range.
+Compare the matching range representation plus source process/window/field/text before pasting.
+Never serialize markers or replace marker capture with a synthetic Copy fallback.
 Keep AI inference local. Update checks are optional; disclose external links separately.
 
 ## Verification

@@ -4,6 +4,16 @@ All notable changes to Easy Write are documented here.
 
 ## Unreleased
 
+### Fixed, 2026-10-23
+- Added WebKit text-marker selection support for rich-text editors such as Mail's composer.
+  Mail exposes no ordinary selected-text/character-range values in the reproduced case.
+- Read selected text and bounds from the exact marker range without copying source text.
+  Replacement still verifies the source process, window, field, range identity and text.
+- Added regression coverage for marker capture, moved/edited/collapsed selections, missing
+  windows, range changes during capture, Bar bounds and unchanged clipboard contents.
+- Installed signed local test build 27.1 with the original 2.0.1 app backed up. This is not
+  a public/notarized release; physical Mail shortcut acceptance remains pending.
+
 ### Changed, 2026-10-23
 - Hardened future release preparation: read-only default, explicit build numbers, isolated
   output and safe dmgbuild layout. Source version files and existing artifacts are untouched.

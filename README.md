@@ -140,6 +140,11 @@ require consent; a successful installed Sparkle upgrade has not yet been verifie
 
 ## Usage
 
+**Mail selection compatibility in current source (unreleased):** rich-text Mail selections use
+WebKit text markers instead of ordinary character-range attributes. The source fix reads those
+markers directly, keeps capture off the clipboard, and preserves target validation before paste.
+It is not included in the public 2.0.1 download. See [verification notes](docs/mail-selection-fix.md).
+
 **Maintainers:** see the [release process](docs/release-process.md). The release script defaults
 to a read-only plan; explicit preparation uses isolated candidates and never publishes automatically.
 

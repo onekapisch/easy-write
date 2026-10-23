@@ -24,6 +24,10 @@ permissions it needs and why, and how to report a security issue.
 - Automatic replacement verifies the source process, AX window, field, selection range and text.
   Changed or unverifiable targets show a review card instead. The HUD reports "Paste sent",
   since synthetic keystrokes have no delivery acknowledgement.
+- Current source also reads WebKit selections through `AXSelectedTextMarkerRange` and
+  `AXStringForTextMarkerRange`. Opaque marker identities stay in memory for the operation;
+  they are not logged or serialized. Re-reading must preserve the marker identity and text,
+  alongside the original process, window and field, before a replacement can be sent.
 
 ## Network access
 

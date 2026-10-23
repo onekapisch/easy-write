@@ -1,5 +1,15 @@
 # Release checklist
 
+## P0: Mail selection compatibility fix
+
+- [x] Reproduce Mail's missing ordinary selection values and available WebKit marker API without
+  recording private selected text. Add marker-aware capture/bounds and retain all paste guards.
+- [x] Build and independently review the fix; 123 isolated checks and six real-model smoke checks pass.
+- [x] Install signed local build 27.1 with unchanged signing identity/update configuration and preserve
+  the released app in `dist/local-mail-selection.Ol9Szh/released-backup/`.
+- [ ] Owner physical shortcut retry in Mail and native/browser regression acceptance.
+- [ ] Prepare/notarize/publish a future patch only with separate owner approval. Public 2.0.1 is unchanged.
+
 ## Approved positioning
 
 - [x] Use "Translate and rewrite without switching apps." in maintained product copy.

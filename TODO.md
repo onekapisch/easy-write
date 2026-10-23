@@ -7,7 +7,8 @@
 - [x] Build and independently review the fix; 123 isolated checks and six real-model smoke checks pass.
 - [x] Install signed local build 27.1 with unchanged signing identity/update configuration and preserve
   the released app in `dist/local-mail-selection.Ol9Szh/released-backup/`.
-- [ ] Owner physical shortcut retry in Mail and native/browser regression acceptance.
+- [x] Owner physical shortcut retry in Mail: reports translation or preview now works on local build 27.1.
+- [ ] Full replacement confirmation and native/browser regression acceptance.
 - [ ] Prepare/notarize/publish a future patch only with separate owner approval. Public 2.0.1 is unchanged.
 
 ## Approved positioning

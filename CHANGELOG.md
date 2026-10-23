@@ -11,8 +11,9 @@ All notable changes to Easy Write are documented here.
   Replacement still verifies the source process, window, field, range identity and text.
 - Added regression coverage for marker capture, moved/edited/collapsed selections, missing
   windows, range changes during capture, Bar bounds and unchanged clipboard contents.
-- Installed signed local test build 27.1 with the original 2.0.1 app backed up. This is not
-  a public/notarized release; physical Mail shortcut acceptance remains pending.
+- Installed signed local test build 27.1 with the original 2.0.1 app backed up. The owner
+  confirmed that Mail translation or preview now works. This is not a public/notarized release;
+  full replacement and broader app-compatibility acceptance remain separate.
 
 ### Changed, 2026-10-23
 - Hardened future release preparation: read-only default, explicit build numbers, isolated

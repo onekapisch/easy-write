@@ -54,12 +54,17 @@ preserved at `dist/local-mail-selection.Ol9Szh/released-backup/Easy Write.app`.
 The signed local candidate is `dist/local-mail-selection.Ol9Szh/Easy Write.app`.
 Both paths are local, ignored artifacts. Restoring the backup is a local rollback, not a release.
 
-## Acceptance still pending
+## Owner retry and remaining acceptance
+
+On 2026-10-23, after installation of local build 27.1, the owner retried the shortcut in Mail
+and reported: "Translation or preview now works." This confirms the reported capture failure
+is resolved in that user's retry. The response does not distinguish preview from completed
+in-place replacement, certify every Mail field/version, or establish the full compatibility matrix.
 
 The physical global-shortcut → capture → model → replacement workflow in Mail is not yet certified.
 Mail AppleScript draft creation timed out; later native automation could not retain Mail focus.
 An owned synthetic compose/paste run therefore did not complete and is not marked as a pass.
-The owner has been asked to retry a disposable sentence with the installed local build.
+The successful owner retry above is separate evidence from those incomplete automated attempts.
 
 Native fields, other WebKit editors, changed window/selection, clipboard copies during inference,
 VoiceOver and eventual signed update installation retain their independent acceptance requirements.

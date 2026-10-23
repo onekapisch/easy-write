@@ -9,7 +9,7 @@
   the released app in `dist/local-mail-selection.Ol9Szh/released-backup/`.
 - [x] Owner physical shortcut retry in Mail: reports translation or preview now works on local build 27.1.
 - [ ] Full replacement confirmation and native/browser regression acceptance.
-- [ ] Prepare/notarize/publish a future patch only with separate owner approval. Public 2.0.1 is unchanged.
+- [ ] Prepare/notarize/publish owner-authorized 2.0.2 build 28; verify public payload and signed feed.
 
 ## Approved positioning
 

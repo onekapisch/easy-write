@@ -4,6 +4,8 @@ All notable changes to Easy Write are documented here.
 
 ## Unreleased
 
+## [2.0.2] — 2026-10-23
+
 ### Fixed, 2026-10-23
 - Added WebKit text-marker selection support for rich-text editors such as Mail's composer.
   Mail exposes no ordinary selected-text/character-range values in the reproduced case.
@@ -13,7 +15,8 @@ All notable changes to Easy Write are documented here.
   windows, range changes during capture, Bar bounds and unchanged clipboard contents.
 - Installed signed local test build 27.1 with the original 2.0.1 app backed up. The owner
   confirmed that Mail translation or preview now works. This is not a public/notarized release;
-  full replacement and broader app-compatibility acceptance remain separate.
+  full replacement and broader app-compatibility acceptance remain separate. The owner
+  subsequently authorized the public 2.0.2 build-28 patch; release verification is recorded separately.
 
 ### Changed, 2026-10-23
 - Hardened future release preparation: read-only default, explicit build numbers, isolated
@@ -27,8 +30,7 @@ All notable changes to Easy Write are documented here.
   live heading/metadata and version-pinned downloads verified, including 375px overflow check.
 - Adopted the owner-approved tagline: "Translate and rewrite without switching apps."
   README, About, Studio entry and launch-artwork templates share the new positioning.
-- This is source/documentation preparation. The signed 2.0.1 installer and feed are unchanged;
-  in-app copy will reach installed users in the next signed release.
+- The prepared About/Studio copy is included in 2.0.2. Existing signed 2.0.1 artifacts remain immutable.
 
 ## [2.0.1] — 2026-10-23
 

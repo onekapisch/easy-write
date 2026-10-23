@@ -102,8 +102,8 @@ acceptance remain open. Do not mark them complete or claim automatic upgrade suc
 notarization, a working download or a live signed feed. Capture the real workflow before
 presenting any film as evidence of actual translation delivery.
 
-`release.sh` is not a dry-run command. It submits to Apple, changes version data,
-creates a tag and creates a remote draft release. The approved launch uses the existing
-verified artifact, not this script; do not execute it as part of the documentation handoff.
-It still uses the older Finder-automation layout, not the verified dmgbuild procedure; do not run it
-over the prepared artifact directory or assume its output has these acceptance results.
+The historical launches used the existing verified artifacts, not the old release script.
+The revised `release.sh VERSION --build NUMBER` now defaults to a read-only plan. Its explicit
+`--prepare` path uses isolated output and safe dmgbuild with mounted verification, submits to
+Apple, and never commits, tags or creates GitHub releases. Do not run that path as a test or
+infer full fresh-release acceptance from local checks. See [release process](release-process.md).

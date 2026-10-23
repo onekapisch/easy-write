@@ -5,6 +5,12 @@ All notable changes to Easy Write are documented here.
 ## Unreleased
 
 ### Changed, 2026-10-23
+- Hardened future release preparation: read-only default, explicit build numbers, isolated
+  output and safe dmgbuild layout. Source version files and existing artifacts are untouched.
+- Added strict notarization-status, mounted-payload, update-signature and retained-feed-history
+  checks. Removed automatic Git commits/tags and GitHub draft creation. Publication stays manual.
+- Added release safety regressions and a documented preparation/publication boundary. Full
+  notarization through the revised runner remains a next-release integration gate.
 - Published the approved tagline to the public GitHub README/repository description and
   OneKapisch website. Production deployment `dpl_pHV3TTgaHq2i337mdqZyAJAd4Ase` reached Ready;
   live heading/metadata and version-pinned downloads verified, including 375px overflow check.

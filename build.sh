@@ -11,13 +11,19 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-APP="Easy Write.app"
+APP="${EW_APP_PATH:-Easy Write.app}"
+if [ -n "${EW_APP_PATH:-}" ]; then
+    [ "$(basename "$APP")" = "Easy Write.app" ] && [ ! -e "$APP" ] && [ ! -L "$APP" ] \
+        || { echo "EW_APP_PATH must name a new Easy Write.app, never an existing bundle." >&2; exit 1; }
+fi
 TIMESTAMP="${EW_TIMESTAMP:---timestamp=none}"     # release.sh passes --timestamp
 
 echo "▶ Building (release)…"
 swift build -c release
 
-rm -rf "$APP" "EasyWrite.app"
+if [ -z "${EW_APP_PATH:-}" ]; then
+    rm -rf "Easy Write.app" "EasyWrite.app"
+fi
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources" "$APP/Contents/Frameworks"
 cp ".build/release/EasyWrite" "$APP/Contents/MacOS/EasyWrite"
 cp "Info.plist" "$APP/Contents/Info.plist"

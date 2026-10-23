@@ -8,6 +8,7 @@ EasyWrite.app/
 *.app
 dist/
 __pycache__/
+.venv-release/
 
 # macOS
 .DS_Store

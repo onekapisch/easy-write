@@ -51,8 +51,10 @@
   accepted by Apple, stapled and Gatekeeper-verified. See `docs/notarization-2.0-build24.md`.
 - Sparkle public-key matching and local payload signature verification passed. Still test an installed older Sparkle build
   updating to the release. Pre-Sparkle 1.x needs a manual upgrade.
-- Before any reuse, bring `release.sh` in line with the verified no-Finder packaging
-  procedure and mounted strict-signature gate. The build-24 handoff does not use that script.
+- [x] Harden `release.sh` with isolated output, safe dmgbuild, mounted strict-signature gates,
+  explicit notarization preparation and separate publication. See `docs/release-process.md`.
+- [ ] Exercise the complete revised `--prepare` path during the next authorized release;
+  local safety tests and existing-artifact checks do not prove a fresh notarization round trip.
 
 ## P1
 

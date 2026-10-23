@@ -30,6 +30,7 @@ Keep AI inference local. Update checks are optional; disclose external links sep
 `python3 -m unittest discover -s dmg -p test_settings.py` checks the safe DMG layout.
 `node --test tools/appearance.test.mjs` checks appearance wiring and truthful snapshot coverage.
 `node --test tools/positioning.test.mjs` checks the approved tagline across maintained copy.
+`python3 -m unittest discover -s tools -p test_release.py` tests release safety without external submissions.
 `swift tools/verify-appearance.swift <snapshot-directory>` checks backdrop-independent menu pixels.
 `./build.sh` packages locally and signs; it does not publish.
 `EasyWrite --snapshots <temporary-directory>` uses synthetic sample data.
@@ -50,7 +51,9 @@ without evidence.
 ## Publication policy
 Preserve existing branches and dirty work. Stage only scoped changes. No merge, push,
 notarization submission, GitHub release, domain purchase or website deployment without explicit
-approval. Do not run `release.sh` as a test: it writes tags and creates a remote draft.
+approval. `release.sh VERSION --build NUMBER` is a read-only plan; never add `--prepare`
+as a test, since it signs/submits to Apple. Preparation no longer changes Git/GitHub state.
+Follow `docs/release-process.md` and keep publication separate from candidate preparation.
 Keep README, CHANGELOG, TODO and SECURITY aligned with verified delivery, not future intent.
 For the verified build-24 packaging procedure and artifact hashes, see
 `docs/notarization-2.0-build24.md`. Never mutate signed app Finder metadata in a DMG.

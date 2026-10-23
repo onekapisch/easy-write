@@ -140,6 +140,9 @@ require consent; a successful installed Sparkle upgrade has not yet been verifie
 
 ## Usage
 
+**Maintainers:** see the [release process](docs/release-process.md). The release script defaults
+to a read-only plan; explicit preparation uses isolated candidates and never publishes automatically.
+
 | Shortcut | Action |
 |:---:|---|
 | `⌥⌘K` | Open the **Easy Write Bar** next to your selection |

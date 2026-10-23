@@ -56,6 +56,17 @@ The first image with post-signing Finder metadata is retained
 under an ignored `rejected/` directory and must never be distributed. Credentials
 and private keys stay in Keychain; local preparation does not export them.
 
+## Maintainer release tooling
+
+`release.sh` defaults to a read-only plan. Explicit `--prepare` submits only the built app and
+DMG to Apple, uses existing Keychain credentials, and writes a new private candidate directory.
+It does not export signing keys, alter source versions, delete old candidates or publish to GitHub.
+The signed payload is verified against the configured app public key; mounted bundles are checked
+before and after outer-image notarization. Previous signed feed items are retained. Failed candidates
+stay on disk for inspection and must not be distributed. Owner may remove obsolete local candidates
+deliberately after preserving needed evidence. No selected text is processed by release tooling;
+model checks use synthetic inputs. See [release process](docs/release-process.md).
+
 ## What's stored on your Mac
 
 | What | Where | Your control |

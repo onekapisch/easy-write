@@ -13,6 +13,8 @@ All notable changes to Easy Write are documented here.
 - No native app behavior, analytics, model inference, distribution or publication was changed.
 
 ### Launch preparation, 2026-10-23
+- Recorded the founder's page approval, release-gated direct-download design and
+  private Terminal instructions for the missing notarization credential profile.
 - Implemented the product-page preview in an isolated OneKapisch website branch,
   with release-state-aware source links and native media. No deployment performed.
 - Prepared and locally verified a Developer-ID-signed DMG, mounted-binary tests

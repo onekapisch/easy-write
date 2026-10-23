@@ -12,7 +12,9 @@ shared navigation/legal links are preserved. The page has no analytics.
 Website verification: build, lint, syntax, 25 existing release tests, four new
 preview tests, static artifact verification and 69 browser checks passed. The
 browser pass produced 75 screenshots; four documented non-fatal Orbit warnings
-remain outside this product page. Founder visual approval is still required.
+remain outside this product page. The founder subsequently approved the page
+direction and requested an official direct-download control. That design is local
+and explicitly disabled until a validated installer exists; it is not an Apple badge.
 
 ## 2. Real workflow film: physical capture required
 
@@ -47,6 +49,17 @@ Prepared an ignored local candidate at
 does not exist. The owner must configure notarization credentials privately in
 Terminal, or identify an existing appropriate profile. Do not put an Apple ID
 password, app-specific password or private key in chat or this repository.
+
+Owner-only credential setup in Terminal, using the developer Apple ID for the
+existing Developer ID team:
+
+```sh
+xcrun notarytool store-credentials easywrite-notary --apple-id YOUR_APPLE_ID --team-id UMSLY366R9
+```
+
+Replace `YOUR_APPLE_ID` privately. The command prompts securely for an Apple
+app-specific password, validates the credentials and stores them in Keychain.
+Do not add `--password` to shell history and do not paste credentials into chat.
 
 After credentials and explicit submission approval: notarize and staple the app,
 rebuild/sign/notarize/staple the DMG, check Gatekeeper and a clean-Mac installation,

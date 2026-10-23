@@ -13,6 +13,10 @@
 - Publish the validated DMG and Homebrew tap, then update README claims.
 
 ## P1
+- Review the 2.0 launch gallery and website proposal in `launch-assets/v2/`. The owner reports
+  the workflow working after a physical test; do not treat that report as a completed app matrix.
+- Before website publication, record a separate real select/shortcut/replace workflow movie.
+  The current native HUD film uses staged timings and does not demonstrate translation delivery.
 - Selection API compatibility matrix for native, browser and Electron apps. Unsupported targets
   must use review mode, never unsafe auto-paste.
 - Human evaluation of meaning, register, RTL and truncation across all target languages.

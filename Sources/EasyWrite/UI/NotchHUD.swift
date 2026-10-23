@@ -55,7 +55,8 @@ final class NotchHUD {
 
     // MARK: Private
 
-    private static var animation: Animation {
+    // Shared with the developer capture tool so launch footage uses the shipping spring.
+    static var animation: Animation {
         NSWorkspace.shared.accessibilityDisplayShouldReduceMotion
             ? .easeInOut(duration: 0.2)
             : .spring(response: 0.36, dampingFraction: 0.8)

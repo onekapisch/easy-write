@@ -13,3 +13,6 @@ EasyWrite.app/
 # Xcode (if opened there)
 *.xcuserstate
 xcuserdata/
+
+# Intermediate native media capture; distributable launch assets are tracked.
+launch-assets/v2/.capture/

@@ -24,6 +24,9 @@ Keep AI inference local. Update checks are optional; disclose external links sep
 `bash -n build.sh release.sh setup-signing.sh`
 `./build.sh` packages locally and signs; it does not publish.
 `EasyWrite --snapshots <temporary-directory>` uses synthetic sample data.
+`bash tools/launch-assets/export.sh` creates native launch media. Its owned-window recording
+uses existing Screen Recording permission and never requests it; it does not capture the desktop.
+`node --test tools/launch-assets/verify.test.mjs` verifies the distributable asset inventory.
 `EasyWrite --eval` runs a real model and needs Apple Intelligence ready.
 Cross-app Accessibility, VoiceOver and end-to-end signed updates require separate acceptance.
 

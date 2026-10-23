@@ -4,6 +4,14 @@ All notable changes to Easy Write are documented here.
 
 ## [2.0] (unreleased)
 
+### Launch media, 2026-10-23
+- Added a project-local launch kit: menu-bar panel, Bar, tone, reader and action images,
+  Daylight and Midnight heroes, GitHub social artwork, and raw native UI renders.
+- Added reproducible native HUD motion capture using the production SwiftUI view and spring.
+  ScreenCaptureKit records only the owned staged window using existing permission.
+- Added media validation, provenance, local gallery and a proposed website redesign.
+  No website deployment, GitHub push or release publication is part of this task.
+
 ### Release-safety review, 2026-10-23
 - Clipboard restoration preserves newer external copies, including copies during a pending paste.
 - Automatic replacement checks the original window, field, selected text and range; unverifiable

@@ -182,6 +182,11 @@ Easy Write is one keystroke in any app, translates with the right tone, and runs
 
 ## Contributing
 
+**2.0 launch media:** [asset guide](launch-assets/v2/README.md),
+[local gallery](launch-assets/v2/gallery.html), and [website proposal](launch-assets/v2/WEBSITE-REDESIGN.md).
+Reproduce the native screenshots and owned-window HUD recording with
+`bash tools/launch-assets/export.sh`. These synthetic demos are not translation benchmarks.
+
 PRs and issues welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). Run `EasyWrite --selftest` before
 opening a PR, and `--eval` for any prompt or language change.
 

@@ -56,7 +56,13 @@ snapshots. Upgrading an early 2.0 preview requires fresh explicit consent and cl
 |---|---|
 | **Accessibility** | To read AX selected text and send a target-validated paste. Apps must expose their selection; unverifiable replacement falls back to review. |
 
-No full-disk access, microphone, camera, contacts, location or screen recording.
+Normal app use needs no full-disk access, microphone, camera, contacts, location or screen recording.
+
+The explicit developer command `--launch-assets <directory>` is an exception: it uses existing
+Screen Recording permission to record only its own synthetic demo window with ScreenCaptureKit.
+It refuses to record if permission is unavailable and never requests it. No desktop display,
+other app window, microphone, clipboard or real history is captured. The normal app delegate and
+hotkeys do not start in this mode. Its throwaway settings domain is removed after export.
 
 ## Shared actions
 

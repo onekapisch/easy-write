@@ -1,0 +1,231 @@
+{
+  "version": "2.0",
+  "created": "2026-10-23",
+  "desktopCaptured": false,
+  "syntheticText": true,
+  "UI": "Production SwiftUI views, isolated sample settings. Surrounding backdrops are staged.",
+  "motion": {
+    "renderer": "native SwiftUI HUDView",
+    "spring": "NotchHUD.animation",
+    "timing": "staged",
+    "capturedFrames": 80,
+    "distinctExpansionWidths": [
+      370,
+      380,
+      412,
+      455,
+      500,
+      546,
+      586,
+      622,
+      652,
+      690,
+      706,
+      718,
+      728,
+      734,
+      738,
+      740,
+      742,
+      744
+    ],
+    "distinctCollapseWidths": [
+      370,
+      372,
+      380,
+      390,
+      402,
+      420,
+      440,
+      468,
+      500,
+      538,
+      580,
+      626,
+      710,
+      740
+    ],
+    "capture": "ScreenCaptureKit owned-window filter",
+    "permission": "pre-existing only",
+    "nativeMasterSha256": "f4bfa70a87c4a76b84e51f9d880e422570857a3f454209c6969540f690bb01b6",
+    "notEvidenceOf": "translation speed, successful paste delivery, or universal app compatibility"
+  },
+  "files": [
+    {
+      "file": "images/actions.png",
+      "bytes": 2541923,
+      "width": 2400,
+      "height": 1800,
+      "sha256": "3c3c628eff084d8c5c7c02aa0a3f6276e2680fcba20d759622aa3a909edf8fd0"
+    },
+    {
+      "file": "images/actions.webp",
+      "bytes": 106928,
+      "width": 2400,
+      "height": 1800,
+      "sha256": "e0e933ba6f45f4e8292fce342ff2bc610e751790fbf3c6e9a59497336d1e82d9"
+    },
+    {
+      "file": "images/hero-daylight.png",
+      "bytes": 2128718,
+      "width": 2400,
+      "height": 1800,
+      "sha256": "83b0ec8506c2c07f40f56c91dc24644dc94fa40378ac22ed6f968eddc5536ea8"
+    },
+    {
+      "file": "images/hero-daylight.webp",
+      "bytes": 132030,
+      "width": 2400,
+      "height": 1800,
+      "sha256": "f641bc862a28af861a7ce2b581b920321cb17411a560bad60b98b13b5755b668"
+    },
+    {
+      "file": "images/hero-midnight.png",
+      "bytes": 1934488,
+      "width": 2400,
+      "height": 1800,
+      "sha256": "a2835b3b78616ca39ff8cabc6971954e30b2a0a1f5362d84a386070b75b5fe19"
+    },
+    {
+      "file": "images/hero-midnight.webp",
+      "bytes": 133870,
+      "width": 2400,
+      "height": 1800,
+      "sha256": "c993be3387f433887286faf99a94a9525944aa28b399937371dff03b8482c29e"
+    },
+    {
+      "file": "images/menu-bar.png",
+      "bytes": 2860191,
+      "width": 2400,
+      "height": 1800,
+      "sha256": "df4c6cc34b72d09c0d94fe5fd8f4a8c027ceff5577b5ba9f167bc61adcb67328"
+    },
+    {
+      "file": "images/menu-bar.webp",
+      "bytes": 119810,
+      "width": 2400,
+      "height": 1800,
+      "sha256": "b1c3be0973bbfaef7a7e8090f4390030daabf77db0abf032a0008398b816ff17"
+    },
+    {
+      "file": "images/notch-poster.png",
+      "bytes": 199965,
+      "width": 1440,
+      "height": 840,
+      "sha256": "c936bf73feddb560cce49e2e03892df90a1123ade0d1ab38f3a8510be67ea612"
+    },
+    {
+      "file": "images/notch-poster.webp",
+      "bytes": 34736,
+      "width": 1440,
+      "height": 840,
+      "sha256": "bb0233f21bca1bee5640c5a4c7e5156758e0dcf51b33e7da93b4a01219e78e0e"
+    },
+    {
+      "file": "images/reader.png",
+      "bytes": 2643943,
+      "width": 2400,
+      "height": 1800,
+      "sha256": "bb15602692c8525d8d2c7e6007335bb85e12c8138b712a678f5081c61af19515"
+    },
+    {
+      "file": "images/reader.webp",
+      "bytes": 102006,
+      "width": 2400,
+      "height": 1800,
+      "sha256": "92f61830f48344840f3c568fc2efbf143cdba7443bd1dc26c469a8065ff373ed"
+    },
+    {
+      "file": "images/tones.png",
+      "bytes": 2557832,
+      "width": 2400,
+      "height": 1800,
+      "sha256": "ce44373fdf6ba8f1460084f3e85b0075e05b6f8adb3a18e32091f30184d2efe8"
+    },
+    {
+      "file": "images/tones.webp",
+      "bytes": 109984,
+      "width": 2400,
+      "height": 1800,
+      "sha256": "a5301c195f5ab2b97032346806cc711712d8708597863d99755717b43bdc2cf0"
+    },
+    {
+      "file": "raw/actions.png",
+      "bytes": 216903,
+      "width": 1528,
+      "height": 988,
+      "sha256": "07db73e623151de41a22c9f1170fb02051f03e1d72cb3062edd8720ad4826356"
+    },
+    {
+      "file": "raw/bar.png",
+      "bytes": 230128,
+      "width": 1528,
+      "height": 988,
+      "sha256": "f06a252237e273332c66e5caa808526f553e040e0c9f39007055e6c1390c877f"
+    },
+    {
+      "file": "raw/menu-bar.png",
+      "bytes": 275560,
+      "width": 800,
+      "height": 1130,
+      "sha256": "a3ec79848103cb755198baab090e56642c7038c574447d1389b265b67a1ef8f0"
+    },
+    {
+      "file": "raw/reader.png",
+      "bytes": 103395,
+      "width": 896,
+      "height": 476,
+      "sha256": "2a4eeb14c62572307dff30e09b54c26aea11b659247bffdc0994ea549af88ad1"
+    },
+    {
+      "file": "video/notch-animation.gif",
+      "bytes": 934098,
+      "width": 720,
+      "height": 420,
+      "duration": 8.06,
+      "frameRate": "20/1",
+      "sha256": "551ba4075324ca9eec8023caf6b26ba99e05c5512674c75c24971682c939425d"
+    },
+    {
+      "file": "video/notch-animation.mp4",
+      "bytes": 449008,
+      "width": 1440,
+      "height": 840,
+      "duration": 8.033333,
+      "frameRate": "60/1",
+      "sha256": "ead253420950e1ef6618115fca48b974b87bf586ae4d84b9451e0cddd61759fe"
+    },
+    {
+      "file": "video/notch-animation.webm",
+      "bytes": 205993,
+      "width": 1440,
+      "height": 840,
+      "duration": 8.034,
+      "frameRate": "60/1",
+      "sha256": "01bddc192131fb88fd5e9beb5c7df459c9841f7db27249a084c2e667072c9392"
+    },
+    {
+      "file": "video/notch-native-master.mp4",
+      "bytes": 1249818,
+      "width": 1440,
+      "height": 840,
+      "duration": 7.723333,
+      "frameRate": "2000/201",
+      "sha256": "f4bfa70a87c4a76b84e51f9d880e422570857a3f454209c6969540f690bb01b6"
+    },
+    {
+      "file": "social/github-social.jpg",
+      "bytes": 90024,
+      "width": 1280,
+      "height": 640,
+      "sha256": "a28b94daa7ed57c7db357ce32f4e325f74c2bc3f78aee3ef8fddb8d297dbcaa3"
+    },
+    {
+      "file": "social/github-social.png",
+      "bytes": 597692,
+      "width": 1280,
+      "height": 640,
+      "sha256": "9026509d2b0331ef9a6d03bf16a88b539c30c8225be1ad5cfcd345c3cbabb77b"
+    }
+  ]
+}

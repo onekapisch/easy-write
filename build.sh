@@ -21,6 +21,10 @@ rm -rf "$APP" "EasyWrite.app"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources" "$APP/Contents/Frameworks"
 cp ".build/release/EasyWrite" "$APP/Contents/MacOS/EasyWrite"
 cp "Info.plist" "$APP/Contents/Info.plist"
+if [ "${EW_ENABLE_UPDATES:-0}" != "1" ]; then
+    /usr/libexec/PlistBuddy -c 'Delete :SUFeedURL' "$APP/Contents/Info.plist"
+    /usr/libexec/PlistBuddy -c 'Delete :SUPublicEDKey' "$APP/Contents/Info.plist"
+fi
 [ -f AppIcon.icns ] && cp AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 cp Resources/Studio/*.png "$APP/Contents/Resources/"     # Studio page tiles (make-studio-icons.py output)
 

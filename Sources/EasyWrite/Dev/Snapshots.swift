@@ -16,6 +16,7 @@ enum Snapshots {
         store.targetCode = "de"
         store.homeCode = "en"
         store.defaultTone = .informal
+        store.historyEnabled = true // synthetic sample data only
         store.appPreferences = [
             "com.apple.mail": .init(code: "de", tone: .formal, appName: "Mail"),
             "com.tinyspeck.slackmacgap": .init(code: "de", tone: .informal, appName: "Slack"),

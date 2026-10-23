@@ -494,13 +494,13 @@ private struct HistoryPage: View {
     var body: some View {
         Form {
             Section {
-                Toggle("Keep a history of results", isOn: $store.historyEnabled)
+                Toggle("Save originals and results on this Mac", isOn: $store.historyEnabled)
                 Picker("Keep for", selection: $store.historyDays) {
                     Text("1 day").tag(1); Text("7 days").tag(7); Text("30 days").tag(30)
                 }
                 .onChange(of: store.historyDays) { _, _ in history.prune() }
                 .disabled(!store.historyEnabled)
-                Text("Stored only on this Mac, in ~/Library/Application Support/Easy Write. At most \(HistoryStore.maxEntries) results.")
+                Text("Off by default. Enabling this stores original text and results as local, unencrypted history. Turning it off deletes that history. At most \(HistoryStore.maxEntries) results.")
                     .font(.caption).foregroundStyle(.secondary)
             }
             Section("Never keep text from") {
@@ -587,12 +587,12 @@ private struct UpdatesPage: View {
                     }
                     Button("Check now") { updates.checkNow() }
                 } else {
-                    Text("This copy was built from source, so it doesn’t check for updates. Pull the latest code and run build.sh, or download the app from onekapisch.com.")
+                    Text("This source build does not check for updates. Pull the latest code and run build.sh. Signed downloads are being prepared for the 2.0 release.")
                         .foregroundStyle(.secondary)
                 }
             }
             Section("Privacy") {
-                Text("Checking for updates is the only time Easy Write goes online, and only if you allow it. It contacts onekapisch.com and sends nothing but the app’s version. Your text never leaves your Mac.")
+                Text("Optional update checks contact onekapisch.com without your text. Opening a Studio or support link visits that website in your browser. Translation and rewriting stay on your Mac.")
                     .fixedSize(horizontal: false, vertical: true)
             }
         }

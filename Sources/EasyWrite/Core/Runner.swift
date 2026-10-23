@@ -29,6 +29,7 @@ final class Runner {
         let detected: LanguageDetector.Guess?
         let anchor: NSRect?
         let mouse: NSPoint
+        var target: Replacer.SelectionTarget? = nil
 
         var isOwnApp: Bool { bundleID == Bundle.main.bundleIdentifier && bundleID != nil }
     }
@@ -124,13 +125,17 @@ final class Runner {
     func deliverReplace(_ result: String, _ c: Captured, label: String, kind: HistoryEntry.Kind,
                         language: String?, memory: (String, Tone)?, recordHistory: Bool = true) {
         let front = NSWorkspace.shared.frontmostApplication
-        if let app = c.app, !c.isOwnApp, front?.processIdentifier != app.processIdentifier {
-            replacer.copyForUser(result)
-            hud.problem("You switched apps, so it’s on your clipboard")
+        guard let app = c.app, front?.processIdentifier == app.processIdentifier,
+              let target = c.target, replacer.replaceSelection(with: result, target: target) else {
+            replacer.restoreClipboard()
+            hud.problem("Selection changed or cannot be verified. Result shown instead.")
+            ReaderPanel.shared.show(result, original: c.text, header: .action(label),
+                                    speechCode: language ?? store.homeCode, canReplace: false,
+                                    at: c.mouse, onReplace: {})
             return
         }
-        replacer.replaceSelection(with: result)
-        hud.done("Replaced", detail: c.words == 1 ? "1 word" : "\(c.words) words", keycap: "⌘Z", hint: "to undo")
+        // Posting a key is not an acknowledgement from the destination app.
+        hud.done("Paste sent", detail: c.words == 1 ? "1 word" : "\(c.words) words", keycap: "⌘Z", hint: "to undo")
         if let m = memory { store.remember(code: m.0, tone: m.1, for: c.bundleID, appName: c.appName) }
         if recordHistory {
             record(result, c, label: label, kind: kind, language: language, replaced: true)
@@ -189,15 +194,18 @@ final class Runner {
         // right after reactivating it can still report Easy Write. Use the app we activated.
         let app = ownTarget ? NSRunningApplication.current : (reactivated ?? NSWorkspace.shared.frontmostApplication)
         let mouse = NSEvent.mouseLocation
-        guard let text = replacer.copySelection(),
+        let target = replacer.selectionTarget()
+        guard let text = target?.text ?? replacer.selectedText(),
               !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             replacer.restoreClipboard()
-            hud.problem("Select some text first")
+            hud.problem("Select text in an app that exposes its selection to Accessibility")
             return nil
         }
+        replacer.restoreClipboard()
         return Captured(text: text, app: app, appName: app?.localizedName ?? "this app",
                         bundleID: app?.bundleIdentifier, words: LanguageDetector.wordCount(text),
-                        detected: LanguageDetector.detect(text), anchor: replacer.selectionBounds(), mouse: mouse)
+                        detected: LanguageDetector.detect(text), anchor: replacer.selectionBounds(), mouse: mouse,
+                        target: target?.text == text ? target : nil)
     }
 
     private func perform(_ job: LLMTranslator.Job.Kind, _ c: Captured, label: String, kind: HistoryEntry.Kind,

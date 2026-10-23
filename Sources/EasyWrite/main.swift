@@ -16,7 +16,13 @@ if CommandLine.arguments.contains("--eval") {
 
 // Dev tool: `EasyWrite --selftest` checks text splitting, shared links, migration and search.
 if CommandLine.arguments.contains("--selftest") {
-    exit(MainActor.assumeIsolated { SelfTest.run() })
+    Task { @MainActor in exit(await SelfTest.run()) }
+    RunLoop.main.run()
+}
+
+if CommandLine.arguments.contains("--smoketest") {
+    Task { @MainActor in exit(await SmokeTest.run()) }
+    RunLoop.main.run()
 }
 
 // Dev tool: `EasyWrite --snapshots <dir>` renders every UI surface with sample data to PNGs.

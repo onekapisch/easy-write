@@ -1,4 +1,6 @@
 import Foundation
+import AppKit
+import ApplicationServices
 
 /// Dev tool: `EasyWrite --selftest` checks the logic that would fail silently if it broke:
 /// long-text splitting, shared-link validation, settings migration, and Bar search.
@@ -8,18 +10,170 @@ enum SelfTest {
     private static var failures = 0
     private static var passes = 0
 
-    static func run() -> Int32 {
+    static func run() async -> Int32 {
         pieces()
         actionLinks()
         migration()
         barSearch()
         studio()
+        privacyDefaults()
+        clipboardOwnership()
+        selectionSafety()
+        historyPrivacy()
+        await requestSafety()
+        contextBudget()
         print("\n\(passes) passed, \(failures) failed")
         return failures == 0 ? 0 : 1
     }
 
     private static func check(_ ok: Bool, _ name: String) {
         if ok { passes += 1; print("  ✓ \(name)") } else { failures += 1; print("  ✗ \(name)") }
+    }
+
+    private static func privacyDefaults() {
+        let suite = "com.onekapisch.easywrite.selftest.privacy"
+        let defaults = UserDefaults(suiteName: suite)!
+        defaults.removePersistentDomain(forName: suite)
+        defer { defaults.removePersistentDomain(forName: suite) }
+        check(!Store(defaults: defaults, legacy: nil).historyEnabled, "history needs explicit opt-in")
+        defaults.set(true, forKey: "historyEnabled")
+        check(!Store(defaults: defaults, legacy: nil).historyEnabled, "old implicit history setting is not consent")
+    }
+
+    private static func clipboardOwnership() {
+        let pb = NSPasteboard.withUniqueName()
+        defer { pb.releaseGlobally() }
+        pb.setString("before", forType: .string)
+        // A private pasteboard and injected keyboard sender never touch the real clipboard.
+        var restores: [() -> Void] = []
+        let element = AXUIElementCreateApplication(100)
+        let target = Replacer.SelectionTarget(pid: 100, element: element, window: element,
+                                              range: CFRange(location: 0, length: 4), text: "text")
+        var sent = 0
+        var valid = true
+        let replacer = Replacer(pasteboard: pb, command: { _ in sent += 1 },
+                                schedule: { restores.append($0) }, targetIsCurrent: { _ in valid })
+        check(replacer.replaceSelection(with: "selection", target: target), "verified target sends paste")
+        pb.clearContents(); pb.setString("new user copy", forType: .string)
+        replacer.restoreClipboard()
+        check(pb.string(forType: .string) == "new user copy", "restore preserves a newer user copy")
+        _ = replacer.replaceSelection(with: "result", target: target)
+        pb.clearContents(); pb.setString("copy during paste", forType: .string)
+        restores.forEach { $0() }
+        check(pb.string(forType: .string) == "copy during paste", "delayed restore preserves external clipboard changes")
+        _ = replacer.replaceSelection(with: "last", target: target)
+        replacer.restoreClipboard()
+        check(pb.string(forType: .string) == "copy during paste", "unchanged clipboard restores original formats")
+        valid = false
+        let previous = sent
+        check(!replacer.replaceSelection(with: "unsafe", target: target) && sent == previous,
+              "invalid target sends no paste")
+        check(pb.string(forType: .string) == "copy during paste", "invalid target leaves clipboard unchanged")
+        var validations = 0
+        let racing = Replacer(pasteboard: pb, command: { _ in sent += 1 }, schedule: { restores.append($0) },
+                              targetIsCurrent: { _ in validations += 1; return validations == 1 })
+        check(!racing.replaceSelection(with: "unsafe", target: target) && sent == previous,
+              "target change during clipboard preparation sends no paste")
+        check(pb.string(forType: .string) == "copy during paste", "aborted paste restores owned temporary data")
+    }
+
+    private static func selectionSafety() {
+        let element = AXUIElementCreateApplication(100)
+        let other = AXUIElementCreateApplication(101)
+        let target = Replacer.SelectionTarget(pid: 100, element: element, window: element,
+                                              range: CFRange(location: 2, length: 4), text: "text")
+        check(Replacer.sameSelection(target, target), "same field and selection are eligible")
+        var changed = target
+        changed.element = other
+        check(!Replacer.sameSelection(target, changed), "different field blocks replacement")
+        changed = target; changed.window = other
+        check(!Replacer.sameSelection(target, changed), "different window blocks replacement")
+        changed = target; changed.range.location += 1
+        check(!Replacer.sameSelection(target, changed), "moved selection blocks replacement")
+        changed = target; changed.text = "edit"
+        check(!Replacer.sameSelection(target, changed), "edited text blocks replacement")
+        changed = target; changed.pid = 101
+        check(!Replacer.sameSelection(target, changed), "different process blocks replacement")
+        check(!Replacer.sameSelection(nil, target) && !Replacer.sameSelection(target, nil),
+              "unverifiable targets never auto-paste")
+    }
+
+    private static func historyPrivacy() {
+        let suite = "com.onekapisch.easywrite.selftest.history"
+        let d = UserDefaults(suiteName: suite)!
+        d.removePersistentDomain(forName: suite)
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("ew-history-\(UUID())")
+        defer { d.removePersistentDomain(forName: suite); try? FileManager.default.removeItem(at: directory) }
+        let store = Store(defaults: d, legacy: nil)
+        var now = Date()
+        let history = HistoryStore(directory: directory, store: store, clock: { now }, monitor: false)
+        let entry = HistoryEntry(kind: .translate, label: "Test", appName: "Test", source: "sample", result: "example")
+        history.add(entry, bundleID: "test")
+        check(history.entries.isEmpty, "disabled history never records text")
+        store.historyEnabled = true
+        history.add(entry, bundleID: "test")
+        check(history.entries.count == 1, "explicit consent enables history")
+        let historyFile = directory.appendingPathComponent("history.json")
+        let mode = (try? FileManager.default.attributesOfItem(atPath: historyFile.path)[.posixPermissions]) as? NSNumber
+        check(mode?.intValue == 0o600, "history file is owner-readable and writable only")
+        let dirMode = (try? FileManager.default.attributesOfItem(atPath: directory.path)[.posixPermissions]) as? NSNumber
+        check(dirMode?.intValue == 0o700, "history directory is restricted to its owner")
+        check(Store(defaults: d, legacy: nil).historyEnabled, "explicit consent persists across launches")
+        history.add(entry, bundleID: "com.apple.Passwords")
+        check(history.entries.count == 1, "excluded apps never enter history")
+        now = now.addingTimeInterval(8 * 86_400)
+        history.prune()
+        check(history.entries.isEmpty, "retention removes expired entries")
+        history.add(HistoryEntry(kind: .read, label: "Test", appName: "Test", source: "new", result: "new"), bundleID: "test")
+        store.historyEnabled = false
+        check(history.entries.isEmpty, "disabling history immediately removes stored text")
+        let file = directory.appendingPathComponent("history.json")
+        check(!FileManager.default.fileExists(atPath: file.path), "disabled history removes the history file")
+    }
+
+    private static func requestSafety() async {
+        let start = Date()
+        do {
+            let _: String = try await RequestDeadline.value(seconds: 0.03) {
+                // This continuation ignores cancellation, like an uncooperative framework call.
+                await withCheckedContinuation { c in
+                    DispatchQueue.global().asyncAfter(deadline: .now() + 1) { c.resume(returning: "too late") }
+                }
+            }
+            check(false, "stalled requests time out")
+        } catch is RequestDeadline.Expired {
+            check(Date().timeIntervalSince(start) < 0.5, "deadline does not wait for a stalled producer")
+        } catch { check(false, "deadline reports a timeout, not an unrelated error") }
+        do {
+            let result = try await RequestDeadline.value(seconds: 1) { "ready" }
+            check(result == "ready", "completed requests beat the deadline")
+        } catch { check(false, "completed request should succeed") }
+        let cancelled = Task {
+            try await RequestDeadline.value(seconds: 5) {
+                try await Task.sleep(nanoseconds: 5_000_000_000)
+                return "late"
+            }
+        }
+        await Task.yield()
+        cancelled.cancel()
+        do { _ = try await cancelled.value; check(false, "cancelled requests do not return text") }
+        catch is CancellationError { check(true, "cancelled requests stop promptly") }
+        catch { check(false, "cancelled request reports cancellation") }
+    }
+
+    private static func contextBudget() {
+        check(!LLMTranslator.outputFits(tokenCount: 1536), "token-capped responses are rejected")
+        check(!LLMTranslator.outputFits(tokenCount: 1504), "near-cap output is rejected conservatively")
+        check(LLMTranslator.outputFits(tokenCount: 100), "short completed output is accepted")
+        do {
+            let allowance = try LLMTranslator.inputAllowance(instructionTokens: 800)
+            check(allowance + 800 + LLMTranslator.responseReserve + 256 == 4096,
+                  "context budget reserves instructions, output and framing")
+        } catch { check(false, "ordinary instructions fit") }
+        do {
+            _ = try LLMTranslator.inputAllowance(instructionTokens: 4_000)
+            check(false, "oversized glossary and style notes must be rejected")
+        } catch { check(true, "oversized glossary and style notes are rejected before generation") }
     }
 
     // MARK: Long text

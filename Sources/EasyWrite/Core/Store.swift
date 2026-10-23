@@ -62,7 +62,12 @@ final class Store: ObservableObject {
         }
     }
     @Published private(set) var shortcuts: [String: Shortcut] { didSet { save(shortcuts, K.shortcuts); onShortcutsChange?() } }
-    @Published var historyEnabled: Bool { didSet { d.set(historyEnabled, forKey: K.historyOn) } }
+    @Published var historyEnabled: Bool {
+        didSet {
+            d.set(historyEnabled, forKey: K.historyOn)
+            d.set(true, forKey: K.historyConsent)
+        }
+    }
     @Published var historyDays: Int { didSet { d.set(historyDays, forKey: K.historyDays) } }
     @Published var historyExcluded: [String] { didSet { save(historyExcluded, K.historyExcluded) } }
     @Published var onboardingDone: Bool { didSet { d.set(onboardingDone, forKey: K.onboarding) } }
@@ -74,6 +79,7 @@ final class Store: ObservableObject {
         static let appPrefs = "appPreferences", glossary = "glossary", notes = "toneNotes"
         static let actions = "actions", shortcuts = "shortcutsV2", stats = "stats"
         static let historyOn = "historyEnabled", historyDays = "historyDays"
+        static let historyConsent = "historyExplicitConsentV1"
         static let historyExcluded = "historyExcluded", onboarding = "onboardingDone"
         static let migrated = "migratedFromV1"
     }
@@ -103,7 +109,7 @@ final class Store: ObservableObject {
         actions = Self.load(d, K.actions) ?? WriteAction.presets
         shortcuts = Self.load(d, K.shortcuts)
             ?? Dictionary(uniqueKeysWithValues: Self.defaultShortcuts.map { ($0.key.rawValue, $0.value) })
-        historyEnabled = d.object(forKey: K.historyOn) as? Bool ?? true
+        historyEnabled = d.bool(forKey: K.historyConsent) && d.bool(forKey: K.historyOn)
         historyDays = d.object(forKey: K.historyDays) as? Int ?? 7
         historyExcluded = Self.load(d, K.historyExcluded) ?? Self.defaultExcludedApps
         onboardingDone = d.bool(forKey: K.onboarding)

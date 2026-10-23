@@ -58,7 +58,7 @@ fi
 
 # ── Build, sign, notarize the app ────────────────────────────────────────────
 step "Build and sign"
-EW_TIMESTAMP=--timestamp ./build.sh
+EW_ENABLE_UPDATES=1 EW_TIMESTAMP=--timestamp ./build.sh
 codesign --verify --deep --strict "$APP"
 
 rm -rf "$DIST"; mkdir -p "$DIST"
@@ -137,7 +137,7 @@ git commit -q -m "Release $VERSION"
 git tag "v$VERSION"
 NOTES=$(awk -v v="## \\[$VERSION\\]" 'index($0, "## [")==1 { if (found) exit; if ($0 ~ v) { found=1; next } } found' CHANGELOG.md)
 gh release create "v$VERSION" "$DMG" "$DIST/EasyWrite.dmg" \
-  --repo "$REPO" --draft --title "Easy Write $VERSION" --notes "$NOTES"
+  --repo "$REPO" --target "$(git rev-parse HEAD)" --draft --title "Easy Write $VERSION" --notes "$NOTES"
 
 cat <<DONE
 

@@ -9,8 +9,21 @@ final class LLMTranslator {
     static let shared = LLMTranslator()
 
     enum Register { case formal, informal }
-    struct TimeoutError: Error {}
+    typealias TimeoutError = RequestDeadline.Expired
     struct EmptyResultError: Error {}
+    struct ContextBudgetError: Error {}
+    struct IncompleteResultError: Error {}
+    nonisolated static let responseReserve = 1_536
+
+    nonisolated static func inputAllowance(instructionTokens: Int) throws -> Int {
+        let room = 4_096 - instructionTokens - responseReserve - 256
+        guard room >= 256 else { throw ContextBudgetError() }
+        return room
+    }
+
+    nonisolated static func outputFits(tokenCount: Int) -> Bool {
+        tokenCount < responseReserve - 32 // conservatively reject output close to the generation cap
+    }
 
     private var warmSession: LanguageModelSession?
 
@@ -111,7 +124,7 @@ final class LLMTranslator {
     /// inside the model's 4,096-token window; `progress` reports (piece, total) for the HUD.
     func run(_ text: String, job: Job,
              progress: ((Int, Int) -> Void)? = nil) async throws -> String {
-        let pieces = Self.pieces(text)
+        let pieces = try await budgetedPieces(text, job: job)
         var out = ""
         for (i, piece) in pieces.enumerated() {
             try Task.checkCancellation()
@@ -129,28 +142,30 @@ final class LLMTranslator {
     /// produced with `run` and delivered in a single step, since streaming many pieces in a
     /// preview would only look jittery.
     func stream(_ text: String, job: Job) -> AsyncThrowingStream<String, Error> {
-        AsyncThrowingStream { continuation in
-            let task = Task { @MainActor in
-                do {
-                    if Self.pieces(text).count > 1 {
-                        continuation.yield(try await self.run(text, job: job))
-                    } else {
-                        let session = LanguageModelSession(model: self.model, instructions: self.instructions(for: job))
-                        var last = ""
-                        for try await snapshot in session.streamResponse(to: Self.prompt(text, job), options: Self.options(job)) {
-                            last = snapshot.content
-                            continuation.yield(Self.clean(last, final: false))
-                        }
-                        let final = Self.clean(last, final: true)
-                        guard !final.isEmpty else { throw EmptyResultError() }
-                        continuation.yield(final)
-                    }
-                    continuation.finish()
-                } catch {
-                    continuation.finish(throwing: error)
-                }
+        RequestDeadline.stream(seconds: 25) { continuation in
+            try await self.produceStream(text, job: job, continuation: continuation)
+        }
+    }
+
+    private func produceStream(_ text: String, job: Job,
+        continuation: AsyncThrowingStream<String, Error>.Continuation) async throws {
+        let pieces = try await budgetedPieces(text, job: job)
+        if pieces.count > 1 {
+            continuation.yield(try await self.run(text, job: job))
+        } else {
+            let session = LanguageModelSession(model: model, instructions: instructions(for: job))
+            var last = ""
+            var usageCount: Int?
+            for try await snapshot in session.streamResponse(to: Self.prompt(text, job), options: Self.options(job)) {
+                try Task.checkCancellation()
+                last = snapshot.content
+                if #available(macOS 27, *) { usageCount = snapshot.usage.output.totalTokenCount }
+                continuation.yield(Self.clean(last, final: false))
             }
-            continuation.onTermination = { _ in task.cancel() }
+            let final = Self.clean(last, final: true)
+            guard !final.isEmpty else { throw EmptyResultError() }
+            try await validateOutput(last, usageCount: usageCount)
+            continuation.yield(final)
         }
     }
 
@@ -191,20 +206,51 @@ final class LLMTranslator {
     private func runOnce(_ text: String, job: Job, promptStyle: PromptStyle = .shipping) async throws -> String {
         let prompt = Self.prompt(text, job)
         let instr = instructions(for: job, promptStyle: promptStyle)
+        let room = try Self.inputAllowance(instructionTokens: await countInstructions(instr))
+        guard try await countPrompt(prompt) <= room else { throw ContextBudgetError() }
         let options = Self.options(job)
         let m = model
-        return try await withThrowingTaskGroup(of: String.self) { group in
-            group.addTask {
-                let session = LanguageModelSession(model: m, instructions: instr)
-                let response = try await session.respond(to: prompt, options: options)
-                return Self.clean(response.content, final: true)
+        let response = try await RequestDeadline.value(seconds: 25) {
+            let session = LanguageModelSession(model: m, instructions: instr)
+            return try await session.respond(to: prompt, options: options)
+        }
+        var usageCount: Int?
+        if #available(macOS 27, *) { usageCount = response.usage.output.totalTokenCount }
+        try await validateOutput(response.content, usageCount: usageCount)
+        return Self.clean(response.content, final: true)
+    }
+
+    private func validateOutput(_ text: String, usageCount: Int?) async throws {
+        let count: Int
+        if let usageCount { count = usageCount } else { count = try await countPrompt(text) }
+        guard Self.outputFits(tokenCount: count) else { throw IncompleteResultError() }
+    }
+
+    /// Count actual model tokens on 26.4+. Older systems use a conservative UTF-8 byte bound.
+    /// The reserved budget includes generated output and room for transcript framing.
+    private func countInstructions(_ text: String) async throws -> Int {
+        if #available(macOS 26.4, *) { return try await model.tokenCount(for: Instructions(text)) }
+        return text.utf8.count
+    }
+
+    private func countPrompt(_ text: String) async throws -> Int {
+        if #available(macOS 26.4, *) { return try await model.tokenCount(for: Prompt(text)) }
+        return text.utf8.count
+    }
+
+    private func budgetedPieces(_ text: String, job: Job) async throws -> [Piece] {
+        let room = try Self.inputAllowance(instructionTokens: await countInstructions(instructions(for: job)))
+        var limit = min(1_500, max(1, text.count))
+        while true {
+            try Task.checkCancellation()
+            let parts = Self.pieces(text, limit: limit)
+            var fits = true
+            for part in parts where !part.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                if try await countPrompt(Self.prompt(part.text, job)) > room { fits = false; break }
             }
-            group.addTask {
-                try await Task.sleep(nanoseconds: 25_000_000_000)    // 25s per piece
-                throw TimeoutError()
-            }
-            defer { group.cancelAll() }
-            return try await group.next()!
+            if fits { return parts }
+            guard limit > 1 else { throw ContextBudgetError() }
+            limit = max(1, limit / 2)
         }
     }
 
@@ -217,9 +263,10 @@ final class LLMTranslator {
 
     private nonisolated static func options(_ job: Job) -> GenerationOptions {
         switch (job.kind, job.varied) {
-        case (.translate, false): GenerationOptions(temperature: 0.1)
-        case (.transform, false): GenerationOptions(temperature: 0.3)
-        case (_, true):           GenerationOptions(samplingMode: .random(probabilityThreshold: 0.9), temperature: 0.8)
+        case (.translate, false): GenerationOptions(temperature: 0.1, maximumResponseTokens: responseReserve)
+        case (.transform, false): GenerationOptions(temperature: 0.3, maximumResponseTokens: responseReserve)
+        case (_, true):           GenerationOptions(samplingMode: .random(probabilityThreshold: 0.9), temperature: 0.8,
+                                                    maximumResponseTokens: responseReserve)
         }
     }
 
@@ -414,6 +461,8 @@ final class LLMTranslator {
     nonisolated static func describe(_ error: Error) -> String {
         if error is TimeoutError { return "That took too long. Try a shorter selection." }
         if error is EmptyResultError { return "The model returned nothing. Try again." }
+        if error is ContextBudgetError { return "Too much text or guidance. Shorten the selection, glossary or style notes." }
+        if error is IncompleteResultError { return "The result may be cut off. Try a shorter selection or instruction." }
         if let g = error as? LanguageModelSession.GenerationError {
             switch g {
             case .exceededContextWindowSize:   return "That selection is too long for the on-device model."

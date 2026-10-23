@@ -5,6 +5,9 @@ All notable changes to Easy Write are documented here.
 ## Unreleased
 
 ### Changed, 2026-10-23
+- Published the approved tagline to the public GitHub README/repository description and
+  OneKapisch website. Production deployment `dpl_pHV3TTgaHq2i337mdqZyAJAd4Ase` reached Ready;
+  live heading/metadata and version-pinned downloads verified, including 375px overflow check.
 - Adopted the owner-approved tagline: "Translate and rewrite without switching apps."
   README, About, Studio entry and launch-artwork templates share the new positioning.
 - This is source/documentation preparation. The signed 2.0.1 installer and feed are unchanged;

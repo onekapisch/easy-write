@@ -3,6 +3,7 @@
 ## Approved positioning
 
 - [x] Use "Translate and rewrite without switching apps." in maintained product copy.
+- [x] Publish the website and GitHub positioning with owner approval. Verified live 2026-10-23.
 - [ ] Include prepared About/Studio copy in the next signed app release. Do not replace 2.0.1.
 - [ ] Refresh exported launch artwork from the updated templates before the next media campaign.
 

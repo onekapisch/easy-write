@@ -14,6 +14,9 @@ final class Replacer {
     /// and a read followed by Replace restores twice.
     private var saved: [[NSPasteboard.PasteboardType: Data]] = []
     private var clipboardDirty = false
+    /// Bumped by anything that supersedes a scheduled restore, so a restore that fires late
+    /// can never overwrite a newer copy or the user's own clipboard.
+    private var restoreGeneration = 0
     // .privateState => our synthetic events ignore physically-held modifier keys
     private let source = CGEventSource(stateID: .privateState)
 
@@ -25,17 +28,21 @@ final class Replacer {
 
     /// Copies the current selection and returns it as a string (or nil if nothing copied).
     func copySelection() -> String? {
+        // A swap that just finished may still have its clipboard restore scheduled. Finish it
+        // now, so the snapshot below is the user's real clipboard and not our last paste.
+        if clipboardDirty { restoreClipboard() }
+        restoreGeneration += 1
         saved = snapshot()
         let before = pasteboard.changeCount
         usleep(60_000)              // let the hot-key modifiers release first
         postCmd(virtualKey: 8)      // 8 = C
         var text: String?
-        for _ in 0..<60 {           // poll up to ~0.6s
+        for _ in 0..<70 {           // poll up to ~0.7s
             usleep(10_000)
             if pasteboard.changeCount != before {
                 clipboardDirty = true
-                text = pasteboard.string(forType: .string)
-                break
+                // Some apps clear the clipboard first and write the text a moment later.
+                if let s = pasteboard.string(forType: .string) { text = s; break }
             }
         }
         return text
@@ -43,6 +50,11 @@ final class Replacer {
 
     /// Replaces the current selection with `newText`, then restores the clipboard.
     func replaceSelection(with newText: String) {
+        // From the reader card the clipboard was already restored, and the user may have
+        // copied something since. Snapshot again so that newer content is what comes back.
+        if !clipboardDirty { saved = snapshot() }
+        restoreGeneration += 1
+        let generation = restoreGeneration
         pasteboard.clearContents()
         let item = NSPasteboardItem()
         item.setString(newText, forType: .string)
@@ -51,8 +63,10 @@ final class Replacer {
         clipboardDirty = true
         usleep(20_000)
         postCmd(virtualKey: 9)      // 9 = V
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [weak self] in
-            self?.restoreClipboard()
+        // Slow targets (Electron, VMs, remote desktops) read the clipboard late; give them time.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [weak self] in
+            guard let self, self.restoreGeneration == generation else { return }
+            self.restoreClipboard()
         }
     }
 
@@ -72,6 +86,7 @@ final class Replacer {
 
     /// Copies text for the user to keep (a real clipboard item, not a transient one).
     func copyForUser(_ text: String) {
+        restoreGeneration += 1                       // a late restore must not undo this copy
         clipboardDirty = false
         saved = []
         pasteboard.clearContents()
@@ -126,10 +141,15 @@ final class Replacer {
         up?.post(tap: .cghidEventTap)
     }
 
+    /// Copies the clipboard's data so it can be put back. Dynamic ("dyn.") and promised types
+    /// are skipped: reading them makes the source app render every format on demand, which for
+    /// a large spreadsheet range or a file promise can stall for seconds.
     private func snapshot() -> [[NSPasteboard.PasteboardType: Data]] {
         (pasteboard.pasteboardItems ?? []).map { item in
             var types: [NSPasteboard.PasteboardType: Data] = [:]
             for type in item.types {
+                let raw = type.rawValue
+                if raw.hasPrefix("dyn.") || raw.localizedCaseInsensitiveContains("promise") { continue }
                 if let data = item.data(forType: type) { types[type] = data }
             }
             return types

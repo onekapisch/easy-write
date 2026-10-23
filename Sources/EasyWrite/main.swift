@@ -14,6 +14,11 @@ if CommandLine.arguments.contains("--eval") {
     RunLoop.main.run()
 }
 
+// Dev tool: `EasyWrite --selftest` checks text splitting, shared links, migration and search.
+if CommandLine.arguments.contains("--selftest") {
+    exit(MainActor.assumeIsolated { SelfTest.run() })
+}
+
 // Dev tool: `EasyWrite --snapshots <dir>` renders every UI surface with sample data to PNGs.
 if let i = CommandLine.arguments.firstIndex(of: "--snapshots") {
     let args = CommandLine.arguments

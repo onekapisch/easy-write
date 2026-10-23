@@ -11,7 +11,7 @@ enum Snapshots {
 
         let suite = "com.onekapisch.easywrite.snapshots"
         UserDefaults.standard.removePersistentDomain(forName: suite)
-        let store = Store(defaults: UserDefaults(suiteName: suite)!)
+        let store = Store(defaults: UserDefaults(suiteName: suite)!, legacy: nil)
         Store.shared = store
         store.targetCode = "de"
         store.homeCode = "en"

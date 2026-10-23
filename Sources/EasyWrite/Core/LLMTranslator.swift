@@ -111,16 +111,18 @@ final class LLMTranslator {
     /// inside the model's 4,096-token window; `progress` reports (piece, total) for the HUD.
     func run(_ text: String, job: Job,
              progress: ((Int, Int) -> Void)? = nil) async throws -> String {
-        let pieces = Self.chunks(text)
-        var out: [String] = []
+        let pieces = Self.pieces(text)
+        var out = ""
         for (i, piece) in pieces.enumerated() {
+            try Task.checkCancellation()
             if pieces.count > 1 { progress?(i + 1, pieces.count) }
-            if piece.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { out.append(piece); continue }
-            out.append(try await withRetry { try await self.runOnce(piece, job: job) })
+            let (lead, body, trail) = Self.splitWhitespace(piece.text)
+            var done = ""
+            if !body.isEmpty { done = try await withRetry { try await self.runOnce(body, job: job) } }
+            out += lead + done + trail + piece.separator
         }
-        let result = out.joined(separator: "\n")
-        guard !result.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { throw EmptyResultError() }
-        return result
+        guard !out.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { throw EmptyResultError() }
+        return out
     }
 
     /// Streams the growing result for the Bar's live preview. Text longer than one piece is
@@ -130,7 +132,7 @@ final class LLMTranslator {
         AsyncThrowingStream { continuation in
             let task = Task { @MainActor in
                 do {
-                    if Self.chunks(text).count > 1 {
+                    if Self.pieces(text).count > 1 {
                         continuation.yield(try await self.run(text, job: job))
                     } else {
                         let session = LanguageModelSession(model: self.model, instructions: self.instructions(for: job))
@@ -339,29 +341,47 @@ final class LLMTranslator {
         return t
     }
 
-    /// Splits text into pieces of at most `limit` characters along paragraph lines, falling back
-    /// to sentences for one very long paragraph. Joining the pieces with "\n" restores the layout.
-    nonisolated static func chunks(_ text: String, limit: Int = 1_500) -> [String] {
-        guard text.count > limit else { return [text] }
-        var pieces: [String] = []
-        var current = ""
-        func flush() { if !current.isEmpty { pieces.append(current); current = "" } }
+    /// A slice of the input plus the exact text that followed it, so joining
+    /// `text + separator` for every piece rebuilds the original layout.
+    struct Piece: Equatable {
+        let text: String
+        let separator: String
+    }
 
-        for line in text.components(separatedBy: "\n") {
-            if line.count > limit {
-                flush()
-                pieces.append(contentsOf: sentencePieces(line, limit: limit))
-            } else if current.isEmpty {
-                current = line
-            } else if current.count + 1 + line.count <= limit {
-                current += "\n" + line
-            } else {
-                flush()
-                current = line
-            }
+    /// Splits text into pieces of at most `limit` characters along line breaks, falling back to
+    /// sentences for one very long paragraph. Blank lines are kept wherever they fall.
+    nonisolated static func pieces(_ text: String, limit: Int = 1_500) -> [Piece] {
+        guard text.count > limit else { return [Piece(text: text, separator: "")] }
+        let lines = text.components(separatedBy: "\n")
+        var out: [Piece] = []
+        var current: String?
+        func flush(_ separator: String) {
+            if let c = current { out.append(Piece(text: c, separator: separator)); current = nil }
         }
-        flush()
-        return pieces
+
+        for (i, line) in lines.enumerated() {
+            let lineSeparator = i == lines.count - 1 ? "" : "\n"
+            if line.count > limit {
+                flush("\n")
+                let sentences = sentencePieces(line, limit: limit)
+                for (j, s) in sentences.enumerated() {
+                    out.append(Piece(text: s, separator: j == sentences.count - 1 ? lineSeparator : " "))
+                }
+                continue
+            }
+            if let c = current, c.count + 1 + line.count > limit { flush("\n") }
+            current = current.map { $0 + "\n" + line } ?? line
+        }
+        flush("")
+        return out
+    }
+
+    /// ("\n\n", "Hello", "\n") for "\n\nHello\n": the model's output is trimmed, so a piece's
+    /// own leading and trailing blank lines are put back around it.
+    nonisolated static func splitWhitespace(_ s: String) -> (String, String, String) {
+        let body = s.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !body.isEmpty, let r = s.range(of: body) else { return (s, "", "") }
+        return (String(s[..<r.lowerBound]), body, String(s[r.upperBound...]))
     }
 
     private nonisolated static func sentencePieces(_ paragraph: String, limit: Int) -> [String] {

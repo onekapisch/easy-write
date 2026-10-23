@@ -24,8 +24,8 @@ cp "Info.plist" "$APP/Contents/Info.plist"
 [ -f AppIcon.icns ] && cp AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 
 # Sparkle (updates). The app isn't sandboxed, so Sparkle's XPC services aren't needed.
-SPARKLE=$(find .build -path "*/release/Sparkle.framework" -maxdepth 6 -type d 2>/dev/null | head -1 || true)
-if [ -n "$SPARKLE" ]; then
+SPARKLE=".build/release/Sparkle.framework"          # .build/release links to the real product folder
+if [ -d "$SPARKLE" ]; then
     cp -R "$SPARKLE" "$APP/Contents/Frameworks/"
     rm -rf "$APP/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices"
 fi

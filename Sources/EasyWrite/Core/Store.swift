@@ -85,9 +85,11 @@ final class Store: ObservableObject {
         "com.dashlane.dashlanephonefinal", "com.lastpass.LastPass",
     ]
 
-    init(defaults: UserDefaults = .standard) {
+    /// `legacy` is where 1.x kept its settings; the self-test passes a throwaway domain instead.
+    init(defaults: UserDefaults = .standard,
+         legacy: UserDefaults? = UserDefaults(suiteName: "com.easywrite.translator")) {
         d = defaults
-        Self.migrateFromV1IfNeeded(into: defaults)
+        Self.migrateFromV1IfNeeded(into: defaults, from: legacy)
 
         targetCode = d.string(forKey: K.target) ?? "de"
         homeCode = d.string(forKey: K.home) ?? Self.systemLanguageCode()
@@ -176,10 +178,10 @@ final class Store: ObservableObject {
     /// across once. Old default shortcuts are not carried over: ⌥⌘T becomes the two-way
     /// translate key, and ⌥⌘I clashes with Chrome's developer tools. Shortcuts the user had
     /// changed themselves are kept in the matching optional slot.
-    private static func migrateFromV1IfNeeded(into d: UserDefaults) {
+    private static func migrateFromV1IfNeeded(into d: UserDefaults, from legacy: UserDefaults?) {
         guard !d.bool(forKey: K.migrated) else { return }
         d.set(true, forKey: K.migrated)
-        guard let old = UserDefaults(suiteName: "com.easywrite.translator"),
+        guard let old = legacy,
               old.object(forKey: "targetLanguageCode") != nil || old.object(forKey: "shortcuts") != nil
         else { return }
 
@@ -199,7 +201,7 @@ final class Store: ObservableObject {
                 "informal": .init(keyCode: 34, modifiers: 2304),
                 "plain":    .init(keyCode: 35, modifiers: 2304),
             ]
-            if let read = v1["english"] { map[Slot.read.rawValue] = read }
+            if let read = v1["english"], !map.values.contains(read) { map[Slot.read.rawValue] = read }
             for (key, slot) in [("formal", Slot.formal), ("informal", .informal), ("plain", .natural)] {
                 if let s = v1[key], s != v1Defaults[key], !map.values.contains(s) { map[slot.rawValue] = s }
             }

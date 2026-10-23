@@ -25,11 +25,12 @@ final class HotKeyCenter {
         }
     }
 
+    /// IDs keep counting up instead of starting over, so a key press that was already queued
+    /// when shortcuts changed can never run whatever was registered under its old ID.
     func unregisterAll() {
         for ref in refs.values { UnregisterEventHotKey(ref) }
         refs.removeAll()
         handlers.removeAll()
-        nextID = 1
     }
 
     fileprivate func fire(_ id: UInt32) { handlers[id]?() }

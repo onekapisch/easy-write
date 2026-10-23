@@ -145,18 +145,36 @@ enum ActionLink {
         } else if url.absoluteString.hasPrefix(pageBase), let fragment = url.fragment {
             blob = fragment.split(separator: ".").last.map(String.init)
         }
-        guard let blob, let data = base64URLDecode(blob),
+        guard let blob, blob.count <= 8_000, let data = base64URLDecode(blob),
               let p = try? JSONDecoder().decode(Payload.self, from: data), p.v == 1 else { return nil }
         let name = p.n.trimmingCharacters(in: .whitespacesAndNewlines)
         let instruction = p.i.trimmingCharacters(in: .whitespacesAndNewlines)
+        // Limits count Unicode scalars, not visible characters: stacked combining marks could
+        // otherwise hide a huge instruction behind a short-looking one.
         guard !name.isEmpty, !instruction.isEmpty,
-              name.count <= maxName, instruction.count <= maxInstruction else { return nil }
+              name.unicodeScalars.count <= maxName, instruction.unicodeScalars.count <= maxInstruction,
+              !name.unicodeScalars.contains(where: { isControl($0) || isDirectional($0) }),
+              !instruction.unicodeScalars.contains(where: isDirectional)
+        else { return nil }
         return WriteAction(name: name, instruction: instruction, output: .popup, shortcut: nil)
     }
 
+    /// Line breaks, tabs and other control characters have no place in a name and could
+    /// make the confirmation dialog misleading.
+    private static func isControl(_ s: Unicode.Scalar) -> Bool {
+        CharacterSet.controlCharacters.contains(s)
+    }
+
+    /// Bidirectional overrides and marks can visually reorder text, so what the confirmation
+    /// dialog shows would not be what runs.
+    private static func isDirectional(_ s: Unicode.Scalar) -> Bool {
+        (0x202A...0x202E).contains(s.value) || (0x2066...0x2069).contains(s.value)
+            || s.value == 0x200E || s.value == 0x200F || s.value == 0x061C
+    }
+
     private static func encode(_ a: WriteAction) -> String? {
-        let p = Payload(n: String(a.name.prefix(maxName)),
-                        i: String(a.instruction.prefix(maxInstruction)),
+        let p = Payload(n: String(String.UnicodeScalarView(a.name.unicodeScalars.prefix(maxName))),
+                        i: String(String.UnicodeScalarView(a.instruction.unicodeScalars.prefix(maxInstruction))),
                         o: a.output.rawValue)
         guard let data = try? JSONEncoder().encode(p) else { return nil }
         return data.base64EncodedString()

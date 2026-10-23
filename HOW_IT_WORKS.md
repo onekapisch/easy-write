@@ -1,106 +1,151 @@
 # How Easy Write works
 
-A tour of the interesting parts. Easy Write is a ~600-line native Swift menu-bar app that does
-register-aware translation **100% on-device** using Apple's Foundation Models, and swaps the result
-straight into whatever app you're using. No accounts, no servers, no API keys.
+A tour of the interesting parts. Easy Write is a native Swift menu-bar app (about 4,400 lines, plus
+dev tools) that translates and rewrites text **100% on-device** using Apple's Foundation Models, and
+swaps the result straight into whatever app you're using. No accounts, no servers, no API keys.
 
 ---
 
 ## 1. The engine: Apple's on-device LLM, not a translation API
 
 The translation isn't done by Apple's `Translate` framework (the dictionary-style engine). It's done
-by the **Foundation Models** framework — the ~3B-parameter on-device LLM that powers Apple
-Intelligence on macOS 26.
+by the **Foundation Models** framework, the ~3B-parameter on-device model behind Apple Intelligence.
 
 Why an LLM instead of a translator? Because a plain translator can't do **register**. German has
 *Sie* (formal) vs *du* (informal); French has *vous*/*tu*; Spanish *usted*/*tú*. An LLM can be
-*instructed*:
+*instructed*, so one instruction string is all that separates Formal, Informal and Natural (keep the
+source's tone). The same engine runs **actions**: your own instructions, like "Fix grammar" or
+"Reply politely".
 
-```swift
-let session = LanguageModelSession(model: model, instructions: """
-    Translate into German using the formal Sie register (use Sie / Ihnen / Ihr consistently;
-    never use du). Output ONLY the translation.
-    """)
-let result = try await session.respond(to: "Text to translate:\n\(text)",
-                                       options: GenerationOptions(temperature: 0.1)).content
-```
-
-A single instruction string is all that separates formal, informal, and "preserve the source tone."
-
-### The guardrail gotcha (the interesting part)
+### The guardrail gotcha
 
 Out of the box, the on-device model **refuses ordinary text**. A harmless message like
-*"Haben wir noch nicht. Waren nur essen."* throws:
-
-```
-guardrailViolation("Response may contain sensitive or unsafe content")
-```
-
-The default safety filter is tuned for open-ended generation and false-flags **translation**, which is
-a content-*transformation* task. Apple ships a purpose-built mode for exactly this:
+*"Haben wir noch nicht. Waren nur essen."* throws `guardrailViolation`. The default filter is tuned
+for open-ended generation and false-flags translation, which is a content-*transformation* task.
+Apple ships a mode for exactly this:
 
 ```swift
 let model = SystemLanguageModel(useCase: .general,
                                 guardrails: .permissiveContentTransformations)
 ```
 
-Switching to it makes legitimate translations stop getting blocked. If you build anything that
-transforms user-provided text on-device, you almost certainly want this.
+### Long text
 
-### Keeping it from hanging
+The model has a 4,096-token window shared by instructions, input and output. Text over ~1,500
+characters is split along line breaks (and by sentence for one very long paragraph). Every piece
+remembers the exact separator that followed it, and its own leading and trailing blank lines are
+put back around the result, so a long email comes back with its layout intact.
 
-Each translation races the model against a 20s timeout (`withThrowingTaskGroup`), and transient
-errors retry once. A stalled request can never wedge the app.
+### Streaming, retries, timeouts
+
+The Bar streams the result (`session.streamResponse`) so you watch it appear. Every piece races a
+25 s timeout; "busy" errors retry once, guardrail and context errors don't. Pressing any Easy Write
+shortcut while a job runs cancels it.
+
+### Measuring prompt changes
+
+`EasyWrite --eval` runs 40 sentences through the shipping prompt and a candidate prompt into
+informal German and scores formal-register leaks with a German-specific detector (a capitalised
+*Sie*/*Ihre* mid-sentence is near-certain formal address). A prompt change ships only when the eval
+shows it's better. `release.sh` runs it as a gate.
 
 ---
 
 ## 2. System-wide in-place swap
 
-To replace text in *any* app, Easy Write doesn't integrate with each app — it drives the keyboard:
+To replace text in *any* app, Easy Write doesn't integrate with each app. It drives the keyboard:
 
 1. Snapshot the clipboard.
-2. Synthesise **⌘C** (`CGEvent`) to copy the current selection; read it from `NSPasteboard`.
-3. Translate.
-4. Put the result on the clipboard, synthesise **⌘V** to paste over the selection.
+2. Synthesise **⌘C** (`CGEvent`) to copy the selection and read it from `NSPasteboard`.
+3. Run the model.
+4. Put the result on the clipboard and synthesise **⌘V** over the selection.
 5. Restore the original clipboard.
 
-```swift
-let down = CGEvent(keyboardEventSource: source, virtualKey: 8 /* C */, keyDown: true)
-down?.flags = .maskCommand
-down?.post(tap: .cghidEventTap)
-```
+The event source uses `.privateState` so the modifier keys you're still holding from the shortcut
+don't leak into the synthetic ⌘C. This needs **Accessibility** permission.
 
-The event source uses `.privateState` so physically-held modifier keys (from the hot-key you just
-pressed) don't contaminate the synthetic ⌘C. This requires **Accessibility** permission.
+Details that matter in practice:
 
-**Read mode is different.** When you're *reading* incoming foreign text (a web page, an email, a PDF),
-the source is non-editable — pasting back is impossible. So `⌥⌘E` shows the English in a popup
-instead of trying to swap it. Same engine, different presentation.
-
----
-
-## 3. Global hot-keys
-
-Carbon's `RegisterEventHotKey` registers shortcuts that fire from any app, even when Easy Write isn't
-focused. A single installed event handler dispatches by hot-key id to the right action. Shortcuts are
-user-rebindable; changing one unregisters all and re-registers from the saved config.
+- **Clipboard managers ignore the temporary paste.** It carries the `org.nspasteboard.TransientType`
+  marker that Clip 4 Breakfast, Maccy and others respect.
+- **Restores can't clobber anything newer.** Each scheduled restore has a generation number; a new
+  copy, a second shortcut or "Copy" in the Bar cancels older restores.
+- **Promised and dynamic clipboard types aren't read** when snapshotting, so copying a huge
+  spreadsheet range doesn't stall the app.
+- **The paste only goes where the text came from.** If you switch apps while the model is working,
+  the result lands on your clipboard instead of in the wrong window.
 
 ---
 
-## 4. The signing gotcha (so Accessibility persists)
+## 3. The Bar: typing into a panel without stealing focus
 
-Ad-hoc signing (`codesign --sign -`) does **not** hold an Accessibility grant on macOS 26 — the
-toggle shows "on" but `AXIsProcessTrusted()` stays false, and every rebuild invalidates it. The fix is
-a **stable self-signed identity** (`setup-signing.sh` creates one in a dedicated keychain). With a
-stable code signature, TCC pins the grant to the app's designated requirement, so it survives rebuilds.
+The Bar (⌥⌘K) is a `NSPanel` with `.nonactivatingPanel` that overrides `canBecomeKey`, like
+Spotlight. It receives your keystrokes, but the app you were writing in **stays frontmost with its
+selection intact**, so Replace can paste straight back.
+
+It opens next to the selection when the app reports where that is (`kAXBoundsForRangeParameterized
+Attribute`), otherwise near the pointer. A local key monitor handles ↑↓, Return, Esc, ⌘C and ⌘R,
+and steps aside while an input method (Japanese, Chinese, Korean) is composing.
+
+Every preview is tagged with the exact item and instruction it was made for. Return only ever
+commits the result for what's selected *now*; choosing another item clears a pending Return.
 
 ---
 
-## 5. Privacy
+## 4. Two directions with one key
 
-Nothing leaves the machine. The model runs locally; there is no network code, no analytics, no
-accounts. The clipboard is snapshotted and restored around each swap. The only permission required is
-Accessibility (to read the selection and paste the result).
+`⌥⌘T` runs Apple's on-device language identification (`NLLanguageRecognizer`, limited to the
+supported languages). If the selection is already in your target language, it translates back into
+your own language instead. It only flips when there are at least three words and the guess is
+confident, so "OK" or a name never sends you the wrong way.
+
+The language and tone you pick in the Bar are **remembered per app** (Mail formal, Slack informal).
+
+---
+
+## 5. The notch HUD
+
+Feedback appears where your eyes already are. On MacBooks, Easy Write reads the notch's size from
+`NSScreen.safeAreaInsets` and `auxiliaryTopLeftArea`/`auxiliaryTopRightArea`, then draws a black
+pill that starts exactly notch-sized and springs open, so it looks like the notch itself growing.
+On other displays it's a pill under the menu bar. It respects Reduce Motion, ignores the mouse, and
+every result and problem is announced to VoiceOver.
+
+---
+
+## 6. Shared actions
+
+"Share action" copies a link like
+`https://www.onekapisch.com/products/easy-write/action/#reply-politely.eyJ2Ijox…`. The action is
+base64url JSON in the **URL fragment**, which browsers never send to a server, so the recipe page
+needs no backend and nothing is logged. Its "Add to Easy Write" button opens `easywrite://action?d=…`.
+
+A shared action is someone else's instruction, so the app treats it as untrusted:
+
+- it always shows the full instruction before adding it,
+- it starts in popup mode, so it can't change your text until you switch it to Replace,
+- it never comes with a shortcut,
+- names and instructions are length-limited by Unicode scalars (stacked accents can't hide a huge
+  instruction), and control characters or bidirectional overrides are rejected so the confirmation
+  shows exactly what will run.
+
+---
+
+## 7. Signing, so Accessibility survives updates
+
+macOS ties the Accessibility grant to the app's code signature. Release builds are signed with a
+**Developer ID** and the hardened runtime, so the grant survives every update. Contributors without
+one can run `setup-signing.sh` once for a stable self-signed identity; ad-hoc signing doesn't keep
+the grant on macOS 26.
+
+---
+
+## 8. Updates and privacy
+
+The model runs locally. There are no accounts, analytics or telemetry. The only network access is
+**Sparkle** checking `onekapisch.com` for updates, and only after you allow it. It sends the app
+version and nothing else (system profiling is off). History is a JSON file in Application Support,
+with a retention limit, an off switch, and excluded apps (password managers by default).
 
 ---
 
@@ -108,14 +153,26 @@ Accessibility (to read the selection and paste the result).
 
 | File | Responsibility |
 |------|----------------|
-| `main.swift` | Dock-less menu-bar agent entry point |
-| `AppDelegate.swift` | Menu, hot-key wiring, translate→replace/popup flow |
-| `LLMTranslator.swift` | Foundation Models engine, register prompts, permissive guardrails |
-| `Replacer.swift` | Synthesised ⌘C / ⌘V swap + clipboard save/restore |
-| `HotKey.swift` | Carbon global hot-keys |
-| `Store.swift` | Settings (target language, shortcuts, style guide) |
-| `PreferencesController.swift` | SwiftUI preferences + shortcut recorder |
-| `KeyDisplay.swift` | Keycode ⇄ shortcut string |
-| `Languages.swift` | Supported languages + formal/informal pronoun labels |
+| `main.swift` | Entry point; dev flags `--eval`, `--selftest`, `--snapshots` |
+| `AppDelegate.swift` | Status item, hot-key wiring, URL handling |
+| `Core/Runner.swift` | Every flow: capture → model → replace / reader, HUD, history, stats |
+| `Core/LLMTranslator.swift` | Foundation Models jobs, prompts, streaming, long-text pieces, errors |
+| `Core/Replacer.swift` | ⌘C / ⌘V swap, clipboard snapshot and restore, Accessibility helpers |
+| `Core/LanguageDetector.swift` | On-device language identification for two-way translate |
+| `Core/Store.swift` | Settings, per-app memory, stats, 1.x migration |
+| `Core/Models.swift` | Tone, actions, glossary terms, history entries, share-link codec |
+| `Core/HistoryStore.swift` | Local history with retention |
+| `Core/AppState.swift` | Live permission and model status |
+| `Core/UpdateController.swift` | Sparkle |
+| `Core/HotKey.swift`, `KeyDisplay.swift`, `Languages.swift` | Hot-keys, shortcut labels, languages |
+| `UI/MenuPanel.swift` | The menu-bar panel |
+| `UI/BarPanel.swift` | The Easy Write Bar |
+| `UI/NotchHUD.swift` | The notch HUD |
+| `UI/ReaderPanel.swift` | Reader card for read mode and popup actions |
+| `UI/WelcomeWindow.swift` | First-run setup and practice swap |
+| `UI/SettingsWindow.swift` | Settings |
+| `UI/ImportAction.swift` | Shared-action import, main menu |
+| `UI/Theme.swift` | Colours and shared components |
+| `Dev/` | Eval harness, self-test, snapshot renderer |
 
 Requirements: macOS 26+ on Apple Silicon with Apple Intelligence enabled.

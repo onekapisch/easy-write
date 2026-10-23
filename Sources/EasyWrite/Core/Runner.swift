@@ -17,6 +17,8 @@ final class Runner {
     /// The last app that was frontmost before Easy Write, kept by AppDelegate.
     weak var lastApp: NSRunningApplication?
 
+    private var currentJob: Task<Void, Never>?
+
     /// Text the user selected, and where it came from.
     struct Captured {
         let text: String
@@ -159,7 +161,13 @@ final class Runner {
     /// Checks prerequisites, then copies the selection from the right app. Every early exit
     /// says why in the HUD, so a shortcut never silently does nothing.
     private func capture() -> Captured? {
-        guard !AppState.shared.busy else { hud.problem("Still working on the last one"); return nil }
+        // Any Easy Write shortcut pressed while a job runs stops it. Long text can take a
+        // while, and there should always be a way out.
+        if AppState.shared.busy {
+            currentJob?.cancel()
+            hud.problem("Stopped")
+            return nil
+        }
         guard !BarController.shared.isOpen else { return nil }
         guard AXIsProcessTrusted() else {
             hud.problem("Easy Write needs Accessibility")
@@ -171,11 +179,15 @@ final class Runner {
         // Our own welcome window holds a practice field; anywhere else in Easy Write, the user
         // means the app they were in before.
         let ownTarget = NSApp.isActive && NSApp.keyWindow?.identifier == WelcomeController.windowID
+        var reactivated: NSRunningApplication?
         if NSApp.isActive && !ownTarget, let prev = lastApp {
             prev.activate()
             usleep(150_000)
+            reactivated = prev
         }
-        let app = ownTarget ? NSRunningApplication.current : NSWorkspace.shared.frontmostApplication
+        // frontmostApplication updates through the run loop, which the sleep above blocks, so
+        // right after reactivating it can still report Easy Write. Use the app we activated.
+        let app = ownTarget ? NSRunningApplication.current : (reactivated ?? NSWorkspace.shared.frontmostApplication)
         let mouse = NSEvent.mouseLocation
         guard let text = replacer.copySelection(),
               !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
@@ -196,12 +208,13 @@ final class Runner {
         }
         AppState.shared.busy = true
         hud.working(label)
-        Task { @MainActor in
-            defer { AppState.shared.busy = false }
+        currentJob = Task { @MainActor in
+            defer { AppState.shared.busy = false; currentJob = nil }
             do {
                 let result = try await llm.run(c.text, job: job) { i, n in
                     self.hud.working(label, detail: "part \(i) of \(n)")
                 }
+                try Task.checkCancellation()           // stopped while the last piece finished
                 switch delivery {
                 case .replace:
                     deliverReplace(result, c, label: label, kind: kind, language: language, memory: memory)
@@ -216,8 +229,7 @@ final class Runner {
                     record(result, c, label: label, kind: kind, language: language, replaced: false)
                 }
             } catch is CancellationError {
-                replacer.restoreClipboard()
-                hud.hide()
+                replacer.restoreClipboard()            // the HUD already says "Stopped"
             } catch {
                 replacer.restoreClipboard()
                 hud.problem(LLMTranslator.describe(error))

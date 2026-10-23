@@ -54,12 +54,12 @@ struct WelcomeView: View {
                 .background(Color.white.opacity(0.02))
             Rectangle().fill(Color.white.opacity(0.06)).frame(width: 1)
             content
-                .padding(.horizontal, 26).padding(.vertical, 24)
+                .padding(.horizontal, 26).padding(.top, 44).padding(.bottom, 24)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
-        .frame(width: 680, height: 440)
-        .padding(.top, 20)                                  // clear the transparent title bar
+        .frame(width: 680, height: 470)
         .background(Color(hex: 0x1C1B22))
+        .ignoresSafeArea()                                  // run under the transparent title bar
         .environment(\.colorScheme, .dark)
         .onReceive(NotificationCenter.default.publisher(for: Runner.didReplace)) { _ in
             if NSApp.keyWindow?.identifier == WelcomeController.windowID { practiced = true }
@@ -80,7 +80,7 @@ struct WelcomeView: View {
             stepRow(.model, "Apple Intelligence", done: state.model == .ready, note: modelNote)
             stepRow(.practice, "Try a swap", done: practiced, note: practiced ? "Done" : "Waiting for you")
         }
-        .padding(14)
+        .padding(.horizontal, 14).padding(.top, 40).padding(.bottom, 14)
     }
 
     private var modelNote: String {

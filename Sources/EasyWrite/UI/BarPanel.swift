@@ -59,14 +59,17 @@ final class BarModel: ObservableObject {
     enum Commit { case replace, copy }
 
     @Published private(set) var captured: Runner.Captured?
-    @Published var query = "" { didSet { if query != oldValue { rebuild(); schedulePreview() } } }
+    @Published var query = "" { didSet { if query != oldValue { rebuild(); selectionChanged() } } }
     @Published private(set) var items: [Item] = []
-    @Published var selectedID: String? { didSet { if selectedID != oldValue { schedulePreview() } } }
+    @Published var selectedID: String? { didSet { if selectedID != oldValue { selectionChanged() } } }
     @Published private(set) var preview: Preview = .idle
 
     var onFinish: ((Commit, String, Item, Runner.Captured) -> Void)?
 
     private var previewTask: Task<Void, Never>?
+    /// What the current `preview` was produced for (item, instruction text, variation).
+    /// A preview is only ever committed for the key it was made for.
+    private var previewKey: String?
     private var pending: Commit?
     private var varied = false
 
@@ -78,21 +81,21 @@ final class BarModel: ObservableObject {
     }
 
     func load(_ c: Runner.Captured, preselect: Item.Kind?, startPreview: Bool = true) {
+        clearPreview()
         captured = c
         pending = nil
         varied = false
-        query = ""
+        if !query.isEmpty { query = "" }
         rebuild()
         if let preselect, let match = items.first(where: { $0.kind == preselect }) {
             selectedID = match.id
         }
-        if startPreview { schedulePreview(immediately: true) } else { previewTask?.cancel() }
+        if startPreview { schedulePreview(immediately: true, force: true) } else { clearPreview() }
     }
 
     func reset() {
-        previewTask?.cancel()
+        clearPreview()
         captured = nil
-        preview = .idle
         pending = nil
     }
 
@@ -104,20 +107,44 @@ final class BarModel: ObservableObject {
 
     func select(_ item: Item) { selectedID = item.id }
 
-    /// Replace or copy as soon as the result is ready; if it's still streaming, finish then.
+    /// Replace or copy as soon as the result for the selected item is ready; if it's still
+    /// on its way, finish when it arrives. A result made for a different item is never used.
     func commit(_ c: Commit) {
-        guard selected != nil else { return }
-        switch preview {
-        case .ready(let text): finish(c, text)
-        case .failed: pending = c; schedulePreview(immediately: true)
-        case .idle, .streaming: pending = c
-            if case .idle = preview { schedulePreview(immediately: true) }
+        guard let item = selected, job(for: item) != nil else { return }
+        if case .ready(let text) = preview, previewKey == key(for: item) {
+            finish(c, text)
+            return
         }
+        pending = c
+        if case .streaming = preview, previewKey == key(for: item) { return }   // finishes when it ends
+        schedulePreview(immediately: true, force: true)
     }
 
     func tryAgain() {
+        guard selected != nil else { return }
         varied = true
-        schedulePreview(immediately: true)
+        pending = nil
+        schedulePreview(immediately: true, force: true)
+    }
+
+    /// Choosing another item or typing invalidates everything about the previous one,
+    /// including a Return pressed while it was still streaming.
+    private func selectionChanged() {
+        pending = nil
+        varied = false
+        schedulePreview()
+    }
+
+    private func clearPreview() {
+        previewTask?.cancel()
+        previewTask = nil
+        previewKey = nil
+        preview = .idle
+    }
+
+    private func key(for item: Item) -> String {
+        if case .ask(let s) = item.kind { return "ask|\(s)|\(varied)" }
+        return "\(item.id)|\(varied)"
     }
 
     // MARK: Building the list
@@ -186,27 +213,33 @@ final class BarModel: ObservableObject {
         }
     }
 
-    private func schedulePreview(immediately: Bool = false) {
+    /// Starts (after a short debounce) the preview for the selected item. The old preview is
+    /// cleared at once, so nothing stale is ever on screen or committable meanwhile.
+    private func schedulePreview(immediately: Bool = false, force: Bool = false) {
+        guard let c = captured, let item = selected, let job = job(for: item) else { clearPreview(); return }
+        let k = key(for: item)
+        if !force, k == previewKey { return }                       // already shown or on its way
         previewTask?.cancel()
-        guard let c = captured, let item = selected, let job = job(for: item) else { preview = .idle; return }
+        previewKey = k
+        preview = .idle
         let delay: UInt64 = immediately ? 0 : (item.group == .ask ? 650_000_000 : 260_000_000)
         previewTask = Task { @MainActor [weak self] in
             if delay > 0 { try? await Task.sleep(nanoseconds: delay) }
             guard let self, !Task.isCancelled else { return }
-            await self.stream(c.text, job: job, retryIfBusy: true)
+            await self.stream(c.text, job: job, key: k, retryIfBusy: true)
         }
     }
 
-    private func stream(_ text: String, job: LLMTranslator.Job, retryIfBusy: Bool) async {
+    private func stream(_ text: String, job: LLMTranslator.Job, key k: String, retryIfBusy: Bool) async {
         preview = .streaming("")
         do {
             var last = ""
             for try await partial in LLMTranslator.shared.stream(text, job: job) {
-                if Task.isCancelled { return }
+                if Task.isCancelled || previewKey != k { return }
                 last = partial
                 preview = .streaming(partial)
             }
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, previewKey == k else { return }
             preview = .ready(last)
             if let p = pending { finish(p, last) }
         } catch is CancellationError {
@@ -214,12 +247,12 @@ final class BarModel: ObservableObject {
             // Switching items quickly can overlap with the previous request winding down.
             if retryIfBusy, case .concurrentRequests = error {
                 try? await Task.sleep(nanoseconds: 300_000_000)
-                if !Task.isCancelled { await stream(text, job: job, retryIfBusy: false) }
-            } else if !Task.isCancelled {
+                if !Task.isCancelled, previewKey == k { await stream(text, job: job, key: k, retryIfBusy: false) }
+            } else if !Task.isCancelled, previewKey == k {
                 preview = .failed(LLMTranslator.describe(error)); pending = nil
             }
         } catch {
-            if !Task.isCancelled { preview = .failed(LLMTranslator.describe(error)); pending = nil }
+            if !Task.isCancelled, previewKey == k { preview = .failed(LLMTranslator.describe(error)); pending = nil }
         }
     }
 
@@ -230,7 +263,11 @@ final class BarModel: ObservableObject {
     }
 
     /// Used by `--snapshots` to show a finished preview without running the model.
-    func setSnapshotPreview(_ p: Preview) { previewTask?.cancel(); preview = p }
+    func setSnapshotPreview(_ p: Preview) {
+        previewTask?.cancel()
+        previewKey = selected.map(key(for:))
+        preview = p
+    }
 }
 
 @MainActor
@@ -347,6 +384,9 @@ final class BarController {
         if let m = keyMonitor { NSEvent.removeMonitor(m) }
         keyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] e in
             guard let self, let panel = self.panel, e.window === panel else { return e }
+            // While a Japanese / Chinese / Korean input method is composing, Return confirms the
+            // conversion and the arrows pick candidates. Leave those keys to the input method.
+            if let editor = panel.firstResponder as? NSTextView, editor.hasMarkedText() { return e }
             let cmd = e.modifierFlags.contains(.command)
             switch (e.keyCode, cmd) {
             case (126, false): self.model.move(-1); return nil                // ↑
@@ -420,9 +460,12 @@ struct BarView: View {
     private var list: some View {
         ScrollViewReader { proxy in
             ScrollView {
+                // One snapshot of the list for this render, so a row never indexes into a newer,
+                // shorter `items` while the lazy stack is still building.
+                let list = model.items
                 LazyVStack(alignment: .leading, spacing: 2) {
-                    ForEach(Array(model.items.enumerated()), id: \.element.id) { i, item in
-                        if i == 0 || model.items[i - 1].group != item.group {
+                    ForEach(Array(list.enumerated()), id: \.element.id) { i, item in
+                        if i == 0 || list[i - 1].group != item.group {
                             Text(item.group.rawValue.uppercased())
                                 .font(.system(size: 10, weight: .semibold)).tracking(0.7)
                                 .foregroundStyle(Color(hex: 0x7D7993))

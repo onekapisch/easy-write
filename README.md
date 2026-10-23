@@ -6,13 +6,12 @@
 
 ### Translate & rewrite text anywhere on your Mac — formal or informal — 100% on-device.
 
-Select text in any app, press a shortcut, and it's **instantly replaced with the translation** —
-in the register you choose (German *Sie* vs *du*, French *vous* vs *tu*, …). Powered entirely by
-Apple's **on-device** model (Apple Intelligence / Foundation Models). **No accounts. No API keys.
-No cloud.** Your text never leaves your Mac.
+Select text in any app, press a shortcut, and it's **replaced in place** with the translation, in the
+tone you choose (German *Sie* vs *du*, French *vous* vs *tu*, …). Or run your own actions: fix the
+grammar, make it shorter, reply politely. Powered entirely by Apple's **on-device** model (Apple
+Intelligence). **No accounts. No API keys. No cloud.** Your text never leaves your Mac.
 
-A free, open-source **DeepL / Google Translate alternative** for macOS — built for people who
-write and read in more than one language.
+**[⬇️ Download for Mac](https://github.com/onekapisch/easy-write/releases/latest/download/EasyWrite.dmg)** · free · macOS 26 · Apple Silicon · notarized by Apple
 
 ![macOS 26+](https://img.shields.io/badge/macOS-26%2B-black?logo=apple&logoColor=white)
 ![Apple Silicon](https://img.shields.io/badge/Apple%20Silicon-required-black?logo=apple&logoColor=white)
@@ -22,9 +21,9 @@ write and read in more than one language.
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue)
 ![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4)
 
-**[🧠 How it works](HOW_IT_WORKS.md) · [⬇️ Install](#-install-build-from-source) · [🆚 How it compares](#-how-it-compares) · [🐛 Report a bug / request a feature](../../issues)**
+**[🧠 How it works](HOW_IT_WORKS.md) · [⬇️ Install](#️-install) · [🆚 How it compares](#-how-it-compares) · [🐛 Report a bug / request a feature](../../issues)**
 
-![Easy Write — select text, press a shortcut, instant in-place translation](docs/demo.gif)
+![Easy Write — type in any app, press one shortcut, and the text is replaced in place](docs/demo.gif)
 
 </div>
 
@@ -33,36 +32,47 @@ write and read in more than one language.
 ## Why Easy Write?
 
 If you write emails, messages, or docs in a language that isn't your first, you're stuck in a loop:
-copy → open DeepL/Google Translate → paste → translate → copy → paste back. And the result often gets
+copy → open a translator website → paste → translate → copy → paste back. And the result often gets
 the *words* right but the **tone** wrong — which in German (and French, Spanish, Italian…) is the
 difference between polite and rude.
 
-Two things go wrong with the existing options:
-
-- 🌐 **Cloud translators** (DeepL, Google Translate) mean sign-ups, monthly limits, and your private
-  text leaving your machine. The "translate in any app" desktop tools are mostly the same — cloud
-  behind a popup.
+- 🌐 **Cloud translators** mean sign-ups, monthly limits, and your private text leaving your machine.
 - 🧩 **Local LLM tools** get privacy right but make you install Ollama, download a model, or paste in
-  an OpenAI API key first.
+  an API key first.
 
-**Easy Write uses the LLM already built into macOS 26** — so it's private *and* zero-setup, and it
-understands formality, which a plain dictionary translator can't.
+**Easy Write uses the AI already built into macOS 26** — so it's private *and* there's nothing to set
+up, and it understands formality, which a plain dictionary translator can't.
+
+## What's new in 2.0
+
+- 🔎 **Easy Write Bar** (`⌥⌘K`) — every language, tone and action next to your selection. Type to
+  filter, or type any instruction and run it once. The result streams in before anything changes.
+- 🔁 **Both directions with one key** — `⌥⌘T` translates into your target language, or back into
+  yours if the text is already in it.
+- 🧠 **Remembered per app** — formal in Mail, informal in Slack, without touching a setting.
+- ✨ **Actions** — your own instructions on a shortcut, shareable as a link.
+- 🏝️ **Notch HUD** — progress and results right at the top of the screen, with ⌘Z to undo.
+- 📥 **A real download** — notarized, auto-updating (if you allow it), no Terminal.
+
+See the full [changelog](CHANGELOG.md).
 
 ## What you get
 
-- ⚡ **Translate in place** — select → shortcut → the selection is replaced with the translation, in any app
-- 🗣️ **Formal / informal** — one keystroke for German *Sie* vs *du*, French *vous* vs *tu*, Spanish *usted* vs *tú*…
-- 📖 **Read mode** — translate incoming foreign text *to English* in a popup (for web pages, emails, chats you can't edit)
+- ⚡ **Translate in place** — select → shortcut → replaced, in any app
+- 🗣️ **Formal / informal / natural** — German *Sie* vs *du*, French *vous* vs *tu*, Spanish *usted* vs *tú*…
+- 📖 **Read mode** — translate text you can't edit into your own language, in a card you can pin or have read aloud
 - 🌍 **13 languages** — German, French, Spanish, Italian, Portuguese, Dutch, Turkish, Polish, Russian, English, Japanese, Chinese, Arabic
-- 🧠 **Personal style & glossary** — teach it your preferred terms so the output sounds like *you*
-- ⌨️ **Custom shortcuts** — rebind every action
-- 🔒 **100% local** — no account, no API key, no telemetry, zero network code
-- 🪶 **Tiny & native** — a ~600-line Swift menu-bar app, no Dock clutter, launches at login
+- ✨ **Actions** — Fix grammar, Make it shorter, Reply politely, Explain the grammar, Sound native, Japanese keigo, or write your own
+- 📚 **Glossary & style notes** — exact terms and your preferences in every result
+- 🕘 **History** — recent results, kept only on your Mac, with retention and excluded apps
+- ⌨️ **Custom shortcuts** — rebind everything
+- ♿️ **VoiceOver** — labelled controls and spoken results
+- 🔒 **100% local** — no account, no API key, no telemetry; the only network access is the optional update check
 
 ## 🆚 How it compares
 
-The honest version: these tools are good — Easy Write just occupies a different corner (free, private,
-zero-setup, register-aware).
+The honest version: these tools are good — Easy Write just occupies a different corner (free,
+private, nothing to set up, register-aware).
 
 | | **Easy Write** | DeepL | Google Translate | Apple Translate | Ollama-based tools |
 |---|:---:|:---:|:---:|:---:|:---:|
@@ -71,89 +81,105 @@ zero-setup, register-aware).
 | Formal vs informal (Sie/du) | ✅ | Pro only | ❌ | ❌ | ✅ |
 | Replace selection in place | ✅ | app only | ❌ | ✅ | varies |
 | Works in any app | ✅ | ✅ | ❌ | ⚠️ some | ✅ |
-| Setup | just the app | account | — | built-in | install Ollama + model |
+| Your own rewrite actions | ✅ | ❌ | ❌ | ❌ | varies |
+| Setup | download | account | — | built-in | install Ollama + model |
 | Open source | ✅ | ❌ | ❌ | ❌ | ✅ |
 | Price | **Free** | Free / Pro | Free | Free | Free |
 
 ## Requirements
 
-- **macOS 26 (Tahoe) or later**, **Apple Silicon**
-- **Apple Intelligence enabled** — System Settings → *Apple Intelligence & Siri*
+- **macOS 26 (Tahoe) or later** on **Apple Silicon**
+- **Apple Intelligence turned on** — System Settings → *Apple Intelligence & Siri*
 
-## ⬇️ Install (build from source)
+## ⬇️ Install
+
+**Download (recommended).** Get
+[EasyWrite.dmg](https://github.com/onekapisch/easy-write/releases/latest/download/EasyWrite.dmg),
+open it, and drag Easy Write into Applications. On first launch a short welcome window walks you
+through the one permission it needs (Accessibility) and a practice swap.
+
+**Homebrew.**
+
+```bash
+brew install --cask onekapisch/tap/easy-write
+```
+
+**Build from source.**
 
 ```bash
 git clone https://github.com/onekapisch/easy-write.git
 cd easy-write
-./setup-signing.sh      # one-time: a stable self-signed identity so the Accessibility grant sticks
-./build.sh              # compile + bundle + sign  →  EasyWrite.app
-cp -R EasyWrite.app /Applications/
-open /Applications/EasyWrite.app
+./setup-signing.sh      # once, if you don't have a Developer ID: keeps the Accessibility grant across rebuilds
+./build.sh              # compile + bundle + sign → "Easy Write.app"
+cp -R "Easy Write.app" /Applications/
+open "/Applications/Easy Write.app"
 ```
 
-Then **grant Accessibility** when prompted (or menu-bar icon → *Accessibility Settings…*). That's the
-permission that lets Easy Write read your selection and paste the result. Done — select text and press
-a shortcut.
+**Upgrading from 1.x?** Your settings move over automatically. macOS asks for Accessibility again
+because the app is now signed by OneKapisch. If the old "EasyWrite" entry is still in
+System Settings → Privacy & Security → Accessibility, remove it, then delete the old
+`EasyWrite.app` from Applications.
 
 ## Usage
 
 | Shortcut | Action |
 |:---:|---|
-| `⌥⌘T` | Translate to **formal** (Sie / vous / usted…) |
-| `⌥⌘I` | Translate to **informal** (du / tu / tú…) |
-| `⌥⌘P` | **Plain** translation (keeps the source's natural tone) |
-| `⌥⌘E` | **Read → English** (popup, for text you can't edit) |
+| `⌥⌘K` | Open the **Easy Write Bar** next to your selection |
+| `⌥⌘T` | **Translate** — into your target language, or back into yours |
+| `⌥⌘E` | **Read** — translate into your language in a card (for text you can't edit) |
+| `⌥⌘G` | **Fix grammar** (a built-in action) |
+| `⌃⌥R` | **Reply politely** (a built-in action) |
 
-Set the target language, rebind shortcuts, add a personal style guide, and toggle
-preview-before-replace in **Preferences** (menu-bar icon → *Preferences…*).
+Click the menu-bar icon for the panel: status, your target language and tone, and quick tiles. Every
+shortcut can be changed in **Settings → Shortcuts**, and any action can get one.
 
 ## 🔒 Privacy & security
 
-Nothing leaves your Mac. The model runs locally; there is **no network code, no analytics, no
-accounts**. The only permission required is **Accessibility** — to read your current selection
-(synthesised ⌘C) and paste the translation back (⌘V). Your clipboard is snapshotted and restored
-around every swap. Don't take our word for it — the whole app is ~600 lines of Swift. Read it.
+Your text never leaves your Mac. The model runs locally; there is no analytics, no telemetry, and no
+account. The only time Easy Write goes online is to check for updates, and only if you allow it — it
+sends the app version and nothing else. The only permission it needs is **Accessibility**, to copy
+your selection and paste the result back. Your clipboard is restored after every swap.
 
-See [SECURITY.md](SECURITY.md) for the full data-flow and how to report a vulnerability.
+See [SECURITY.md](SECURITY.md) for the full data flow, what's stored where, and how to report a
+vulnerability.
 
 ## 🧠 How it works
 
-See **[HOW_IT_WORKS.md](HOW_IT_WORKS.md)** — the on-device LLM integration, the permissive-guardrails
-gotcha (Apple's default safety filter blocks ordinary translations!), the system-wide inline swap via
-synthesised keystrokes, and the code-signing trick that keeps the Accessibility grant alive across rebuilds.
+See **[HOW_IT_WORKS.md](HOW_IT_WORKS.md)** — the on-device LLM, the permissive-guardrails gotcha, the
+in-place swap, the Bar that types without stealing focus, the notch HUD, two-way language detection,
+and how shared actions stay safe.
 
 ## Roadmap
 
-Preview-before-replace for every mode · translation history · more languages · a notarized
-prebuilt download. Ideas and PRs welcome — open an [issue](../../issues).
+**2.1 — Screen Translate:** drag over any part of the screen (an image, a video subtitle, a scanned
+PDF) and read it in your language, on-device. Ideas and PRs welcome — open an [issue](../../issues).
 
 ## FAQ
 
 **Is it really free?** Yes — free and open source (MIT). No account, no subscription, no upsell.
 
-**Does it send my data anywhere?** No. There is zero network code. Everything runs on-device.
+**Does it send my data anywhere?** No. Your text is only ever processed on your Mac. The optional
+update check sends the app version, nothing else.
 
-**Why does it need Accessibility permission?** To read your current selection and paste the
-translation back. That's the only way to work in *every* app, not just one.
+**Why does it need Accessibility permission?** To copy your current selection and paste the result
+back. That's the only way to work in *every* app.
 
-**Why not the Mac App Store?** Posting synthetic keystrokes is incompatible with App Store sandboxing,
-so it's distributed build-from-source (a notarized download may come later).
+**Why not the Mac App Store?** Posting keystrokes to other apps is incompatible with App Store
+sandboxing, so it's distributed as a notarized download and as source.
 
-**"Apple Intelligence isn't available."** First, requires Apple Silicon + macOS 26 with Apple
-Intelligence enabled (System Settings → *Apple Intelligence & Siri*). If it's already enabled and you
-still see this, the model is most likely **still downloading in the background** — that happens the
-first time you turn Apple Intelligence on and can take a while. Wait until Settings shows it's ready
-(needs free storage + a network connection), then try again. As of 1.1.1 the app tells you which of
-these it is.
+**"Apple Intelligence is still preparing."** Apple Intelligence is on but still downloading its model
+— that happens the first time you turn it on and can take a while. Wait until System Settings →
+*Apple Intelligence & Siri* shows it's ready (it needs free storage and a network connection). The
+panel and the welcome window update on their own when it's done.
 
-**How is this different from Apple's built-in Translate?** Apple's right-click Translate opens a
-separate popover you copy from, and it can't do formal vs. informal. Easy Write swaps the text in
-place and is register-aware.
+**How is this different from Apple's built-in Translate or Writing Tools?** Apple's Translate opens
+a popover you copy from and can't do formal vs informal. Writing Tools rewrites through a menu.
+Easy Write is one keystroke in any app, translates with the right tone, and runs your own actions.
 
 ## Contributing
 
-PRs and issues welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). Good first contributions: more
-languages, translation history, long-text handling.
+PRs and issues welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). Run `EasyWrite --selftest` before
+opening a PR, and `--eval` for any prompt or language change.
 
 ## License
 

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Easy Write action · OneKapisch</title>
+<meta name="description" content="An action for Easy Write, the free on-device translator and writing assistant for Mac.">
+<meta name="robots" content="noindex">
+<!--
+  Shared-action recipe page. Deploy at https://www.onekapisch.com/products/easy-write/action/
+  The action travels in the URL fragment (#slug.base64url-json), which browsers never send to
+  the server, so this page needs no backend and nothing about the action is logged anywhere.
+  Everything from the link is untrusted: it is only ever written with textContent.
+-->
+<style>
+  :root {
+    --bg: #F5F5F8; --card: #FFFFFF; --ink: #16151C; --muted: #66637A; --line: #E2E0EA;
+    --accent: #7C5CFF; --accent-ink: #4B32D6; --quote: #F3F2F8; --blue: #3F5BF6;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0E0D13; --card: #16151D; --ink: #ECEAF4; --muted: #9D9AAF; --line: #282631;
+            --accent: #8F7BFF; --accent-ink: #B4A7FF; --quote: #1E1D27; color-scheme: dark; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink);
+         font: 16px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+         display: grid; place-items: center; padding: 32px max(16px, env(safe-area-inset-left)); }
+  main { width: 100%; max-width: 560px; background: var(--card); border: 1px solid var(--line);
+         border-radius: 20px; padding: 28px; box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 18px 50px rgba(30,20,70,.08); }
+  .top { display: flex; align-items: center; gap: 14px; }
+  .icon { width: 48px; height: 48px; border-radius: 12px; flex: none;
+          background: linear-gradient(160deg, #8A6BFF, #6D4BF0); display: grid; place-items: center;
+          box-shadow: 0 6px 16px rgba(109,75,240,.35); color: #fff; font-weight: 700; font-size: 20px; }
+  .eyebrow { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  h1 { margin: 2px 0 0; font-size: 24px; letter-spacing: -.02em; line-height: 1.2; overflow-wrap: anywhere; }
+  blockquote { margin: 20px 0 10px; padding: 14px 16px; background: var(--quote); border-radius: 12px;
+               white-space: pre-wrap; overflow-wrap: anywhere; }
+  .meta { font-size: 13.5px; color: var(--muted); margin: 0 0 22px; }
+  .acts { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px;
+         font-weight: 600; font-size: 15px; text-decoration: none; border: 0; cursor: pointer; }
+  .add { background: var(--accent); color: #fff; box-shadow: 0 8px 20px rgba(124,92,255,.35); }
+  .get { background: var(--quote); color: var(--ink); }
+  .note { margin-top: 18px; font-size: 13px; color: var(--muted); }
+  .note b { color: var(--ink); font-weight: 600; }
+  .error h1 { font-size: 20px; }
+  a:focus-visible, .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+<main id="card" aria-live="polite">
+  <div class="top">
+    <div class="icon" aria-hidden="true">A</div>
+    <div>
+      <div class="eyebrow">An Easy Write action</div>
+      <h1 id="name">Loading…</h1>
+    </div>
+  </div>
+  <blockquote id="instruction"></blockquote>
+  <p class="meta" id="meta"></p>
+  <div class="acts">
+    <a class="btn add" id="add" href="#">Add to Easy Write</a>
+    <a class="btn get" href="https://github.com/onekapisch/easy-write/releases/latest/download/EasyWrite.dmg">Get Easy Write, free</a>
+  </div>
+  <p class="note"><b>Runs on your Mac.</b> Easy Write uses Apple’s on-device model, so the text you select is never uploaded.
+    Adding this action shows you its full instruction first, and it starts in popup mode, so it never changes your text until you choose.</p>
+  <p class="note">Easy Write needs macOS 26 on a Mac with Apple Silicon. <a href="https://www.onekapisch.com/products/easy-write/">About Easy Write</a></p>
+</main>
+<script>
+(function () {
+  var MAX_NAME = 60, MAX_INSTRUCTION = 1000;
+  function b64urlDecode(s) {
+    s = s.replace(/-/g, "+").replace(/_/g, "/");
+    while (s.length % 4) s += "=";
+    var bin = atob(s), bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+  }
+  function fail() {
+    var card = document.getElementById("card");
+    card.classList.add("error");
+    document.getElementById("name").textContent = "This action link is incomplete";
+    document.getElementById("instruction").textContent = "Ask the person who shared it to copy the link again from Easy Write → Settings → Actions → Share action.";
+    document.getElementById("meta").textContent = "";
+    document.getElementById("add").remove();
+  }
+  try {
+    var frag = location.hash.slice(1);
+    var blob = frag.split(".").pop();
+    if (!blob || !/^[A-Za-z0-9_-]+$/.test(blob)) return fail();
+    var p = JSON.parse(b64urlDecode(blob));
+    if (!p || p.v !== 1 || typeof p.n !== "string" || typeof p.i !== "string") return fail();
+    var name = p.n.trim(), instruction = p.i.trim();
+    // Same rules as the app: limits count code points, names have no control characters,
+    // and nothing may contain bidirectional overrides that could disguise the text.
+    var BIDI = /[‪-‮⁦-⁩‎‏؜]/, CONTROL = /[\u0000-\u001F\u007F-\u009F]/;
+    if (!name || !instruction || Array.from(name).length > MAX_NAME || Array.from(instruction).length > MAX_INSTRUCTION) return fail();
+    if (CONTROL.test(name) || BIDI.test(name) || BIDI.test(instruction)) return fail();
+    document.getElementById("name").textContent = name;
+    document.title = name + " · Easy Write action";
+    document.getElementById("instruction").textContent = instruction;
+    document.getElementById("meta").textContent =
+      "Runs this instruction on text you select in any app. " +
+      (p.o === "replace" ? "The person who shared it uses it to replace the selection." : "It shows the result in a popup.");
+    document.getElementById("add").href = "easywrite://action?d=" + blob;
+  } catch (e) { fail(); }
+})();
+</script>
+</body>
+</html>

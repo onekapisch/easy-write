@@ -35,6 +35,14 @@
             </array>
         </dict>
     </array>
+    <key>SUFeedURL</key>
+    <string>https://www.onekapisch.com/products/easy-write/appcast.xml</string>
+    <key>SUPublicEDKey</key>
+    <string>oRqvhZ/hgA0uk5mLLI6ZWRBU9UNg8mRIgrmnSQBWP8U=</string>
+    <key>SUEnableSystemProfiling</key>
+    <false/>
+    <key>SUScheduledCheckInterval</key>
+    <integer>86400</integer>
     <key>NSHumanReadableCopyright</key>
     <string>© 2026 OneKapisch. Free and open source under the MIT License.</string>
 </dict>

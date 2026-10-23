@@ -2,6 +2,51 @@
 
 All notable changes to Easy Write are documented here.
 
+## [2.0]
+
+The biggest update yet: a new interface, one shortcut for everything, your own actions, and a
+notarized download that updates itself.
+
+### Added
+- **Download it.** A notarized app from onekapisch.com. No Terminal, no build step, and it updates
+  itself (only if you allow it).
+- **Easy Write Bar** (⌥⌘K). Opens next to your selection with every language, tone and action. Type
+  to filter, or type any instruction ("sound more excited") and run it once. The result streams in
+  before anything changes; ↩ replaces, ⌘C copies, ⌘R tries again.
+- **Translate both directions** with ⌥⌘T. If the text is already in your target language, it comes
+  back into your own.
+- **Remembered per app.** The language and tone you pick in Mail or Slack become the default there.
+- **Actions.** Your own instructions on a shortcut: Fix grammar, Make it shorter, Reply politely and
+  more, all editable. Share any action as a link; the link opens a page with an Add button.
+- **Notch HUD.** Progress and results grow out of the notch (or a pill on other displays), with ⌘Z
+  to undo.
+- **New menu-bar panel** with live status, your counts, the language and tone, and quick tiles.
+- **Reader card** for read mode: detected language, Speak, Pin, and Replace when the text is
+  editable. Read mode now translates into your own language, not only English.
+- **Welcome window** that checks permissions and Apple Intelligence live and ends with a practice
+  swap.
+- **History** of recent results, kept on your Mac, with retention, an off switch, and excluded apps
+  (password managers by default).
+- **Glossary** of exact terms, plus style notes, used in every translation and action.
+- **Long text** is split into pieces so long emails translate fully, keeping their layout.
+- **VoiceOver**: labelled controls and spoken results.
+
+### Changed
+- New settings window with General, Languages, Actions, Shortcuts, Glossary, History & Privacy,
+  Updates and About.
+- Three default shortcuts: ⌥⌘K Bar, ⌥⌘T Translate, ⌥⌘E Read. Formal and informal live in the Bar and
+  per-app memory. Shortcuts you had customised in 1.x are kept.
+- Pressing any Easy Write shortcut while a job runs stops it.
+- New app ID (com.onekapisch.easywrite). Your settings move over automatically. macOS asks for
+  Accessibility once more, because the app is now signed by OneKapisch.
+
+### Fixed
+- Read mode left your clipboard changed. The clipboard is now always restored, and Easy Write's
+  temporary paste no longer appears in clipboard managers.
+- If you switch apps while a result is on its way, it goes to your clipboard instead of into the
+  wrong window.
+- ⌘C, ⌘V and ⌘Z work in Easy Write's own text fields.
+
 ## [1.1.1] — 2026-07-14
 
 ### Fixed

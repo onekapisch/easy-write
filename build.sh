@@ -22,6 +22,7 @@ mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources" "$APP/Contents/Framewor
 cp ".build/release/EasyWrite" "$APP/Contents/MacOS/EasyWrite"
 cp "Info.plist" "$APP/Contents/Info.plist"
 [ -f AppIcon.icns ] && cp AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
+cp Resources/Studio/*.png "$APP/Contents/Resources/"     # Studio page tiles (make-studio-icons.py output)
 
 # Sparkle (updates). The app isn't sandboxed, so Sparkle's XPC services aren't needed.
 SPARKLE=".build/release/Sparkle.framework"          # .build/release links to the real product folder

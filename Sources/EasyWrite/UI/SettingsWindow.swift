@@ -4,7 +4,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 enum SettingsPage: String, CaseIterable, Identifiable {
-    case general, languages, actions, shortcuts, glossary, history, updates, about
+    case general, languages, actions, shortcuts, glossary, history, updates, about, studio
     var id: String { rawValue }
 
     var title: String {
@@ -17,8 +17,12 @@ enum SettingsPage: String, CaseIterable, Identifiable {
         case .history:   "History & Privacy"
         case .updates:   "Updates"
         case .about:     "About"
+        case .studio:    "Studio"
         }
     }
+
+    /// Short label for the sidebar, which doesn't widen to fit longer titles.
+    var sidebarTitle: String { self == .history ? "History" : title }
 
     var symbol: String {
         switch self {
@@ -30,6 +34,7 @@ enum SettingsPage: String, CaseIterable, Identifiable {
         case .history:   "clock.arrow.circlepath"
         case .updates:   "arrow.down.circle"
         case .about:     "info.circle"
+        case .studio:    "sun.horizon"
         }
     }
 }
@@ -136,7 +141,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationSplitView {
             List(SettingsPage.allCases, selection: $nav.page) { page in
-                Label(page.title, systemImage: page.symbol).tag(page)
+                Label(page.sidebarTitle, systemImage: page.symbol).tag(page)
             }
             .navigationSplitViewColumnWidth(215)
             .toolbar(removing: .sidebarToggle)
@@ -151,11 +156,13 @@ struct SettingsView: View {
                 case .history:   HistoryPage(store: store, history: history)
                 case .updates:   UpdatesPage(updates: updates)
                 case .about:     AboutPage()
+                case .studio:    StudioSettingsView()
                 }
             }
             .navigationTitle((nav.page ?? .general).title)
         }
         .frame(minWidth: 820, minHeight: 560)
+        .tint(EW.accent)                                    // toggles, pickers and selection in Easy Write violet
         .onDisappear { recorder.stop() }
     }
 }

@@ -23,9 +23,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    /// `easywrite://action?d=…` from a shared action page.
+    /// `easywrite://action?d=…` from a shared action page, and `easywrite://settings/<page>`
+    /// (e.g. `easywrite://settings/studio`) so docs and the website can open a settings page.
     func application(_ application: NSApplication, open urls: [URL]) {
-        for url in urls { ImportController.shared.handle(url) }
+        for url in urls {
+            if url.host == "settings" {
+                let page = SettingsPage(rawValue: url.lastPathComponent)
+                SettingsController.shared.show(page)
+            } else {
+                ImportController.shared.handle(url)
+            }
+        }
     }
 
     /// Opening the app again (Finder, Spotlight, Launchpad) shows the panel.

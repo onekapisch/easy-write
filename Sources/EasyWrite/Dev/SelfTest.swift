@@ -13,6 +13,7 @@ enum SelfTest {
         actionLinks()
         migration()
         barSearch()
+        studio()
         print("\n\(passes) passed, \(failures) failed")
         return failures == 0 ? 0 : 1
     }
@@ -115,6 +116,43 @@ enum SelfTest {
         check(s.shortcut(for: .bar)?.keyCode == 40 && s.shortcut(for: .read)?.keyCode == 14,
               "a migrated shortcut that clashes with a 2.0 default is dropped")
         check(s.duplicateLabels().isEmpty, "no shortcut is assigned twice after migration")
+    }
+
+    // MARK: Studio block (ported from Mac 4 Breakfast's StudioDay tests)
+
+    private static func studio() {
+        print("Studio")
+        let stops = StudioDay.stops
+        check(stops.map(\.id) == ["tokens-4-breakfast", "mac-4-breakfast", "lumel", "skylocation",
+                                  "clip-4-breakfast", "easy-write"], "roster order matches the site")
+        let minutes = stops.map { s -> Int in
+            let p = s.time.split(separator: ":").compactMap { Int($0) }
+            return p.count == 2 ? p[0] * 60 + p[1] : -1
+        }
+        check(!minutes.contains(-1) && zip(minutes, minutes.dropFirst()).allSatisfy { $0 < $1 },
+              "times parse and ascend through the day")
+        check(StudioDay.currentStop?.name == "Easy Write", "the glow sits on Easy Write")
+        check(Set(stops.map(\.imageName)).count == stops.count, "every stop has its own tile")
+        let missing = (stops.map(\.imageName) + ["studio_icon_onekapisch"]).filter { StudioDay.image($0) == nil }
+        check(missing.isEmpty, "every tile ships" + (missing.isEmpty ? "" : " (missing: \(missing.joined(separator: ", ")))"))
+
+        let fractions = (0..<StudioDay.slotCount).map { StudioDay.fraction(forSlot: $0) }
+        let gaps = zip(fractions, fractions.dropFirst()).map { $1 - $0 }
+        check(StudioDay.slotCount == stops.count + 1 && fractions.allSatisfy { $0 > 0 && $0 < 1 },
+              "a slot for each app plus “much more”, all inside the strip")
+        check(gaps.allSatisfy { abs($0 - gaps[0]) < 0.0001 }, "slots are evenly spaced, not clock-proportional")
+
+        guard let url = StudioDay.url(for: "lumel", site: "https://getlumel.app"),
+              let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems else {
+            check(false, "outbound link builds"); return
+        }
+        let q = Dictionary(uniqueKeysWithValues: items.map { ($0.name, $0.value ?? "") })
+        check(q == ["source_product": "easy-write", "surface": "about-day-strip", "target_product": "lumel",
+                    "campaign": "studio-network", "placement_version": "1"],
+              "outbound links carry exactly the studio's five attribution parameters")
+        check(stops.allSatisfy { StudioDay.url(for: $0.id, site: $0.site)?.host != nil }
+              && StudioDay.studioURL?.host?.contains("onekapisch") == true, "every link resolves")
+        check(stops.allSatisfy { $0.tagline.hasSuffix(".") }, "taglines are all present")
     }
 
     // MARK: Bar search

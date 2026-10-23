@@ -86,6 +86,13 @@ enum Snapshots {
         reader.canReplace = true
         reader.showOriginal = true
         await shoot(Wallpaper { ReaderCard(model: reader, panel: nil) }, "d-reader-action", dir)
+        // The case that used to be cut off mid-sentence: a long result on read-only text.
+        reader.header = .translation(from: "German", to: "English")
+        reader.text = "Model S and Model X built before 2021 receive a clear answer right from the beginning: they do not have a mobile phone key, therefore the app cannot unlock them on approach. Owners of these cars can use the key fob or the key card instead, and the app still works for climate, charging and location. For cars built after 2021, the phone key is set up in the app under Locks, and it takes about two minutes."
+        reader.original = "Model S und Model X, die vor 2021 gebaut wurden, bekommen gleich zu Beginn eine klare Antwort: Sie haben keinen Handyschlüssel."
+        reader.canReplace = false
+        reader.showOriginal = false
+        await shoot(Wallpaper { ReaderCard(model: reader, panel: nil) }, "d-reader-long", dir)
 
         // E · Welcome
         await shoot(WelcomeView(state: noAccess, store: store, close: {}), "e-welcome-access", dir, dark: true)
@@ -100,6 +107,11 @@ enum Snapshots {
             await shoot(SettingsView(nav: nav, store: store, history: history, updates: updates, recorder: .shared),
                         "f-settings-\(page.rawValue)", dir, dark: false, size: NSSize(width: 820, height: 560))
         }
+
+        let studioNav = SettingsNav()
+        studioNav.page = .studio
+        await shoot(SettingsView(nav: studioNav, store: store, history: history, updates: updates, recorder: .shared),
+                    "f-settings-studio-dark", dir, dark: true, size: NSSize(width: 820, height: 560))
 
         print("Snapshots written to \(dir)")
     }

@@ -96,9 +96,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: Launch at login
 
+    /// Only from an Applications folder: a copy run from a build folder or a mounted DMG
+    /// shouldn't register itself to open at login in place of the installed app.
     private func enableLoginItemOnFirstRun() {
         let key = "didInitLoginItem"
         guard !UserDefaults.standard.bool(forKey: key) else { return }
+        let path = Bundle.main.bundlePath
+        guard path.hasPrefix("/Applications/")
+                || path.hasPrefix(NSHomeDirectory() + "/Applications/") else { return }
         try? SMAppService.mainApp.register()
         UserDefaults.standard.set(true, forKey: key)
     }

@@ -28,7 +28,8 @@
   deployment is Ready and public download controls point at 2.0.1.
 - [ ] Independently verify canonical XML endpoint bytes; browser XML opening/download and
   Vercel Git-deployment file-tree inspection were unavailable. Signed source/output match.
-- [ ] Verify an installed 2.0 Sparkle upgrade to 2.0.1. Feed availability is not install completion.
+- [x] Verify a user-initiated installed 2.0 build-24 Sparkle upgrade to 2.0.1 build 27 on this Mac.
+  Owner completed the update; running test-copy process and strict signature verified 2026-10-23.
 
 ## Website search content
 
@@ -60,8 +61,9 @@
 - Confirm VoiceOver navigation and announcements with VoiceOver enabled.
 - Done locally: private notarization credentials configured; app and corrected DMG
   accepted by Apple, stapled and Gatekeeper-verified. See `docs/notarization-2.0-build24.md`.
-- Sparkle public-key matching and local payload signature verification passed. Still test an installed older Sparkle build
-  updating to the release. Pre-Sparkle 1.x needs a manual upgrade.
+- Sparkle public-key/payload checks and a user-initiated 2.0-to-2.0.1 installed upgrade passed
+  on this Mac. Independent clean-Mac and automatic-background-check acceptance remain separate.
+  Pre-Sparkle 1.x needs a manual upgrade.
 - [x] Harden `release.sh` with isolated output, safe dmgbuild, mounted strict-signature gates,
   explicit notarization preparation and separate publication. See `docs/release-process.md`.
 - [ ] Exercise the complete revised `--prepare` path during the next authorized release;

@@ -32,6 +32,13 @@ All notable changes to Easy Write are documented here.
 
 ## [2.0.1] — 2026-10-23
 
+### Installed update acceptance
+- Owner completed a user-initiated Sparkle upgrade from 2.0 build 24 to 2.0.1 build 27
+  in a separate writable test copy. Confirmed the updated version, relaunched process and
+  valid strict code signature. The main installed build 27.1 remains untouched.
+- This closes the manual installed-update test on this Mac, not clean-Mac, VoiceOver or
+  automatic-background-check acceptance. Earlier preparation records below retain their dated scope.
+
 ### Release verification
 - Published new signed/notarized build-27 assets and deployed the matching signed feed and
   version-pinned downloads. Public GitHub payload/feed hashes and signatures match local

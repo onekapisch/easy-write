@@ -77,3 +77,15 @@ default source builds upgrade manually. Public-byte verification is a separate f
   hash comparison; direct navigation remained unreliable. Temporary test tabs/server were closed.
 - Owner asked to check Settings → Updates → Check for Updates. Installed discovery and
   completed upgrade remain separate acceptance gates until that result is provided.
+
+## Installed update acceptance, 2026-10-23
+
+- Launched a separate writable copy of the verified notarized 2.0 build 24 at
+  `/Applications/EasyWrite-Update-Test.y6Mtx9/Easy Write.app`. Only that copy was running.
+- Owner performed the Sparkle update and reported it working. The same test path now contains
+  2.0.1 build 27; a new running PID was observed there after the update, and strict deep
+  signature verification passes. This confirms the user-initiated install/relaunch path on this Mac.
+- The normal `/Applications/Easy Write.app` remains build 27.1 and was not overwritten.
+  The original accepted 2.0 artifact was not used as the writable update target.
+- This does not certify clean-Mac installation, every host app, VoiceOver, automatic background
+  scheduling or pre-Sparkle 1.x updates. Those distinctions in earlier verification remain valid.

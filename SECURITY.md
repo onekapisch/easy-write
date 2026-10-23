@@ -46,9 +46,12 @@ not selected text. The destination can receive normal browser network metadata.
 
 Generated candidates in `dist/` are ignored by Git. Signing alone does not make a
 candidate safe to distribute: Apple notarization, stapling, Gatekeeper acceptance
-and a matching signed update payload remain release gates. The current local
-candidate is explicitly unnotarized. Credentials and private keys stay in Keychain;
-local preparation does not export them.
+and a matching signed update payload remain release gates. Local 2.0 build 24 has
+passed these static checks, including independent payload-signature verification.
+It is not publicly released; clean-Mac installation and installed-update acceptance
+remain outstanding. The first image with post-signing Finder metadata is retained
+under an ignored `rejected/` directory and must never be distributed. Credentials
+and private keys stay in Keychain; local preparation does not export them.
 
 ## What's stored on your Mac
 

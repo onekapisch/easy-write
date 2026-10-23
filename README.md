@@ -12,7 +12,8 @@ grammar, make it shorter, reply politely. Powered entirely by Apple's **on-devic
 Intelligence). **No accounts. No API keys. No cloud.** Your text never leaves your Mac.
 
 See [launch preparation status](docs/launch-handoff.md) for the website preview,
-local candidate checks and remaining release gates. The local candidate is not notarized.
+local candidate checks and remaining release gates. Local 2.0 build 24 is notarized
+and passes Gatekeeper; installation and installed-update acceptance remain separate gates.
 
 **2.0 preview branch.** Build from source below. Signed downloads and automatic updates are
 not published yet. The latest public release is 1.1.1.

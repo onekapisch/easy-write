@@ -9,18 +9,22 @@
   stronger quality, savings or customer-outcome claims. See `docs/seo/2026-10-23/`.
 
 ## P0: before publishing 2.0
-- Complete the physical workflow recording and notarization credential handoff in
-  `docs/launch-handoff.md`. A signed local candidate exists but is not distributable.
+- Complete the physical workflow recording and clean-Mac installation check in
+  `docs/launch-handoff.md`. Local 2.0 build 24 is signed, notarized and stapled;
+  static installer and payload-signature checks pass. It is not published.
 - Physical cross-app acceptance on TextEdit/Notes, browser textareas, WhatsApp and Mail: normal
   replacement, moved selection, changed field/tab/window/app, clipboard copies during inference,
   slow paste, Cancel, Bar preview and pinned reader. Use synthetic text, never private drafts.
 - Confirm VoiceOver navigation and announcements with VoiceOver enabled.
-- Configure Apple notarization credentials; notarize and staple app and DMG.
+- Done locally: private notarization credentials configured; app and corrected DMG
+  accepted by Apple, stapled and Gatekeeper-verified. See `docs/notarization-2.0-build24.md`.
 - Sparkle public-key matching and local payload signature verification passed. Still test an installed older Sparkle build
   updating to the release. Pre-Sparkle 1.x needs a manual upgrade.
 - Deploy the generated signed appcast and shared-action page on the existing OneKapisch product
   path. Keep DMGs on GitHub Releases. Publication requires explicit owner approval.
 - Publish the validated DMG and Homebrew tap, then update README claims.
+- Before any reuse, bring `release.sh` in line with the verified no-Finder packaging
+  procedure and mounted strict-signature gate. The build-24 handoff does not use that script.
 
 ## P1
 - Review the 2.0 launch gallery and implemented local website preview. The owner reports

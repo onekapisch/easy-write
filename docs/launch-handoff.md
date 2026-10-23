@@ -29,48 +29,38 @@ avoid private content and notifications, and keep the raw movie. Do not substitu
 edited text or synthetic timing for the real workflow. Browser/Electron, changed
 focus and VoiceOver acceptance remain separate checks.
 
-## 3. Local release candidate: signed, NOT notarized
+## 3. Local release candidate: notarized build 24
 
-Prepared an ignored local candidate at
-`dist/local-candidate.XuwTE1/EasyWrite-2.0-LOCAL-UNNOTARIZED.dmg`.
+The owner configured `easywrite-notary` privately and authorized submission.
+The superseded unnotarized build-4 image remains local only. The current candidate is
+`dist/notarized-2.0-b24.mHw0DB/EasyWrite-2.0.dmg`.
 
-- App and DMG Developer ID signatures verified. App has hardened runtime and a
-  secure timestamp. Its embedded version is 2.0, build 4, minimum macOS 26.
-- DMG integrity verified; mounted read-only; mounted executable matched the
-  packaged candidate; all 75 mounted-binary self-tests passed.
-- Embedded Sparkle public key matched the existing Keychain public key. A local
-  EdDSA signature round-trip over the DMG verified. No private key was exported.
-- The normal working source bundle was rebuilt with update configuration disabled.
-- DMG SHA-256: `f9043487d434d02f87204995310d98865164241bebca8537ea6828e4aadbfcf5`.
-- Gatekeeper correctly rejects the candidate as `Unnotarized Developer ID`.
-  Do not distribute this candidate as an installation-ready release.
+- Apple accepted the app and corrected DMG. Both are Developer-ID signed,
+  timestamped, stapled and Gatekeeper-accepted as `Notarized Developer ID`.
+- Version 2.0, build 24, arm64, minimum macOS 26. The release app has optional
+  Sparkle update configuration enabled; source builds still disable it by default.
+- The final image passed integrity verification. Its read-only mounted app passed
+  strict signature verification, stapler validation, Gatekeeper and all 75 self-tests.
+  An extracted copy also passed signature checks, Gatekeeper and distribution policy checks.
+- Six real-model smoke checks passed. The shipping prompt had 0 definite formal
+  leaks across 40 synthetic informal German examples. This is not all-language accuracy evidence.
+- Payload and feed signatures verify. Independent Ed25519 verification used the
+  embedded public key and exact final DMG bytes; version, length, URL and architecture match.
+- DMG SHA-256: `586ab04082d3542d4796d3b930b15f750f01a1e44c0c760569b346a438ed4c6c`.
+- The first notarized DMG failed a mounted strict-signature check because a cosmetic
+  setting added Finder metadata after signing. It is quarantined under `rejected/`.
+  The corrected layout disables these mutations and has a regression test.
 
-`notarytool history --keychain-profile easywrite-notary` fails because the profile
-does not exist. The owner must configure notarization credentials privately in
-Terminal, or identify an existing appropriate profile. Do not put an Apple ID
-password, app-specific password or private key in chat or this repository.
-
-Owner-only credential setup in Terminal, using the developer Apple ID for the
-existing Developer ID team:
-
-```sh
-xcrun notarytool store-credentials easywrite-notary --apple-id YOUR_APPLE_ID --team-id UMSLY366R9
-```
-
-Replace `YOUR_APPLE_ID` privately. The command prompts securely for an Apple
-app-specific password, validates the credentials and stores them in Keychain.
-Do not add `--password` to shell history and do not paste credentials into chat.
-
-After credentials and explicit submission approval: notarize and staple the app,
-rebuild/sign/notarize/staple the DMG, check Gatekeeper and a clean-Mac installation,
-then generate a fresh appcast. Stapling changes the file: do not reuse the current
-DMG's signature, hash or a preview feed for the final payload.
+The signed appcast is local only. It was prepared using Sparkle's supported manual
+signing path after an automated generator attempt stalled. No private key was exported.
+See [the notarization record](notarization-2.0-build24.md) for IDs and packaging details.
+Clean-Mac install/launch, installed Sparkle upgrades and physical compatibility remain outstanding.
 
 ## 4. Coordinated public launch: not executed
 
-Public GitHub still reports v1.1.1 with no binary assets. The appcast and latest DMG
-URLs return 404. No tag, push, draft release, notarization submission or deployment
-was performed by this preparation task.
+The last public check reported v1.1.1 with no binary assets and 404 responses for the
+appcast and latest DMG. No tag, push, draft release or deployment has been performed
+by this preparation task. Notarization is complete locally, not publication.
 
 Before publishing: validate the installed Sparkle upgrade path, publish the exact
 signed payload and matching feed together, switch the website's shared preview
@@ -81,4 +71,6 @@ future releases and still require user consent.
 
 `release.sh` is not a dry-run command. It submits to Apple, changes version data,
 creates a tag and creates a remote draft release. Its execution and the final
-public launch each require approval at their respective gates.
+public launch each require approval at their respective gates. It still uses the
+older Finder-automation layout, not the verified dmgbuild procedure; do not run it
+over the prepared artifact directory or assume its output has these acceptance results.

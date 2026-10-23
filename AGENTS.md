@@ -22,6 +22,7 @@ Keep AI inference local. Update checks are optional; disclose external links sep
 `./.build/release/EasyWrite --selftest`
 `./.build/release/EasyWrite --smoketest` uses only synthetic text and the real on-device model.
 `bash -n build.sh release.sh setup-signing.sh`
+`python3 -m unittest discover -s dmg -p test_settings.py` checks the safe DMG layout.
 `./build.sh` packages locally and signs; it does not publish.
 `EasyWrite --snapshots <temporary-directory>` uses synthetic sample data.
 `bash tools/launch-assets/export.sh` creates native launch media. Its owned-window recording
@@ -41,3 +42,5 @@ Preserve existing branches and dirty work. Stage only scoped changes. No merge, 
 notarization submission, GitHub release, domain purchase or website deployment without explicit
 approval. Do not run `release.sh` as a test: it writes tags and creates a remote draft.
 Keep README, CHANGELOG, TODO and SECURITY aligned with verified delivery, not future intent.
+For the verified build-24 packaging procedure and artifact hashes, see
+`docs/notarization-2.0-build24.md`. Never mutate signed app Finder metadata in a DMG.

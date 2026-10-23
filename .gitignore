@@ -7,6 +7,7 @@ Package.resolved
 EasyWrite.app/
 *.app
 dist/
+__pycache__/
 
 # macOS
 .DS_Store

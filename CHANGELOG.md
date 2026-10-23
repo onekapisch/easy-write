@@ -4,6 +4,16 @@ All notable changes to Easy Write are documented here.
 
 ## [2.0] (unreleased)
 
+### Notarized local installer, 2026-10-23
+- Apple accepted the app and corrected DMG for 2.0 build 24. Both are stapled and
+  pass Gatekeeper. The mounted final payload passed strict signature checks and 75 self-tests.
+- Disabled post-signing Finder metadata mutations in the new dmgbuild layout and added a
+  regression test. Quarantined the first faulty image; it must not be distributed.
+- Prepared and cryptographically verified a local signed appcast for the exact final DMG.
+  No credentials or private keys were exported. No public release or deployment performed.
+- Clean-Mac installation, physical app/VoiceOver checks and installed Sparkle upgrade acceptance
+  remain separate gates. The website download remains disabled until publication is verified.
+
 ### Website research and content, 2026-10-23
 - Added source-backed SEO/GEO research, a 62-query candidate map with explicit evidence labels,
   competitor fact checking and a prioritized 90-day content/distribution plan.
@@ -14,12 +24,12 @@ All notable changes to Easy Write are documented here.
 
 ### Launch preparation, 2026-10-23
 - Recorded the founder's page approval, release-gated direct-download design and
-  private Terminal instructions for the missing notarization credential profile.
+  private Terminal instructions for the notarization credential profile (now configured).
 - Implemented the product-page preview in an isolated OneKapisch website branch,
   with release-state-aware source links and native media. No deployment performed.
 - Prepared and locally verified a Developer-ID-signed DMG, mounted-binary tests
-  and a Sparkle signature round-trip. Notarization is blocked by missing credentials;
-  Gatekeeper rejection is recorded, not treated as a pass.
+  and a Sparkle signature round-trip. That initial unnotarized build-4 candidate is
+  superseded by notarized build 24; its former Gatekeeper rejection remains recorded.
 - Ignored generated release artifacts under `dist/` and recorded remaining physical
   recording, notarization, update acceptance and publication gates in the launch handoff.
 

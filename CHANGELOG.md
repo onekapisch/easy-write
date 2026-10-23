@@ -2,14 +2,25 @@
 
 All notable changes to Easy Write are documented here.
 
-## [2.0]
+## [2.0] (unreleased)
+
+### Release-safety review, 2026-10-23
+- Clipboard restoration preserves newer external copies, including copies during a pending paste.
+- Automatic replacement checks the original window, field, selected text and range; unverifiable
+  targets show a copyable result instead. Synthetic pastes are not reported as confirmed success.
+- History requires explicit opt-in, clears on disable, uses owner-only permissions, and prunes
+  during idle use and after wake. Early preview implicit consent is not migrated.
+- Streaming and normal model requests have deadlines. Context budgeting includes instructions,
+  glossary, style notes, output and framing overhead.
+- Download and Homebrew claims are marked pending; source builds disable updates by default.
+- Added regression tests and release-acceptance documentation.
 
 The biggest update yet: a new interface, one shortcut for everything, your own actions, and a
-notarized download that updates itself.
+release tooling for a notarized download with optional updates.
 
 ### Added
-- **Download it.** A notarized app from onekapisch.com. No Terminal, no build step, and it updates
-  itself (only if you allow it).
+- **Release pipeline (pending validation).** Tooling for a notarized download and opt-in updates.
+  No 2.0 binary or feed is published yet.
 - **Easy Write Bar** (⌥⌘K). Opens next to your selection with every language, tone and action. Type
   to filter, or type any instruction ("sound more excited") and run it once. The result streams in
   before anything changes; ↩ replaces, ⌘C copies, ⌘R tries again.

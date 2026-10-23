@@ -53,27 +53,28 @@ shows it's better. `release.sh` runs it as a gate.
 
 ## 2. System-wide in-place swap
 
-To replace text in *any* app, Easy Write doesn't integrate with each app. It drives the keyboard:
+Easy Write reads selected text through Accessibility. It never temporarily copies source text:
 
-1. Snapshot the clipboard.
-2. Synthesise **⌘C** (`CGEvent`) to copy the selection and read it from `NSPasteboard`.
-3. Run the model.
-4. Put the result on the clipboard and synthesise **⌘V** over the selection.
-5. Restore the original clipboard.
+1. Capture the AX window, field, selection range and selected text.
+2. Run the model without changing the clipboard.
+3. Prepare the clipboard snapshot, then verify the original target is still selected.
+4. Put the result on the clipboard, recheck the target and send **⌘V** to its process.
+5. Restore the clipboard only if its change count still belongs to this operation.
 
 The event source uses `.privateState` so the modifier keys you're still holding from the shortcut
-don't leak into the synthetic ⌘C. This needs **Accessibility** permission.
+don't leak into synthetic keys. This needs **Accessibility** permission.
 
 Details that matter in practice:
 
 - **Clipboard managers ignore the temporary paste.** It carries the `org.nspasteboard.TransientType`
   marker that Clip 4 Breakfast, Maccy and others respect.
-- **Restores can't clobber anything newer.** Each scheduled restore has a generation number; a new
-  copy, a second shortcut or "Copy" in the Bar cancels older restores.
+- **Restores respect newer copies.** Each restore checks both operation generation and pasteboard
+  change count. An external copy is not owned by Easy Write and is left alone.
 - **Promised and dynamic clipboard types aren't read** when snapshotting, so copying a huge
   spreadsheet range doesn't stall the app.
-- **The paste only goes where the text came from.** If you switch apps while the model is working,
-  the result lands on your clipboard instead of in the wrong window.
+- **Fail-closed replacement.** Changed or unverifiable windows, fields or selections get a reader
+  result instead. Apps that do not expose selected text through Accessibility are not supported
+  for capture. Synthetic pastes are reported as "Paste sent", not confirmed delivery.
 
 ---
 
@@ -157,7 +158,7 @@ with a retention limit, an off switch, and excluded apps (password managers by d
 | `AppDelegate.swift` | Status item, hot-key wiring, URL handling |
 | `Core/Runner.swift` | Every flow: capture → model → replace / reader, HUD, history, stats |
 | `Core/LLMTranslator.swift` | Foundation Models jobs, prompts, streaming, long-text pieces, errors |
-| `Core/Replacer.swift` | ⌘C / ⌘V swap, clipboard snapshot and restore, Accessibility helpers |
+| `Core/Replacer.swift` | AX selection capture, target-validated paste, clipboard ownership |
 | `Core/LanguageDetector.swift` | On-device language identification for two-way translate |
 | `Core/Store.swift` | Settings, per-app memory, stats, 1.x migration |
 | `Core/Models.swift` | Tone, actions, glossary terms, history entries, share-link codec |

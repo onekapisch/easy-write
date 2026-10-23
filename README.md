@@ -11,7 +11,8 @@ tone you choose (German *Sie* vs *du*, French *vous* vs *tu*, …). Or run your 
 grammar, make it shorter, reply politely. Powered entirely by Apple's **on-device** model (Apple
 Intelligence). **No accounts. No API keys. No cloud.** Your text never leaves your Mac.
 
-**[⬇️ Download for Mac](https://github.com/onekapisch/easy-write/releases/latest/download/EasyWrite.dmg)** · free · macOS 26 · Apple Silicon · notarized by Apple
+**2.0 preview branch.** Build from source below. Signed downloads and automatic updates are
+not published yet. The latest public release is 1.1.1.
 
 ![macOS 26+](https://img.shields.io/badge/macOS-26%2B-black?logo=apple&logoColor=white)
 ![Apple Silicon](https://img.shields.io/badge/Apple%20Silicon-required-black?logo=apple&logoColor=white)
@@ -52,7 +53,7 @@ up, and it understands formality, which a plain dictionary translator can't.
 - 🧠 **Remembered per app** — formal in Mail, informal in Slack, without touching a setting.
 - ✨ **Actions** — your own instructions on a shortcut, shareable as a link.
 - 🏝️ **Notch HUD** — progress and results right at the top of the screen, with ⌘Z to undo.
-- 📥 **A real download** — notarized, auto-updating (if you allow it), no Terminal.
+- 📥 **Release tooling** for a notarized download and optional updates, pending validation.
 
 See the full [changelog](CHANGELOG.md).
 
@@ -64,7 +65,7 @@ See the full [changelog](CHANGELOG.md).
 - 🌍 **13 languages** — German, French, Spanish, Italian, Portuguese, Dutch, Turkish, Polish, Russian, English, Japanese, Chinese, Arabic
 - ✨ **Actions** — Fix grammar, Make it shorter, Reply politely, Explain the grammar, Sound native, Japanese keigo, or write your own
 - 📚 **Glossary & style notes** — exact terms and your preferences in every result
-- 🕘 **History** — recent results, kept only on your Mac, with retention and excluded apps
+- 🕘 **Opt-in history**: originals and results stay local; disabling it deletes the history file
 - ⌨️ **Custom shortcuts** — rebind everything
 - ♿️ **VoiceOver** — labelled controls and spoken results
 - 🔒 **100% local** — no account, no API key, no telemetry; the only network access is the optional update check
@@ -82,7 +83,7 @@ private, nothing to set up, register-aware).
 | Replace selection in place | ✅ | app only | ❌ | ✅ | varies |
 | Works in any app | ✅ | ✅ | ❌ | ⚠️ some | ✅ |
 | Your own rewrite actions | ✅ | ❌ | ❌ | ❌ | varies |
-| Setup | download | account | — | built-in | install Ollama + model |
+| Setup | build from source (2.0 preview) | account | — | built-in | install Ollama + model |
 | Open source | ✅ | ❌ | ❌ | ❌ | ✅ |
 | Price | **Free** | Free / Pro | Free | Free | Free |
 
@@ -93,16 +94,9 @@ private, nothing to set up, register-aware).
 
 ## ⬇️ Install
 
-**Download (recommended).** Get
-[EasyWrite.dmg](https://github.com/onekapisch/easy-write/releases/latest/download/EasyWrite.dmg),
-open it, and drag Easy Write into Applications. On first launch a short welcome window walks you
-through the one permission it needs (Accessibility) and a practice swap.
-
-**Homebrew.**
-
-```bash
-brew install --cask onekapisch/tap/easy-write
-```
+**2.0 is a source-only preview.** The notarized DMG, Homebrew tap and update feed are not live.
+The welcome window checks Accessibility and Apple Intelligence, then offers a practice swap.
+For this unreleased preview, use the local 2.0 checkout; the public default branch is still 1.x.
 
 **Build from source.**
 
@@ -137,8 +131,17 @@ shortcut can be changed in **Settings → Shortcuts**, and any action can get on
 
 Your text never leaves your Mac. The model runs locally; there is no analytics, no telemetry, and no
 account. The only time Easy Write goes online is to check for updates, and only if you allow it — it
-sends the app version and nothing else. The only permission it needs is **Accessibility**, to copy
-your selection and paste the result back. Your clipboard is restored after every swap.
+sends no selected text. The permission it needs is **Accessibility**, to
+read your selection and paste the result back. Your clipboard is restored
+after temporary pastes. Opening Studio or support links visits the destination in your browser.
+
+Automatic replacement requires the original window, field, selection range and text to remain
+verifiable. Otherwise the result appears for review instead of being pasted. The HUD says
+"Paste sent" because synthetic keystrokes have no delivery acknowledgement.
+
+History is off by default, including upgrades from early 2.0 previews. Opting in stores originals
+and results as unencrypted local JSON. Disabling deletes that file. Expired entries are removed
+every minute while running, after wake, and on the next launch. Backups may retain earlier copies.
 
 See [SECURITY.md](SECURITY.md) for the full data flow, what's stored where, and how to report a
 vulnerability.
@@ -161,11 +164,12 @@ PDF) and read it in your language, on-device. Ideas and PRs welcome — open an 
 **Does it send my data anywhere?** No. Your text is only ever processed on your Mac. The optional
 update check sends the app version, nothing else.
 
-**Why does it need Accessibility permission?** To copy your current selection and paste the result
-back. That's the only way to work in *every* app.
+**Why does it need Accessibility permission?** To read your current selection and paste the result
+back using macOS APIs. The app must expose its selected text through Accessibility. If it does
+not, capture fails safely instead of using unrelated clipboard contents.
 
 **Why not the Mac App Store?** Posting keystrokes to other apps is incompatible with App Store
-sandboxing, so it's distributed as a notarized download and as source.
+sandboxing. Source builds are available; a notarized download is being prepared.
 
 **"Apple Intelligence is still preparing."** Apple Intelligence is on but still downloading its model
 — that happens the first time you turn it on and can take a while. Wait until System Settings →

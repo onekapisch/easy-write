@@ -6,43 +6,55 @@ permissions it needs and why, and how to report a security issue.
 ## Data flow
 
 - **Translation and actions run entirely on-device** using Apple's Foundation Models framework.
-  Your text is never uploaded, logged, or sent to any server.
+  Your text is never uploaded or included in diagnostics. Only explicitly enabled history saves it locally.
 - **No accounts, no API keys, no telemetry, no analytics.**
 - The text you select is read from your current selection, sent to the on-device model, and the
   result is pasted back or shown in a popup.
-- Your **clipboard is snapshotted before** a swap and **restored after**. The temporary paste is
-  marked as transient, so clipboard managers that follow the nspasteboard.org convention don't
-  record it.
+- Selection capture reads Accessibility directly and does not modify the clipboard. Temporary
+  output pastes are restored only while owned. Output pastes are marked transient for compatible
+  clipboard managers. Unsupported selection APIs fail without copying unrelated clipboard text.
+- Automatic replacement verifies the source process, AX window, field, selection range and text.
+  Changed or unverifiable targets show a review card instead. The HUD reports "Paste sent",
+  since synthetic keystrokes have no delivery acknowledgement.
 
 ## Network access
 
-Easy Write goes online for one thing only: **checking for updates**, through
+Easy Write's background networking is limited to **checking for updates**, through
 [Sparkle](https://sparkle-project.org), and only if you allow it (Sparkle asks on the second launch;
 you can change it in Settings → Updates).
 
 - It requests `https://www.onekapisch.com/products/easy-write/appcast.xml`, and downloads the update
   from GitHub Releases when you choose to install one.
-- The request carries the app's version in its user agent. System profiling is turned off
-  (`SUEnableSystemProfiling` is false), so nothing about your Mac is sent.
+- The request carries the app's version in its user agent. Optional system profiling is turned
+  off (`SUEnableSystemProfiling` is false). The server can still observe ordinary HTTP metadata,
+  including the connection's IP address.
 - Updates are verified with an EdDSA signature and Apple's notarization before they're installed.
 - **Nothing you write is ever part of an update check.**
 
-Builds made from source without a feed URL and signing key don't check for updates at all.
+Source builds disable update configuration by default. Release builds use `EW_ENABLE_UPDATES=1`
+and still request user consent for checks. Clicking a Studio, support, source or shared-action link
+opens an external site in the browser. Studio links include product/campaign attribution parameters,
+not selected text. The destination can receive normal browser network metadata.
 
 ## What's stored on your Mac
 
 | What | Where | Your control |
 |---|---|---|
 | Settings, glossary, actions, per-app memory, usage counts | `~/Library/Preferences/com.onekapisch.easywrite.plist` | Settings |
-| History of results (up to 100, 1–30 days) | `~/Library/Application Support/Easy Write/history.json` | Settings → History & Privacy: off switch, retention, clear, excluded apps |
+| Opt-in originals and results (up to 100, 1–30 days) | `~/Library/Application Support/Easy Write/history.json` | Off by default; disable to delete, or clear manually; excluded apps |
 
 Password managers and Keychain Access are excluded from history by default.
+Unknown source apps are excluded too. History is unencrypted JSON with owner-only permissions
+(folder 0700, file 0600), not a defence against malware running as the same user. Expired entries
+are pruned every minute while running, after wake, on retention changes and on launch. Cleanup
+cannot run while the app is closed. Disabling history deletes the file, not backups or APFS
+snapshots. Upgrading an early 2.0 preview requires fresh explicit consent and clears implicit history.
 
 ## Permissions
 
 | Permission | Why it's needed |
 |---|---|
-| **Accessibility** | To read your current selection (synthesised ⌘C) and paste the result back (synthesised ⌘V). This is the only way to work across *all* apps. |
+| **Accessibility** | To read AX selected text and send a target-validated paste. Apps must expose their selection; unverifiable replacement falls back to review. |
 
 No full-disk access, microphone, camera, contacts, location or screen recording.
 
@@ -56,8 +68,7 @@ bidirectional-override characters are rejected, so what you're shown is exactly 
 ## Why it's not on the Mac App Store
 
 Replacing selected text in arbitrary apps requires posting synthetic keystrokes, which the App Store
-sandbox forbids. Easy Write is distributed as a notarized download from onekapisch.com and as source
-on GitHub.
+sandbox forbids. Source is on GitHub; a notarized 2.0 download is being prepared, not published yet.
 
 ## Reporting a vulnerability
 

@@ -14,6 +14,20 @@ if CommandLine.arguments.contains("--eval") {
     RunLoop.main.run()
 }
 
+// Dev tool: `EasyWrite --snapshots <dir>` renders every UI surface with sample data to PNGs.
+if let i = CommandLine.arguments.firstIndex(of: "--snapshots") {
+    let args = CommandLine.arguments
+    let dir = args.count > i + 1 ? args[i + 1] : FileManager.default.currentDirectoryPath + "/snapshots"
+    _ = MainActor.assumeIsolated {
+        NSApplication.shared.setActivationPolicy(.accessory)
+    }
+    Task { @MainActor in
+        await Snapshots.run(to: dir)
+        exit(0)
+    }
+    RunLoop.main.run()
+}
+
 MainActor.assumeIsolated {
     let app = NSApplication.shared
     let delegate = AppDelegate()

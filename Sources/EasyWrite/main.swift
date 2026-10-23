@@ -3,6 +3,17 @@ import AppKit
 // Easy Write — system-wide, in-place translator.
 // Menu-bar agent (no Dock icon). Entry point.
 
+// Dev tool: `EasyWrite --eval` scores translation quality offline instead of launching the app.
+// See Eval.swift. Kept in the shipped binary on purpose so contributors can verify that a
+// language or prompt change actually helps, rather than eyeballing a handful of sentences.
+if CommandLine.arguments.contains("--eval") {
+    Task { @MainActor in
+        await Eval.run()
+        exit(0)
+    }
+    RunLoop.main.run()
+}
+
 MainActor.assumeIsolated {
     let app = NSApplication.shared
     let delegate = AppDelegate()

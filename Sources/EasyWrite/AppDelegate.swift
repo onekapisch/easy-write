@@ -193,9 +193,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             NSSound.beep(); return
         }
 
-        let targetLang = Languages.named(Store.shared.targetCode)
-        let language = toEnglish ? "English" : targetLang.name
-        let langNote = toEnglish ? nil : targetLang.note
+        let targetLang = toEnglish ? Languages.named("en") : Languages.named(Store.shared.targetCode)
         let style = Store.shared.styleGuide
         // Read mode (→ English) always shows a popup, since you're usually reading
         // non-editable text (web pages, emails, PDFs) where paste-back can't work.
@@ -207,9 +205,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         Task { @MainActor in
             defer { busy = false }
             do {
-                let result = try await llm.translate(text, toLanguageNamed: language,
-                                                     register: register, styleGuide: style,
-                                                     languageNote: langNote)
+                let result = try await llm.translate(text, to: targetLang,
+                                                     register: register, styleGuide: style)
                 if result.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     NSSound.beep(); flashIcon("exclamationmark.bubble", revertAfter: 1.0); return
                 }

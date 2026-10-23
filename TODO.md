@@ -6,7 +6,10 @@
   tests failed before the fix and pass after it. Native snapshots now use production backgrounds.
 - [x] Verify final signed 2.0.1 build 27, notarize app and DMG, verify mounted payload and Sparkle
   signature. See `docs/notarization-2.0.1-build27.md`.
-- [ ] Verify public immutable 2.0.1 assets and updated signed feed after publication.
+- [x] Public 2.0.1 GitHub assets match the accepted bytes and signatures; matching website
+  deployment is Ready and public download controls point at 2.0.1.
+- [ ] Independently verify canonical XML endpoint bytes; browser XML opening/download and
+  Vercel Git-deployment file-tree inspection were unavailable. Signed source/output match.
 - [ ] Verify an installed 2.0 Sparkle upgrade to 2.0.1. Feed availability is not install completion.
 
 ## Website search content

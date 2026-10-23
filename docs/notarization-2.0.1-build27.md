@@ -56,3 +56,20 @@ Publish new assets under `v2.0.1` before deploying the matching signed feed at
 https://www.onekapisch.com/products/easy-write/appcast.xml. Existing official 2.0 builds
 can check in Settings → Updates. Automatic checks remain optional. Pre-Sparkle 1.x and
 default source builds upgrade manually. Public-byte verification is a separate final step.
+
+## Public verification
+
+- Published `v2.0.1` at commit `a2870d22899224bc3501f81be6aee514fd49d9df`.
+- GitHub release ID `422140388` is public. Versioned/stable DMG API digests match the
+  accepted hash above. Independently downloaded versioned DMG and feed match their originals;
+  Sparkle verifies both signatures, and downloaded DMG staple/Gatekeeper checks pass.
+- Feed SHA-256: `47561763325db7932183c6bebb16f8e55534b4a3421184274706071365ce55df`.
+- Website commit `f63b273d9f66b5fe9cfe4ea64c9d318a83adc256` is Ready in production deployment
+  `dpl_8ehoVtKfyP9Bb3uWy6S1x8Gcqu6a`. All three public download controls, schema and
+  release/source links reference 2.0.1. Website checks pass: 25 general tests, 16 scoped
+  checks, 69 browser checks. Its generated feed matches the signed source byte-for-byte.
+- Direct canonical XML opening is unsupported by the in-app browser; its download check
+  timed out. The Vercel file-tree API also returned 404 for this Git deployment. Therefore
+  canonical-endpoint byte verification is not inferred from deployment status alone.
+- Owner asked to check Settings → Updates → Check for Updates. Installed discovery and
+  completed upgrade remain separate acceptance gates until that result is provided.

@@ -4,6 +4,12 @@ All notable changes to Easy Write are documented here.
 
 ## [2.0.1] — 2026-10-23
 
+### Release verification
+- Published new signed/notarized build-27 assets and deployed the matching signed feed and
+  version-pinned downloads. Public GitHub payload/feed hashes and signatures match local
+  originals. Website production is Ready; installed Sparkle discovery/upgrade still awaits
+  owner acceptance. Canonical XML byte verification was blocked by browser/tool limitations.
+
 ### Fixed
 - Fixed washed-out menu text over bright windows by giving the production panel and cards
   opaque foundations instead of relying on NSPopover's translucent backdrop.

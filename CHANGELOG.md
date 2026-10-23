@@ -2,6 +2,14 @@
 
 All notable changes to Easy Write are documented here.
 
+## Unreleased
+
+### Changed, 2026-10-23
+- Adopted the owner-approved tagline: "Translate and rewrite without switching apps."
+  README, About, Studio entry and launch-artwork templates share the new positioning.
+- This is source/documentation preparation. The signed 2.0.1 installer and feed are unchanged;
+  in-app copy will reach installed users in the next signed release.
+
 ## [2.0.1] — 2026-10-23
 
 ### Release verification

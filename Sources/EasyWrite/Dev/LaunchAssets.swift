@@ -236,9 +236,10 @@ private struct LaunchHero: View {
         ZStack {
             LaunchBackdrop(night: night)
             LaunchBrand(night: night).frame(width: 1092, height: 34).position(x: 600, y: 55)
-            Text("Better words. Same place.").font(.system(size: 72, weight: .semibold)).tracking(-3.7)
+            Text(AppCopy.tagline).font(.system(size: 56, weight: .semibold)).tracking(-2.4)
+                .multilineTextAlignment(.center).frame(width: 1050, height: 130)
                 .foregroundStyle(night ? Color.white : Color(hex: 0x24212E)).position(x: 600, y: 160)
-            Text("Translate and rewrite selected text, right where you’re writing.")
+            Text("Choose your language and tone. Keep your writing on your Mac.")
                 .font(.system(size: 21)).foregroundStyle(night ? Color(hex: 0xAAA0BB) : Color(hex: 0x726B81)).position(x: 600, y: 226)
             LaunchScreenshot(image: image).frame(width: 1040, height: 640).position(x: 600, y: 560)
             HStack {
@@ -306,10 +307,10 @@ private struct SocialArtwork: View {
             LaunchBackdrop()
             HStack(spacing: 8) { AppGlyph(size: 24); Text("Easy Write 2.0").font(.system(size: 14, weight: .semibold)); Spacer(); Text("Free & open source").font(.system(size: 11)) }
                 .foregroundStyle(Color(hex: 0x514A60)).frame(width: 588, height: 24).position(x: 320, y: 32)
-            Text("Better words.\nSame place.").font(.system(size: 36, weight: .semibold)).tracking(-1.6)
+            Text(AppCopy.tagline).font(.system(size: 30, weight: .semibold)).tracking(-1.2)
                 .foregroundStyle(Color(hex: 0x24212E)).frame(width: 235, alignment: .leading).position(x: 145, y: 155)
-            Text("Translate and rewrite.\nPrivately on your Mac.").font(.system(size: 14)).foregroundStyle(Color(hex: 0x726B81))
-                .frame(width: 230, alignment: .leading).position(x: 143, y: 245)
+            Text("On-device. Free and open source.").font(.system(size: 13)).foregroundStyle(Color(hex: 0x726B81))
+                .frame(width: 230, alignment: .leading).position(x: 143, y: 270)
             LaunchScreenshot(image: image).frame(width: 370, height: 250).position(x: 445, y: 187)
         }.frame(width: 640, height: 320).clipped()
     }

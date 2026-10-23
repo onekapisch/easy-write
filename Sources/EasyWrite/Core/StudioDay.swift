@@ -56,7 +56,7 @@ enum StudioDay {
              imageName: "studio_icon_clip", site: "https://clip4breakfast.app"),
         Stop(id: "easy-write", time: "20:15",
              name: "Easy Write", platform: "macOS",
-             tagline: String(localized: "Translate and rewrite text anywhere on your Mac, on-device."),
+             tagline: AppCopy.tagline,
              imageName: "studio_icon_easywrite", site: "https://github.com/onekapisch/easy-write"),
     ]
 

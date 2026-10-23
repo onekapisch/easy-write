@@ -4,7 +4,7 @@
 
 # Easy Write on Mac
 
-### Translate & rewrite text anywhere on your Mac — formal or informal — 100% on-device.
+### Translate and rewrite without switching apps.
 
 Select text in any app, press a shortcut, and it's **replaced in place** with the translation, in the
 tone you choose (German *Sie* vs *du*, French *vous* vs *tu*, …). Or run your own actions: fix the

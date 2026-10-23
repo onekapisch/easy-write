@@ -608,7 +608,7 @@ private struct AboutPage: View {
             AppGlyph(size: 72)
             Text("Easy Write").font(.system(size: 24, weight: .bold))
             Text("Version \(MenuPanelView.version)").foregroundStyle(.secondary)
-            Text("Translate and rewrite text anywhere on your Mac, 100% on-device.")
+            Text(AppCopy.tagline)
                 .multilineTextAlignment(.center)
             HStack(spacing: 16) {
                 Link("onekapisch.com", destination: URL(string: "https://www.onekapisch.com/products/easy-write/")!)

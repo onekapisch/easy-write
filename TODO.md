@@ -1,5 +1,11 @@
 # Release checklist
 
+## Approved positioning
+
+- [x] Use "Translate and rewrite without switching apps." in maintained product copy.
+- [ ] Include prepared About/Studio copy in the next signed app release. Do not replace 2.0.1.
+- [ ] Refresh exported launch artwork from the updated templates before the next media campaign.
+
 ## 2.0.1 appearance patch
 
 - [x] Reproduced missing menu foundation and forced-dark appearance in source; regression

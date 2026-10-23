@@ -28,6 +28,24 @@ Date: 2026-10-23. Baseline: e3590fa. Work branch: fix/v2-release-safety.
 - The live product page exists, but its appcast and public latest-release DMG returned 404 in the
   audit. No website deployment, GitHub publication or domain registration was performed.
 
+## Workflow retest, 2026-10-23
+- Release build passed again. The packaged app passed strict signature verification.
+- Isolated self-tests passed again: 75 passed, zero failed.
+- The signed app's `--smoketest` passed all six real-model checks again: German formal,
+  German informal, German to English, Arabic, streamed grammar correction and oversized-guidance
+  rejection. These test the engine, not the keyboard or replacement UI.
+- Persistent-window navigation worked: Settings opened with Command-comma, and the welcome,
+  History & Privacy and Shortcuts pages opened. History remained off, with no saved entries.
+- Selecting the disposable English sentence in TextEdit and sending Option-Command-T did not
+  produce an observable translation. The welcome practice shortcut also left its text unchanged.
+  The menu Translate action did not yield a verified result either.
+- During automation, the host's frontmost process was the automation VM rather than TextEdit.
+  Easy Write's transient popover also closed during interaction. This prevents a valid physical
+  global-shortcut acceptance test; it does not prove that the app works or identify a code defect.
+- Release remains blocked on physical-keyboard acceptance. Confirm translation, read mode and
+  Bar preview in a native text field, browser textarea and Electron app. Also confirm that changing
+  the selection, field, window or app during generation prevents automatic replacement.
+
 ## Deliberate compatibility trade-off
 Selected text is read through Accessibility, not a synthetic Copy. Automatic replacement requires
 a verifiable AX window, field, range and selected text. Unsupported hosts fall back to a review

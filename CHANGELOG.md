@@ -14,6 +14,8 @@ All notable changes to Easy Write are documented here.
   glossary, style notes, output and framing overhead.
 - Download and Homebrew claims are marked pending; source builds disable updates by default.
 - Added regression tests and release-acceptance documentation.
+- Retested the signed build: 75 isolated checks and six real-model checks passed. Automated
+  global-shortcut and replacement acceptance remains unverified; release is still blocked.
 
 The biggest update yet: a new interface, one shortcut for everything, your own actions, and a
 release tooling for a notarized download with optional updates.
@@ -52,10 +54,10 @@ release tooling for a notarized download with optional updates.
   Accessibility once more, because the app is now signed by OneKapisch.
 
 ### Fixed
-- Read mode left your clipboard changed. The clipboard is now always restored, and Easy Write's
-  temporary paste no longer appears in clipboard managers.
-- If you switch apps while a result is on its way, it goes to your clipboard instead of into the
-  wrong window.
+- Read mode no longer captures the selection through the clipboard. Temporary paste data is
+  marked transient; restoration preserves newer user copies. Clipboard-manager behavior varies.
+- If the source selection cannot be verified when a result arrives, a copyable reader card opens
+  instead of pasting into another field or overwriting the clipboard.
 - ⌘C, ⌘V and ⌘Z work in Easy Write's own text fields.
 
 ## [1.1.1] — 2026-07-14

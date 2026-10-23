@@ -189,8 +189,7 @@ back using macOS APIs. The app must expose its selected text through Accessibili
 not, capture fails safely instead of using unrelated clipboard contents.
 
 **Why not the Mac App Store?** Posting keystrokes to other apps is incompatible with App Store
-sandboxing. Source builds remain supported; the official notarized DMG launch is approved
-and publication is in progress.
+sandboxing. Source builds remain supported; a signed, notarized DMG is available above.
 
 **"Apple Intelligence is still preparing."** Apple Intelligence is on but still downloading its model
 — that happens the first time you turn it on and can take a while. Wait until System Settings →

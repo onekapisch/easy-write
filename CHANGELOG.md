@@ -4,16 +4,18 @@ All notable changes to Easy Write are documented here.
 
 ## [2.0] — 2026-10-23
 
-### Approved public launch — publication in progress
+### Public launch verified
 
-- Owner approved publishing the existing notarized 2.0 build 24. Public GitHub download,
-  product page and signed appcast availability await the coordinating task's live checks.
+- Published the existing notarized 2.0 build 24 with owner approval. Public GitHub downloads
+  match the accepted DMG's SHA-256; the downloaded signed feed is byte-identical and verifies.
+- Deployed the redesigned product page, six guides and shared-action utility on the existing
+  OneKapisch site. All three download links are active; source and release are public.
 - Updated launch documentation for official manual DMG installation, manual 1.x upgrades,
   source builds with updates off by default, and ordinary network/clipboard privacy cautions.
 - Homebrew is not live. Clean-Mac installation, physical app/VoiceOver checks and installed
   Sparkle upgrade acceptance remain unverified; authorization does not complete those checks.
-- This documentation update changes no source/runtime or release artifacts and performs no
-  publication, commit, tag or push. Earlier preparation entries below describe their own scope.
+- No runtime or accepted release artifact changed during publication. Earlier preparation
+  entries below describe their own historical scope.
 
 ### Notarized local installer, 2026-10-23
 - Apple accepted the app and corrected DMG for 2.0 build 24. Both are stapled and
@@ -23,7 +25,7 @@ All notable changes to Easy Write are documented here.
 - Prepared and cryptographically verified a local signed appcast for the exact final DMG.
   No credentials or private keys were exported. No public release or deployment performed.
 - Clean-Mac installation, physical app/VoiceOver checks and installed Sparkle upgrade acceptance
-  remain separate gates. Public download availability still requires coordinator verification.
+  remain separate gates. Public download verification is recorded in the launch entry above.
 
 ### Website research and content, 2026-10-23
 - Added source-backed SEO/GEO research, a 62-query candidate map with explicit evidence labels,
@@ -71,7 +73,7 @@ notarized installer with optional update checks.
 
 ### Added
 - **Notarized installer and optional update checks.** Build 24 and its exact signed payload/feed
-  passed local verification. Publication is in progress; installed upgrade acceptance is unverified.
+  passed local and public-delivery verification. Installed upgrade acceptance is unverified.
 - **Easy Write Bar** (⌥⌘K). Opens next to your selection with every language, tone and action. Type
   to filter, or type any instruction ("sound more excited") and run it once. The result streams in
   before anything changes; ↩ replaces, ⌘C copies, ⌘R tries again.

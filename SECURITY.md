@@ -48,8 +48,8 @@ Generated candidates in `dist/` are ignored by Git. Signing alone does not make 
 candidate safe to distribute: Apple notarization, stapling, Gatekeeper acceptance
 and a matching signed update payload remain release gates. Local 2.0 build 24 has
 passed these static checks, including independent payload-signature verification.
-The owner approved public launch on 2026-10-23; publication is in progress and public
-DMG/feed availability awaits coordinator verification. Approval does not verify clean-Mac
+The owner approved public launch on 2026-10-23. Public DMG bytes and signed feed were
+downloaded and verified against the accepted artifacts. Publication does not verify clean-Mac
 installation, physical compatibility, VoiceOver or an installed Sparkle upgrade; those
 checks remain outstanding. Pre-Sparkle 1.x requires a manual DMG upgrade. Homebrew is not live.
 The first image with post-signing Finder metadata is retained
@@ -95,8 +95,8 @@ bidirectional-override characters are rejected, so what you're shown is exactly 
 
 Replacing selected text in arbitrary apps requires posting synthetic keystrokes, which the App Store
 sandbox forbids. Source builds remain supported with updates disabled by default.
-The notarized 2.0 build-24 DMG is approved for manual distribution; public availability
-awaits the coordinating task's live verification. See [launch status](docs/launch-handoff.md).
+The notarized 2.0 build-24 DMG is publicly available for manual installation.
+See [launch status](docs/launch-handoff.md) for dated public-delivery verification.
 
 ## Reporting a vulnerability
 

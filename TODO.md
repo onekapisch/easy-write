@@ -2,25 +2,22 @@
 
 ## Website search content
 
-- P0: Publication is approved on 2026-10-23. The coordinator must verify the deployed guides,
-  product page, version-pinned DMG and signed feed, then replace publication-in-progress notices
-  with the verified live state. Do not treat approval as proof of public availability.
+- Done 2026-10-23: published the redesigned page, guides, installer and signed feed with owner
+  approval. Public payload bytes/signature and feed bytes/signature passed verification.
 - P1: Establish Search Console/Bing query baselines after approved publication. The 62-query
   research map contains suggestions and proposed variants, not search-volume or install metrics.
 - P1: Native-speaker review of German examples and physical app compatibility evidence before
   stronger quality, savings or customer-outcome claims. See `docs/seo/2026-10-23/`.
 
-## P0: authorized 2.0 publication — coordinator verification pending
+## Completed: 2.0 public delivery, 2026-10-23
 
 - Publish only `dist/notarized-2.0-b24.mHw0DB/EasyWrite-2.0.dmg` (2.0 build 24,
   3,987,107 bytes, SHA-256 `586ab04082d3542d4796d3b930b15f750f01a1e44c0c760569b346a438ed4c6c`)
   and its matching signed appcast. Do not rebuild or mutate the accepted payload for this launch.
-- Coordinator: verify the GitHub release/source state, exact public DMG bytes, canonical product
-  page download control and deployed signed feed. Record dated live evidence in the handoff and
-  replace pending-state wording in README, CHANGELOG, SECURITY, AGENTS and the notarization record.
-- Deploy the generated signed appcast and shared-action page on the existing OneKapisch product
-  path. Keep DMGs on GitHub Releases. Owner publication approval is recorded; this docs task
-  must not deploy, publish, commit, tag or push.
+- Verified public GitHub release/source state, exact DMG bytes, active canonical-page controls
+  and signed feed. See the dated handoff. Versioned and stable-name DMGs have the same hash.
+- Deployed the matching appcast and shared-action page on the existing OneKapisch product path.
+  DMGs remain GitHub Releases assets. Independent physical acceptance is not implied.
 
 ## P0: outstanding acceptance — not completed by publication approval
 
@@ -56,7 +53,7 @@
 
 Use https://www.onekapisch.com/products/easy-write/ as the canonical site. No new domain required.
 Host the page and small appcast on the current site; signed DMGs belong on GitHub Releases.
-Planned DMG: https://github.com/onekapisch/easy-write/releases/download/v2.0/EasyWrite-2.0.dmg.
-Planned feed: https://www.onekapisch.com/products/easy-write/appcast.xml.
-Public availability awaits coordinator verification. Even a verified live feed does not prove
+DMG: https://github.com/onekapisch/easy-write/releases/download/v2.0/EasyWrite-2.0.dmg.
+Feed: https://www.onekapisch.com/products/easy-write/appcast.xml.
+Public availability is verified. Even a verified live feed does not prove
 an installed automatic upgrade succeeded.

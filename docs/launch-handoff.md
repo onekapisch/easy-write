@@ -1,9 +1,9 @@
 # Easy Write 2.0 launch handoff
 
 Updated 2026-10-23. The owner explicitly approved publishing Easy Write 2.0 build 24 now.
-Publication is in progress through the coordinating task; public availability has not yet
-been verified here. This documentation task does not publish, commit, tag, push, rebuild,
-or modify app/runtime/artifacts.
+Publication and public artifact delivery were verified on 2026-10-23 at 09:46 UTC.
+The accepted app/DMG were not rebuilt or changed. Physical compatibility and installed
+upgrade acceptance remain separate from successful public delivery.
 
 ## 1. Website preview: implemented locally
 
@@ -17,8 +17,9 @@ preview tests, static artifact verification and 69 browser checks passed. The
 browser pass produced 75 screenshots; four documented non-fatal Orbit warnings
 remain outside this product page. The founder subsequently approved the page
 direction and requested an official direct-download control. A validated installer now exists;
-the coordinator must activate the version-pinned download and verify the deployed result.
-The control is not an Apple badge. The checks above describe the local preview, not a live deployment.
+the version-pinned download is now active and verified on the deployed page.
+The control is not an Apple badge. The earlier checks above describe the local preview;
+current publication evidence is recorded in section 4.
 
 ## 2. Real workflow film: physical capture required
 
@@ -56,32 +57,42 @@ The superseded unnotarized build-4 image remains local only. The current candida
   setting added Finder metadata after signing. It is quarantined under `rejected/`.
   The corrected layout disables these mutations and has a regression test.
 
-The signed appcast is locally verified; its public deployment awaits coordinator verification.
+The signed appcast is locally verified and its public copy is byte-identical and verifies.
 It was prepared using Sparkle's supported manual signing path after an automated generator
 attempt stalled. No private key was exported.
 See [the notarization record](notarization-2.0-build24.md) for IDs and packaging details.
 Clean-Mac install/launch, installed Sparkle upgrades and physical compatibility remain outstanding.
 
-## 4. Coordinated public launch: approved, publication in progress
+## 4. Coordinated public launch: live and verified
 
 The earlier pre-launch public check reported v1.1.1 with no binary assets and 404 responses
 for the appcast and latest DMG. That is historical evidence, not a current live check.
-The owner has now approved publication. The coordinator owns GitHub/source publication and
-website deployment; this documentation pass changes neither source/runtime nor artifacts.
+The owner approved publication, and the exact accepted artifact has now been published.
 
-Approved destinations (planned, not yet verified live here):
+Verified public destinations:
 
 - DMG: https://github.com/onekapisch/easy-write/releases/download/v2.0/EasyWrite-2.0.dmg
 - Product: https://www.onekapisch.com/products/easy-write/
 - Feed: https://www.onekapisch.com/products/easy-write/appcast.xml
 
-Publish the exact signed payload and matching feed together, switch the website's shared
-CTA state to the version-pinned download, then verify all public URLs. Compare the downloaded
-DMG's size and SHA-256 with section 3, and verify the deployed feed's signature and enclosure
-URL/version/length against the same payload. Confirm the intended 2.0 source/release state.
-Record dated live evidence before replacing publication-in-progress language in README,
-CHANGELOG, TODO, SECURITY, AGENTS and the notarization record. These substitutions belong to
-the coordinator's final verified handoff; approval alone is insufficient.
+- GitHub release `v2.0` is public, non-prerelease and latest, published 09:41 UTC.
+  Annotated tag resolves to `8785ce6fc9bfcf0deb11700b0d924a7ee3e46d1a`.
+- Downloaded both `EasyWrite-2.0.dmg` and stable `EasyWrite.dmg` from GitHub. Both
+  match the size and SHA-256 in section 3. The public versioned DMG passes strict
+  signing, stapler validation, Gatekeeper and Sparkle payload-signature verification.
+- Downloaded the public feed. It is byte-identical to the locally signed feed, is
+  valid XML and passes Sparkle verification. Feed SHA-256:
+  `5474a641d7a99efc0a89ff6c12b23fdae688933b8c1934bbff217c30550172b6`.
+- Production deployment `dpl_HmDk97pEESTQBLQ1ABJfL99vdnqp` is Ready and aliased to
+  `www.onekapisch.com`. It was built from website main commit
+  `d858f20e132c8652af74154a15161d474a1e3fd2`.
+- Live browser verification found the new page, three active pinned download links,
+  source/release links and media. The shared-action utility rendered a synthetic
+  recipe correctly and offered its reviewed-import deep link without auto-opening it.
+- Final website checks: build/lint/syntax, 25 site tests, 13 Easy Write checks,
+  static release verification (48 routes, 51 HTML, 263 files), and 69 browser checks
+  with 75 screenshots passed. Four documented non-fatal Orbit warnings remain.
+  Additional 375px inspection has no visible overflow.
 
 Pre-Sparkle 1.x users need one manual upgrade; they cannot receive an updater retroactively.
 Optional checks in the new build concern future releases and still require user consent.

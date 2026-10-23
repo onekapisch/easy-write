@@ -3,8 +3,8 @@
 Date: 2026-10-23. Owner configured the `easywrite-notary` Keychain profile and
 authorized continuing the previously described notarization workflow. No credential
 was received in chat, exported or added to the repository. The owner subsequently approved
-public launch on the same date. Publication is in progress through the coordinating task;
-this record proves local notarization and payload consistency, not verified live availability.
+public launch on the same date. Publication and public artifact consistency are now verified;
+this does not certify an installed Sparkle upgrade or all physical host-app workflows.
 
 ## Pre-submission gates
 
@@ -95,18 +95,20 @@ the release-configured, notarized build; a default source rebuild disables updat
 ## Publication boundary
 
 The owner approved publishing the existing 2.0 build-24 artifact on 2026-10-23.
-The coordinating task handles GitHub and website publication; this documentation task
-does not publish, commit, tag, push, rebuild or modify runtime/artifacts.
+GitHub and website publication completed without rebuilding or modifying the accepted payload.
 
 - Exact approved payload: `dist/notarized-2.0-b24.mHw0DB/EasyWrite-2.0.dmg`.
-- Planned public download: https://github.com/onekapisch/easy-write/releases/download/v2.0/EasyWrite-2.0.dmg
+- Public download: https://github.com/onekapisch/easy-write/releases/download/v2.0/EasyWrite-2.0.dmg
 - Canonical product page: https://www.onekapisch.com/products/easy-write/
-- Planned signed feed: https://www.onekapisch.com/products/easy-write/appcast.xml
+- Signed feed: https://www.onekapisch.com/products/easy-write/appcast.xml
 
-Public availability remains pending coordinator verification. Record dated evidence that
-the downloaded DMG matches the 3,987,107-byte size and SHA-256 above, the deployed feed
-verifies and matches that payload, and the product page links to the version-pinned asset
-before substituting verified-live status. Do not modify the accepted artifact.
+Public availability was verified on 2026-10-23: downloaded GitHub DMGs (versioned and
+stable name) match the 3,987,107-byte size and SHA-256 above. The downloaded DMG passes
+strict signing, stapler and Gatekeeper again. The deployed feed is byte-identical to the
+signed local feed and verifies with Sparkle; its SHA-256 is
+`5474a641d7a99efc0a89ff6c12b23fdae688933b8c1934bbff217c30550172b6`.
+The live product page has three active, version-pinned links. These checks do not prove
+an installed automatic upgrade. Do not modify the accepted artifact.
 Clean-Mac installation, installed Sparkle upgrades, physical app compatibility and VoiceOver
 remain separate, uncompleted gates. Pre-Sparkle 1.x users upgrade manually; default source
 builds disable updates. Homebrew is not live. No automatic-upgrade success is established.

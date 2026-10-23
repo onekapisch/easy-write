@@ -103,3 +103,9 @@ See [launch status](docs/launch-handoff.md) for dated public-delivery verificati
 If you find a security issue, please **do not open a public issue**. Open a
 [GitHub security advisory](../../security/advisories/new) or email support@onekapisch.com. You'll get
 a response as quickly as possible, and credit if you'd like it.
+## Appearance patch, 2026-10-23
+
+Version 2.0.1 changes local rendering and synthetic developer tests only. It adds no permissions,
+network services, telemetry or text retention. Opaque menu surfaces prevent background content
+from bleeding through; they are a readability measure, not a screen-sharing privacy feature.
+Signed updates preserve the existing public key and opt-in update policy.

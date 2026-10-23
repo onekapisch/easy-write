@@ -1,6 +1,7 @@
 import Foundation
 import AppKit
 import ApplicationServices
+import SwiftUI
 
 /// Dev tool: `EasyWrite --selftest` checks the logic that would fail silently if it broke:
 /// long-text splitting, shared-link validation, settings migration, and Bar search.
@@ -22,12 +23,49 @@ enum SelfTest {
         historyPrivacy()
         await requestSafety()
         contextBudget()
+        appearanceReadability()
         print("\n\(passes) passed, \(failures) failed")
         return failures == 0 ? 0 : 1
     }
 
     private static func check(_ ok: Bool, _ name: String) {
         if ok { passes += 1; print("  ✓ \(name)") } else { failures += 1; print("  ✗ \(name)") }
+    }
+
+    private static func appearanceReadability() {
+        func resolved(_ color: Color, _ name: NSAppearance.Name) -> NSColor {
+            var result = NSColor.black
+            NSAppearance(named: name)!.performAsCurrentDrawingAppearance {
+                result = NSColor(color).usingColorSpace(.sRGB)!
+            }
+            return result
+        }
+        func luminance(_ color: NSColor) -> Double {
+            func linear(_ c: CGFloat) -> Double {
+                let v = Double(c)
+                return v <= 0.04045 ? v / 12.92 : pow((v + 0.055) / 1.055, 2.4)
+            }
+            return 0.2126 * linear(color.redComponent) + 0.7152 * linear(color.greenComponent)
+                + 0.0722 * linear(color.blueComponent)
+        }
+        for name in [NSAppearance.Name.aqua, .darkAqua, .accessibilityHighContrastAqua,
+                     .accessibilityHighContrastDarkAqua] {
+            let card = resolved(EW.cardFill, name)
+            check(card.alphaComponent == 1, "\(name.rawValue): cards are opaque")
+            check(resolved(EW.panelFill, name).alphaComponent == 1, "\(name.rawValue): panel foundation is opaque")
+            for (label, color) in [("primary", EW.text), ("secondary", EW.dim), ("tertiary", EW.faint)] {
+                let a = luminance(resolved(color, name)), b = luminance(card)
+                let ratio = (max(a, b) + 0.05) / (min(a, b) + 0.05)
+                check(ratio >= 4.5, "\(name.rawValue): \(label) text contrast >= 4.5:1")
+                let control = luminance(resolved(EW.controlFill, name))
+                check((max(a, control) + 0.05) / (min(a, control) + 0.05) >= 4.5,
+                      "\(name.rawValue): \(label) control text contrast >= 4.5:1")
+            }
+            let fill = luminance(resolved(EW.accentFill, name))
+            check(1.05 / (fill + 0.05) >= 4.5, "\(name.rawValue): selected control text contrast >= 4.5:1")
+        }
+        check(resolved(EW.text, .aqua) != resolved(EW.text, .darkAqua),
+              "menu text distinguishes light and dark appearance")
     }
 
     private static func privacyDefaults() {

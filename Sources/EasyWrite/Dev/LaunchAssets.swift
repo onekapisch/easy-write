@@ -39,8 +39,6 @@ enum LaunchAssets {
         let barImage = try await render(BarView(model: bar, close: {}).padding(32),
                                         to: root.appendingPathComponent("raw/bar.png"))
         let menuImage = try await render(MenuPanelView(store: store, state: ready, history: history, updates: updates)
-            .background(Color(hex: 0x23222A), in: RoundedRectangle(cornerRadius: 14))
-            .overlay(RoundedRectangle(cornerRadius: 14).strokeBorder(.white.opacity(0.1)))
             .shadow(color: .black.opacity(0.25), radius: 20, y: 10).padding(32),
                                         to: root.appendingPathComponent("raw/menu-bar.png"))
         let reader = ReaderPanel.Model()

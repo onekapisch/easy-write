@@ -1,5 +1,14 @@
 # Release checklist
 
+## 2.0.1 appearance patch
+
+- [x] Reproduced missing menu foundation and forced-dark appearance in source; regression
+  tests failed before the fix and pass after it. Native snapshots now use production backgrounds.
+- [x] Verify final signed 2.0.1 build 27, notarize app and DMG, verify mounted payload and Sparkle
+  signature. See `docs/notarization-2.0.1-build27.md`.
+- [ ] Verify public immutable 2.0.1 assets and updated signed feed after publication.
+- [ ] Verify an installed 2.0 Sparkle upgrade to 2.0.1. Feed availability is not install completion.
+
 ## Website search content
 
 - Done 2026-10-23: published the redesigned page, guides, installer and signed feed with owner

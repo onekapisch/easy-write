@@ -43,8 +43,18 @@ enum Snapshots {
 
         // A · Panel, in all three header states
         for (name, state) in [("a-panel-ready", ready), ("a-panel-needs-access", noAccess), ("a-panel-preparing", preparing)] {
-            await shoot(Wallpaper { Popover { MenuPanelView(store: store, state: state, history: history, updates: updates) } },
+            await shoot(Wallpaper { MenuPanelView(store: store, state: state, history: history, updates: updates) },
                         name, dir)
+        }
+        // The production view owns its background. Never add a substitute popover fill here.
+        for dark in [false, true] {
+            for brightBackdrop in [false, true] {
+                await shoot(MenuPanelView(store: store, state: ready, history: history, updates: updates)
+                    .padding(24).background(brightBackdrop ? Color.white : Color.black),
+                    "a-panel-\(dark ? "dark" : "light")-\(brightBackdrop ? "white" : "black")", dir, dark: dark)
+            }
+            await shootPopover(MenuPanelView(store: store, state: ready, history: history, updates: updates),
+                               "a-popover-\(dark ? "dark" : "light")", dir, dark: dark)
         }
 
         // B · Bar, with a finished preview
@@ -142,6 +152,31 @@ enum Snapshots {
         }
         window.orderOut(nil)
     }
+
+    /// Exercise the exact production NSPopover/hosting-controller configuration too.
+    /// The temporary anchor and captured content are owned by this synthetic test process.
+    private static func shootPopover<V: View>(_ view: V, _ name: String, _ dir: String, dark: Bool) async {
+        let anchor = NSView(frame: NSRect(x: 0, y: 0, width: 800, height: 700))
+        let window = NSWindow(contentRect: anchor.bounds, styleMask: [.borderless], backing: .buffered, defer: false)
+        window.appearance = NSAppearance(named: dark ? .darkAqua : .aqua)
+        window.backgroundColor = .white
+        window.contentView = anchor
+        window.center()
+        window.makeKeyAndOrderFront(nil)
+        let popover = PanelController.makePopover(rootView: view)
+        // Keep the capture alive without requiring activation or changing any user preference.
+        popover.behavior = .applicationDefined
+        defer { popover.close(); window.orderOut(nil) }
+        popover.show(relativeTo: NSRect(x: 380, y: 650, width: 30, height: 25), of: anchor, preferredEdge: .minY)
+        try? await Task.sleep(nanoseconds: 450_000_000)
+        guard let content = popover.contentViewController?.view else { return }
+        content.layoutSubtreeIfNeeded()
+        guard let rep = content.bitmapImageRepForCachingDisplay(in: content.bounds) else { return }
+        content.cacheDisplay(in: content.bounds, to: rep)
+        if let png = rep.representation(using: .png, properties: [:]) {
+            try? png.write(to: URL(fileURLWithPath: dir).appendingPathComponent("\(name).png"))
+        }
+    }
 }
 
 /// The macOS-style wallpaper the promo uses, so surfaces are judged against a real backdrop.
@@ -159,17 +194,6 @@ private struct Wallpaper<Content: View>: View {
                     RadialGradient(colors: [Color(hex: 0xFF9ED8), .clear], center: .bottomLeading, startRadius: 0, endRadius: 360)
                 }
             }
-    }
-}
-
-/// Stands in for NSPopover's dark background, which only exists on screen.
-private struct Popover<Content: View>: View {
-    @ViewBuilder var content: Content
-    var body: some View {
-        content
-            .background(Color(hex: 0x23222A, opacity: 0.97), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(Color.white.opacity(0.1)))
-            .shadow(color: .black.opacity(0.35), radius: 20, y: 10)
     }
 }
 

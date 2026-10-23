@@ -6,18 +6,26 @@ import SwiftUI
 final class PanelController: NSObject {
     static let shared = PanelController()
 
-    private let popover = NSPopover()
+    private var popover = NSPopover()
     private weak var button: NSStatusBarButton?
 
     func attach(to button: NSStatusBarButton) {
         self.button = button
+        popover = Self.makePopover(rootView: MenuPanelView(store: .shared, state: .shared,
+                                                          history: .shared, updates: .shared))
+    }
+
+    /// Shared by the running status item and native container regression captures.
+    static func makePopover<Content: View>(rootView: Content) -> NSPopover {
+        let popover = NSPopover()
         popover.behavior = .transient
         popover.animates = true
-        popover.appearance = NSAppearance(named: .vibrantDark)
-        let host = NSHostingController(rootView: MenuPanelView(store: .shared, state: .shared,
-                                                               history: .shared, updates: .shared))
+        // Inherit the system appearance, including changes while the app is running.
+        popover.appearance = nil
+        let host = NSHostingController(rootView: rootView)
         host.sizingOptions = .preferredContentSize
         popover.contentViewController = host
+        return popover
     }
 
     func toggle() { popover.isShown ? close() : show() }
@@ -63,7 +71,7 @@ struct MenuPanelView: View {
         }
         .padding(12)
         .frame(width: EW.panelWidth)
-        .environment(\.colorScheme, .dark)
+        .background(EW.panelFill)
     }
 
     // MARK: Header
@@ -125,7 +133,7 @@ struct MenuPanelView: View {
         .accessibilityElement(children: .combine)
     }
 
-    private var divider: some View { Rectangle().fill(Color.white.opacity(0.07)).frame(width: 1, height: 26) }
+    private var divider: some View { Rectangle().fill(EW.cardStroke).frame(width: 1, height: 26) }
 
     // MARK: Primary card (or the fix for whatever is blocking)
 
@@ -144,14 +152,14 @@ struct MenuPanelView: View {
                     Image(systemName: "magnifyingglass").font(.system(size: 17, weight: .semibold))
                     VStack(alignment: .leading, spacing: 1) {
                         Text("Open Easy Write Bar").font(.system(size: 13.5, weight: .semibold))
-                        Text("Translate or rewrite the selection").font(.system(size: 11)).opacity(0.78)
+                        Text("Translate or rewrite the selection").font(.system(size: 11))
                     }
                     Spacer()
                     if let s = store.shortcut(for: .bar) { Keycap(text: s.label, onAccent: true) }
                 }
                 .foregroundStyle(.white)
                 .padding(.horizontal, 12).padding(.vertical, 11)
-                .background(LinearGradient(colors: [Color(hex: 0x7E60FF), EW.accentDeep], startPoint: .topLeading, endPoint: .bottomTrailing),
+                .background(LinearGradient(colors: [EW.accentFill, EW.accentDeep], startPoint: .topLeading, endPoint: .bottomTrailing),
                             in: RoundedRectangle(cornerRadius: 12, style: .continuous))
                 .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).strokeBorder(Color.white.opacity(0.18)))
                 .shadow(color: EW.accent.opacity(0.38), radius: 12, y: 6)
@@ -203,9 +211,9 @@ struct MenuPanelView: View {
                 HStack(spacing: 6) {
                     Text("Remembered").font(.system(size: 11)).foregroundStyle(EW.dim)
                     ForEach(prefs.prefix(2), id: \.appName) { p in
-                        Text("\(p.appName) · \(p.tone.title)").font(.system(size: 11)).foregroundStyle(EW.text.opacity(0.85))
+                        Text("\(p.appName) · \(p.tone.title)").font(.system(size: 11)).foregroundStyle(EW.text)
                             .padding(.horizontal, 6).padding(.vertical, 2)
-                            .background(Color.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 5))
+                            .background(EW.controlFill, in: RoundedRectangle(cornerRadius: 5))
                             .lineLimit(1)
                     }
                     if prefs.count > 2 { Text("+\(prefs.count - 2)").font(.system(size: 11)).foregroundStyle(EW.dim) }
@@ -282,7 +290,7 @@ struct MenuPanelView: View {
             }
         }
         .padding(.horizontal, 2).padding(.top, 9)
-        .overlay(alignment: .top) { Rectangle().fill(Color.white.opacity(0.07)).frame(height: 1) }
+        .overlay(alignment: .top) { Rectangle().fill(EW.cardStroke).frame(height: 1) }
     }
 
     static var version: String { (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "2.0" }
@@ -312,7 +320,7 @@ struct LanguageChip: View {
                 Image(systemName: "chevron.down").font(.system(size: 9, weight: .bold)).foregroundStyle(EW.dim)
             }
             .padding(.horizontal, 8).padding(.vertical, 4)
-            .background(Color.white.opacity(0.08), in: RoundedRectangle(cornerRadius: 7, style: .continuous))
+            .background(EW.controlFill, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)

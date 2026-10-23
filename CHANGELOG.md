@@ -2,6 +2,18 @@
 
 All notable changes to Easy Write are documented here.
 
+## [2.0.1] — 2026-10-23
+
+### Fixed
+- Fixed washed-out menu text over bright windows by giving the production panel and cards
+  opaque foundations instead of relying on NSPopover's translucent backdrop.
+- The menu now follows system light and dark appearance. Text, controls, language chips,
+  shortcut keycaps and status colors use appearance-aware colors with stronger contrast.
+- Retained the purple accent, native typography and existing layout. Translation and
+  replacement behavior, privacy settings and update consent are unchanged.
+- Removed substitute menu backgrounds from developer captures so they cannot mask this bug.
+  Added light/dark, high-contrast, control-contrast and backdrop-independence regression checks.
+
 ## [2.0] — 2026-10-23
 
 ### Public launch verified

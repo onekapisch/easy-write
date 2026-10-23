@@ -8,7 +8,10 @@ and `Dev` contains self-tests, snapshots and model evaluation. Do not introduce 
 
 ## Design
 Preserve the current studio design. Reuse `UI/Theme.swift`: purple accent #7C5CFF,
-dark layered panels with native macOS typography. Settings and onboarding use existing native
+layered panels with native macOS typography. The menu follows system light/dark appearance
+with opaque panel/card/control foundations and contrast-tested semantic colors. Never force
+vibrant dark appearance or rely on the desktop behind a popover for its text contrast.
+Settings and onboarding use existing native
 controls. Respect Reduce Motion and preserve VoiceOver labels. No unrelated redesigns.
 
 ## Safety
@@ -23,6 +26,8 @@ Keep AI inference local. Update checks are optional; disclose external links sep
 `./.build/release/EasyWrite --smoketest` uses only synthetic text and the real on-device model.
 `bash -n build.sh release.sh setup-signing.sh`
 `python3 -m unittest discover -s dmg -p test_settings.py` checks the safe DMG layout.
+`node --test tools/appearance.test.mjs` checks appearance wiring and truthful snapshot coverage.
+`swift tools/verify-appearance.swift <snapshot-directory>` checks backdrop-independent menu pixels.
 `./build.sh` packages locally and signs; it does not publish.
 `EasyWrite --snapshots <temporary-directory>` uses synthetic sample data.
 `bash tools/launch-assets/export.sh` creates native launch media. Its owned-window recording

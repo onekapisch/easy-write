@@ -1,23 +1,37 @@
 import SwiftUI
 import AppKit
 
-/// Easy Write's visual language, matching the OneKapisch menu-bar apps: dark rounded panels,
+/// Easy Write's visual language, matching the OneKapisch menu-bar apps: layered panels,
 /// tinted icon squares, keycaps, one purple accent, and green / amber / red only for state.
 enum EW {
     static let accent      = Color(hex: 0x7C5CFF)
+    static let accentFill  = Color(hex: 0x6C49EC)
     static let accentDeep  = Color(hex: 0x5A3EE4)
-    static let accentText  = Color(hex: 0xB3A4FF)
-    static let pink        = Color(hex: 0xFF94CC)
-    static let blue        = Color(hex: 0x8CC0FF)
-    static let good        = Color(hex: 0x3DD68C)
-    static let warn        = Color(hex: 0xF0B04A)
-    static let bad         = Color(hex: 0xF2766B)
-    static let text        = Color(hex: 0xEDEBF5)
-    static let dim         = Color(hex: 0x8F8BA4)
-    static let faint       = Color(hex: 0x6F6B84)
-    static let cardFill    = Color.white.opacity(0.045)
-    static let cardStroke  = Color.white.opacity(0.065)
+    static let accentText  = adaptive(light: 0x5934BE, dark: 0xC3B5FF)
+    static let pink        = adaptive(light: 0x9F2868, dark: 0xFF94CC)
+    static let blue        = adaptive(light: 0x245CA6, dark: 0x8CC0FF)
+    static let good        = adaptive(light: 0x11633D, dark: 0x3DD68C)
+    static let warn        = adaptive(light: 0x855000, dark: 0xF0B04A)
+    static let bad         = adaptive(light: 0xB72E2E, dark: 0xF2766B)
+    static let text        = adaptive(light: 0x211D2E, dark: 0xF1EEF8)
+    static let dim         = adaptive(light: 0x595269, dark: 0xB6B0C6)
+    static let faint       = adaptive(light: 0x625B73, dark: 0xA39CB5)
+    // Opaque foundations: a bright window behind the popover must never wash out its text.
+    static let panelFill   = adaptive(light: 0xFBFAFE, dark: 0x1E1C26)
+    static let cardFill    = adaptive(light: 0xF0EDF6, dark: 0x292632)
+    static let controlFill = adaptive(light: 0xE5DFEF, dark: 0x35303F)
+    static let cardStroke  = adaptive(light: 0xD8D1E4, dark: 0x474051)
     static let panelWidth: CGFloat = 336
+
+    private static func adaptive(light: UInt32, dark: UInt32) -> Color {
+        Color(nsColor: NSColor(name: nil) { appearance in
+            let isDark = appearance.bestMatch(from: [.aqua, .darkAqua]) == .darkAqua
+            let hex = isDark ? dark : light
+            return NSColor(srgbRed: CGFloat((hex >> 16) & 255) / 255,
+                           green: CGFloat((hex >> 8) & 255) / 255,
+                           blue: CGFloat(hex & 255) / 255, alpha: 1)
+        })
+    }
 }
 
 extension Color {
@@ -68,11 +82,11 @@ struct Keycap: View {
         Text(text)
             .font(.system(size: size, weight: .semibold))
             .tracking(0.3)
-            .foregroundStyle(onAccent ? Color.white : EW.text.opacity(0.92))
+            .foregroundStyle(onAccent ? Color.white : EW.text)
             .padding(.horizontal, size * 0.55)
             .padding(.vertical, size * 0.3)
-            .background(Color.white.opacity(onAccent ? 0.18 : 0.10), in: RoundedRectangle(cornerRadius: 6, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 6, style: .continuous).strokeBorder(Color.white.opacity(onAccent ? 0.28 : 0.14)))
+            .background(onAccent ? Color.black.opacity(0.12) : EW.controlFill, in: RoundedRectangle(cornerRadius: 6, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 6, style: .continuous).strokeBorder(onAccent ? Color.white.opacity(0.35) : EW.cardStroke))
             .accessibilityLabel("Shortcut \(Self.spoken(text))")
     }
 
@@ -169,15 +183,15 @@ struct ToneControl: View {
                     HStack(spacing: 4) {
                         Text(t.title)
                         if let lang, let p = t.pronoun(in: lang) {
-                            Text(p).foregroundStyle(tone == t ? Color.white.opacity(0.75) : EW.faint)
+                            Text(p).foregroundStyle(tone == t ? Color.white : EW.faint)
                         }
                     }
                     .font(.system(size: 11.5, weight: tone == t ? .semibold : .regular))
-                    .foregroundStyle(tone == t ? Color.white : EW.text.opacity(0.72))
+                    .foregroundStyle(tone == t ? Color.white : EW.dim)
                     .frame(maxWidth: .infinity, minHeight: 24)
                     .background {
                         if tone == t {
-                            RoundedRectangle(cornerRadius: 6, style: .continuous).fill(EW.accent)
+                            RoundedRectangle(cornerRadius: 6, style: .continuous).fill(EW.accentFill)
                                 .shadow(color: EW.accent.opacity(0.5), radius: 4, y: 1)
                         }
                     }
@@ -189,7 +203,7 @@ struct ToneControl: View {
             }
         }
         .padding(2)
-        .background(Color.black.opacity(0.28), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .background(EW.controlFill, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
         .animation(.easeOut(duration: 0.15), value: tone)
     }
 }
@@ -215,10 +229,10 @@ struct EWButtonStyle: ButtonStyle {
                 .padding(.vertical, 6)
                 .background(
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .fill(kind == .primary ? EW.accent : Color.white.opacity(configuration.isPressed ? 0.14 : 0.08))
+                        .fill(kind == .primary ? EW.accentFill : EW.controlFill)
                 )
                 .overlay(RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .strokeBorder(Color.white.opacity(kind == .primary ? 0.2 : 0.1)))
+                    .strokeBorder(kind == .primary ? Color.white.opacity(0.2) : EW.cardStroke))
                 .shadow(color: kind == .primary ? EW.accent.opacity(0.45) : .clear, radius: 7, y: 3)
                 .opacity(isEnabled ? (configuration.isPressed ? 0.85 : 1) : 0.4)
         }
@@ -234,10 +248,10 @@ struct IconButton: View {
         Button(action: action) {
             Image(systemName: symbol)
                 .font(.system(size: 12, weight: .medium))
-                .foregroundStyle(EW.text.opacity(0.8))
+                .foregroundStyle(EW.text)
                 .frame(width: 26, height: 26)
-                .background(Color.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 7, style: .continuous))
-                .overlay(RoundedRectangle(cornerRadius: 7, style: .continuous).strokeBorder(Color.white.opacity(0.07)))
+                .background(EW.controlFill, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
+                .overlay(RoundedRectangle(cornerRadius: 7, style: .continuous).strokeBorder(EW.cardStroke))
                 .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
@@ -283,7 +297,7 @@ struct LangBadge: View {
             .font(.system(size: 9.5, weight: .bold))
             .foregroundStyle(.white)
             .padding(.horizontal, 4).padding(.vertical, 2)
-            .background(EW.accent, in: RoundedRectangle(cornerRadius: 4, style: .continuous))
+            .background(EW.accentFill, in: RoundedRectangle(cornerRadius: 4, style: .continuous))
             .accessibilityHidden(true)
     }
 }

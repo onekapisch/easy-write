@@ -11,7 +11,7 @@ tone you choose (German *Sie* vs *du*, French *vous* vs *tu*, …). Or run your 
 grammar, make it shorter, reply politely. Powered entirely by Apple's **on-device** model (Apple
 Intelligence). **No accounts. No API keys. No cloud.** Your text never leaves your Mac.
 
-**Easy Write 2.0.** [Download free for macOS](https://github.com/onekapisch/easy-write/releases/download/v2.0/EasyWrite-2.0.dmg).
+**Easy Write 2.0.1.** [Download free for macOS](https://github.com/onekapisch/easy-write/releases/download/v2.0.1/EasyWrite-2.0.1.dmg).
 Developer-ID signed and notarized. Requires Apple Silicon, macOS 26+, and Apple Intelligence ready.
 See [launch status](docs/launch-handoff.md) for verification evidence and compatibility limits.
 
@@ -58,6 +58,14 @@ up, and it understands formality, which a plain dictionary translator can't.
 
 See the full [changelog](CHANGELOG.md).
 
+### Appearance fix in 2.0.1
+
+The menu now follows macOS light/dark appearance and uses opaque surfaces for readable text
+over bright or dark windows. Existing 2.0 installations with update checks enabled can receive
+this patch through Sparkle; use Settings → Updates → Check for Updates.
+Pre-Sparkle 1.x and default source builds still need a manual upgrade. Publishing the feed
+makes an update available; it does not force installation or override update consent.
+
 ## What you get
 
 - ⚡ **Translate in place** — select → shortcut → replaced, in any app
@@ -95,18 +103,18 @@ private, nothing to set up, register-aware).
 
 ## ⬇️ Install
 
-**Official manual DMG install (2.0, build 24).**
+**Official manual DMG install (2.0.1, build 27).**
 
 1. Quit any running copy of Easy Write or EasyWrite before installing or upgrading.
-2. Download [EasyWrite-2.0.dmg](https://github.com/onekapisch/easy-write/releases/download/v2.0/EasyWrite-2.0.dmg),
+2. Download [EasyWrite-2.0.1.dmg](https://github.com/onekapisch/easy-write/releases/download/v2.0.1/EasyWrite-2.0.1.dmg),
    open it, and drag **Easy Write.app** to **Applications**. Replace the existing copy if prompted.
 3. Launch **Easy Write** from Applications. Grant access in System Settings → Privacy & Security →
    Accessibility. If an old grant no longer works, remove the stale entry and enable the installed copy.
 4. Enable Apple Intelligence and wait until its model is ready. The welcome window checks
    Accessibility and model readiness, then offers a practice swap. Use disposable text first.
 
-The installer is 3,987,107 bytes. SHA-256:
-`586ab04082d3542d4796d3b930b15f750f01a1e44c0c760569b346a438ed4c6c`.
+The installer is 4,006,824 bytes. SHA-256:
+`be47cf44102634baa07c79dac0dbe390ddc8e755ef2c75d18d48864ebf1ead03`.
 The [product page](https://www.onekapisch.com/products/easy-write/) is the canonical site.
 Homebrew is **not live**; no Homebrew installation is offered for this launch.
 
@@ -116,7 +124,7 @@ Use the version tag below to build this release.
 ```bash
 git clone https://github.com/onekapisch/easy-write.git
 cd easy-write
-git checkout v2.0
+git checkout v2.0.1
 ./setup-signing.sh      # once, if you don't have a Developer ID: keeps the Accessibility grant across rebuilds
 ./build.sh              # compile + bundle + sign → "Easy Write.app"
 cp -R "Easy Write.app" /Applications/

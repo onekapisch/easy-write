@@ -4,6 +4,15 @@ All notable changes to Easy Write are documented here.
 
 ## [2.0] (unreleased)
 
+### Launch preparation, 2026-10-23
+- Implemented the product-page preview in an isolated OneKapisch website branch,
+  with release-state-aware source links and native media. No deployment performed.
+- Prepared and locally verified a Developer-ID-signed DMG, mounted-binary tests
+  and a Sparkle signature round-trip. Notarization is blocked by missing credentials;
+  Gatekeeper rejection is recorded, not treated as a pass.
+- Ignored generated release artifacts under `dist/` and recorded remaining physical
+  recording, notarization, update acceptance and publication gates in the launch handoff.
+
 ### Launch media, 2026-10-23
 - Added a project-local launch kit: menu-bar panel, Bar, tone, reader and action images,
   Daylight and Midnight heroes, GitHub social artwork, and raw native UI renders.

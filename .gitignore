@@ -6,6 +6,7 @@ Package.resolved
 # Build output
 EasyWrite.app/
 *.app
+dist/
 
 # macOS
 .DS_Store

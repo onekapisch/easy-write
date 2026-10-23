@@ -1,6 +1,6 @@
 # Easy Write 2.0 website redesign
 
-Proposal for review. Not approved for implementation or publication. Evidence checked 2026-10-23. Scope: the existing OneKapisch product URL only. No app redesign, new domain or website changes in this task.
+Design approved for local implementation on 2026-10-23. A preview is now implemented in the isolated website branch `codex/easy-write-v2-product-page`; publication remains unapproved. Scope: the existing OneKapisch product URL only. No new domain or live deployment. See [launch handoff](../../docs/launch-handoff.md) for current gates; the detailed proposal below records the original design and acceptance criteria.
 
 ## Direction and audience
 

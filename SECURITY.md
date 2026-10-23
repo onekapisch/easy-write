@@ -36,6 +36,12 @@ and still request user consent for checks. Clicking a Studio, support, source or
 opens an external site in the browser. Studio links include product/campaign attribution parameters,
 not selected text. The destination can receive normal browser network metadata.
 
+Generated candidates in `dist/` are ignored by Git. Signing alone does not make a
+candidate safe to distribute: Apple notarization, stapling, Gatekeeper acceptance
+and a matching signed update payload remain release gates. The current local
+candidate is explicitly unnotarized. Credentials and private keys stay in Keychain;
+local preparation does not export them.
+
 ## What's stored on your Mac
 
 | What | Where | Your control |

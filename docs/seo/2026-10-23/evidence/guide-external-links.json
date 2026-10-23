@@ -1,0 +1,87 @@
+[
+  {
+    "url": "https://developer.apple.com/design/human-interface-guidelines/generative-ai",
+    "status": 200,
+    "final": "https://developer.apple.com/design/human-interface-guidelines/generative-ai"
+  },
+  {
+    "url": "https://github.com/onekapisch/easy-write",
+    "status": 200,
+    "final": "https://github.com/onekapisch/easy-write"
+  },
+  {
+    "url": "https://github.com/onekapisch/easy-write/releases",
+    "status": 200,
+    "final": "https://github.com/onekapisch/easy-write/releases"
+  },
+  {
+    "url": "https://refine.sh/features",
+    "status": 200,
+    "final": "https://refine.sh/features"
+  },
+  {
+    "url": "https://refine.sh/guides/how-refine-works",
+    "status": 200,
+    "final": "https://refine.sh/guides/how-refine-works"
+  },
+  {
+    "url": "https://reword.in/",
+    "status": 200,
+    "final": "https://reword.in/"
+  },
+  {
+    "url": "https://rewritebar.com/blog/2025/how-to-setup-apple-intelligence",
+    "status": 200,
+    "final": "https://rewritebar.com/blog/2025/how-to-setup-apple-intelligence"
+  },
+  {
+    "url": "https://rewritebar.com/docs/core-features/create-commands",
+    "status": 200,
+    "final": "https://rewritebar.com/docs/core-features/create-commands"
+  },
+  {
+    "url": "https://support.apple.com/en-us/121115",
+    "status": 200,
+    "final": "https://support.apple.com/en-us/121115"
+  },
+  {
+    "url": "https://support.apple.com/guide/mac-help/allow-accessibility-apps-to-access-your-mac-mh43185/mac",
+    "status": 200,
+    "final": "https://support.apple.com/guide/mac-help/allow-accessibility-apps-to-access-your-mac-mh43185/mac"
+  },
+  {
+    "url": "https://support.apple.com/guide/mac-help/create-keyboard-shortcuts-for-apps-mchlp2271/mac",
+    "status": 200,
+    "final": "https://support.apple.com/guide/mac-help/create-keyboard-shortcuts-for-apps-mchlp2271/mac"
+  },
+  {
+    "url": "https://support.apple.com/guide/mac-help/writing-tools-write-improve-summarize-mchldcd6c260/mac",
+    "status": 200,
+    "final": "https://support.apple.com/guide/mac-help/writing-tools-write-improve-summarize-mchldcd6c260/mac"
+  },
+  {
+    "url": "https://support.deepl.com/hc/en-us/articles/4406432804498-Use-the-formality-feature",
+    "status": 403,
+    "result": "unreachable/blocked; inspect before calling broken"
+  },
+  {
+    "url": "https://www.apple.com/privacy/features/",
+    "status": 200,
+    "final": "https://www.apple.com/privacy/features/"
+  },
+  {
+    "url": "https://www.duden.de/rechtschreibung/Sie_Anrede",
+    "status": 200,
+    "final": "https://www.duden.de/rechtschreibung/Sie_Anrede"
+  },
+  {
+    "url": "https://www.duden.de/rechtschreibung/du",
+    "status": 200,
+    "final": "https://www.duden.de/rechtschreibung/du"
+  },
+  {
+    "url": "https://www.duden.de/rechtschreibung/ihr_Anrede_2_Person",
+    "status": 200,
+    "final": "https://www.duden.de/rechtschreibung/ihr_Anrede_2_Person"
+  }
+]

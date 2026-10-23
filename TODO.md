@@ -1,5 +1,13 @@
 # Release checklist
 
+## Website search content
+- P0: Review the dated six-guide website preview before separate publication approval. Retain
+  source-only/preview notices until a validated public distribution exists.
+- P1: Establish Search Console/Bing query baselines after approved publication. The 62-query
+  research map contains suggestions and proposed variants, not search-volume or install metrics.
+- P1: Native-speaker review of German examples and physical app compatibility evidence before
+  stronger quality, savings or customer-outcome claims. See `docs/seo/2026-10-23/`.
+
 ## P0: before publishing 2.0
 - Complete the physical workflow recording and notarization credential handoff in
   `docs/launch-handoff.md`. A signed local candidate exists but is not distributable.

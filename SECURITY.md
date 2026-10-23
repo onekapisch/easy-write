@@ -1,5 +1,13 @@
 # Security & Privacy
 
+## Website research documents
+
+The dated `docs/seo/` package uses public search/vendor evidence and authored synthetic examples.
+It adds no app network requests, diagnostics or text retention. Deployable guides are maintained
+in the separate OneKapisch website; those routes do not add analytics or submit visitor text.
+Website hosting can receive ordinary request metadata. Never add private selections, support
+documents or actual customer messages to the research package without explicit permission.
+
 Easy Write is designed to be private by default. This document explains exactly what it does, what
 permissions it needs and why, and how to report a security issue.
 

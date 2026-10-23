@@ -1,0 +1,114 @@
+[
+  {
+    "path": "/products/easy-write/",
+    "status": 200,
+    "headers": {
+      "Accept-Ranges": "bytes",
+      "Access-Control-Allow-Origin": "*",
+      "Age": "392161",
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Disposition": "inline; filename=\"easy-write\"",
+      "Content-Length": "13663",
+      "Content-Security-Policy-Report-Only": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self' https://cdn.jsdelivr.net; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
+      "Content-Type": "text/html; charset=utf-8",
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Date": "Fri, 23 Oct 2026 06:03:02 GMT",
+      "Etag": "\"40ff2aa9caa46345a8116ee76b22566a\"",
+      "Last-Modified": "Sun, 18 Oct 2026 17:07:00 GMT",
+      "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "Server": "Vercel",
+      "Strict-Transport-Security": "max-age=63072000",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "X-Vercel-Cache": "HIT",
+      "X-Vercel-Id": "fra1::lnvlr-1792735382602-1cec46aa008d",
+      "Connection": "close"
+    },
+    "title": [
+      "Easy Write \u00b7 OneKapisch"
+    ],
+    "robots": [],
+    "canonical": [
+      "<link rel=\"canonical\" href=\"https://www.onekapisch.com/products/easy-write/\">"
+    ],
+    "h1": [
+      "Translate and rewrite text anywhere on your Mac, 100% on-device."
+    ],
+    "schemaCount": 1,
+    "bytes": 13631,
+    "robotsOrSitemap": ""
+  },
+  {
+    "path": "/robots.txt",
+    "status": 200,
+    "headers": {
+      "Accept-Ranges": "bytes",
+      "Access-Control-Allow-Origin": "*",
+      "Age": "639070",
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Disposition": "inline; filename=\"robots.txt\"",
+      "Content-Length": "414",
+      "Content-Security-Policy-Report-Only": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self' https://cdn.jsdelivr.net; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Date": "Fri, 23 Oct 2026 06:03:02 GMT",
+      "Etag": "\"565f5c73628d2af00f51951dc6f0d8d3\"",
+      "Last-Modified": "Thu, 15 Oct 2026 20:31:52 GMT",
+      "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "Server": "Vercel",
+      "Strict-Transport-Security": "max-age=63072000",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "X-Vercel-Cache": "HIT",
+      "X-Vercel-Id": "fra1::zk54n-1792735382650-a273ed444874",
+      "Connection": "close"
+    },
+    "title": [],
+    "robots": [],
+    "canonical": [],
+    "h1": [],
+    "schemaCount": 0,
+    "bytes": 414,
+    "robotsOrSitemap": "# OneKapisch studio site\n# Search and AI-search crawlers welcome on public pages.\n# GPTBot (model-training crawl) is disallowed as publisher policy.\nUser-agent: *\nAllow: /\n\nUser-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: GPTBot\nDisallow: /\n\n# The Another Universe experience is noindex by meta tag, not blocked here,\n# so link equity still flows (noindex, follow).\n\nSitemap: https://www.onekapisch.com/sitemap.xml\n"
+  },
+  {
+    "path": "/sitemap.xml",
+    "status": 200,
+    "headers": {
+      "Accept-Ranges": "bytes",
+      "Access-Control-Allow-Origin": "*",
+      "Age": "84135",
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Disposition": "inline; filename=\"sitemap.xml\"",
+      "Content-Length": "4341",
+      "Content-Security-Policy-Report-Only": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self' https://cdn.jsdelivr.net; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
+      "Content-Type": "application/xml",
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Date": "Fri, 23 Oct 2026 06:03:02 GMT",
+      "Etag": "\"0956bebea645121a3b3e0d313f052d1c\"",
+      "Last-Modified": "Thu, 22 Oct 2026 06:40:46 GMT",
+      "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "Server": "Vercel",
+      "Strict-Transport-Security": "max-age=63072000",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "X-Vercel-Cache": "HIT",
+      "X-Vercel-Id": "fra1::ddq6h-1792735382596-4c90ed20a647",
+      "Connection": "close"
+    },
+    "title": [],
+    "robots": [],
+    "canonical": [],
+    "h1": [],
+    "schemaCount": 0,
+    "bytes": 4341,
+    "robotsOrSitemap": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url><loc>https://www.onekapisch.com/handlefree/</loc><lastmod>2026-09-21</lastmod></url>\n  <url><loc>https://www.onekapisch.com/</loc><lastmod>2026-09-21</lastmod></url>\n  <url><loc>https://www.onekapisch.com/products/</loc><lastmod>2026-09-21</lastmod></url>\n  <url><loc>https://www.onekapisch.com/products/tokens-4-breakfast/</loc><lastmod>2026-09-21</lastmod></url>\n  <url><loc>https://www.onekapisch.com/products/mac-4-breakfast/</loc><lastmod>2026-09-21</lastmod></url>\n  <url><loc>https://www.onekapisch.com/products/lumel/</loc><lastmod>2026-09-21</lastmod></url>\n  <url><loc>https://www.onekapisch.com/products/skylocation/</loc><lastmod>2026-09-21</lastmod></url>\n  <url><loc>https://www.onekapisch.com/products/wifi-4-breakfast/</loc><lastmod>2026-09-21</lastmod></url>\n  <url><loc>https://www.onekapisch.com/products/clip-4-breakfast/</loc><lastmod>2026-09-21</lastmod></url>\n  <url><loc>https://www.onekapisch.com/products/chime-4-breakfast/</loc><lastmod>2026-09-21</lastmod></url>\n  <url><loc>https://www.onekapisch.com/products/easy-write/</loc><lastmod>2026-09-21</lastmod></url>\n  <url><loc>https://www.onekapisch.com/products/minimizer/</loc><lastmod>2026-09-21</lastmod></url>\n  <url><loc>https://www.onekapisch.com/products/unfold-ai/</loc><lastmod>2026-09-21</lastmod></url>\n  <url><loc>https://www.onekapisch.com/products/tminus-ai/</loc><lastmod>2026-09-21</lastmod></url>\n  <url><loc>https://www.onekapisch.com/products/life-hacks-germany/</loc><lastmod>2026-09-21</lastmod></url>\n  <url><loc>https://www.onekapisch.com/products/tank-alert/</loc><lastmod>2026-09-21</lastmod></url>\n  <url><loc>https://www.onekapisch.com/collections/ai-builders/</loc><lastmod>2026-09-21</l"
+  },
+  {
+    "path": "/llms.txt",
+    "error": "HTTP Error 404: Not Found"
+  }
+]

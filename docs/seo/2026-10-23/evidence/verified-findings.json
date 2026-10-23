@@ -1,0 +1,115 @@
+{
+  "findings": [
+    {
+      "area": "Search intent",
+      "severity": "Warning",
+      "confidence": "Confirmed",
+      "finding": "Live title is \u201cEasy Write \u00b7 OneKapisch\u201d; product page has a brief workflow and no Easy Write guide links",
+      "evidence": "Live title is \u201cEasy Write \u00b7 OneKapisch\u201d; product page has a brief workflow and no Easy Write guide links",
+      "fix": "Add focused guides and descriptive title; retain brand and version clarity",
+      "source": "FULL-AUDIT-REPORT.md",
+      "sources": [
+        "FULL-AUDIT-REPORT.md"
+      ]
+    },
+    {
+      "area": "Requirements",
+      "severity": "Warning",
+      "confidence": "Confirmed",
+      "finding": "Live requirements say \u201cmacOS. See the repository README.\u201d",
+      "evidence": "Live requirements say \u201cmacOS. See the repository README.\u201d",
+      "fix": "State Apple Silicon, macOS 26+, Apple Intelligence/model readiness and Accessibility locally",
+      "source": "FULL-AUDIT-REPORT.md",
+      "sources": [
+        "FULL-AUDIT-REPORT.md"
+      ]
+    },
+    {
+      "area": "Release clarity",
+      "severity": "Warning",
+      "confidence": "Confirmed",
+      "finding": "Local 2.0 UI exceeds public 1.1.1; latest GitHub release API has no binary assets",
+      "evidence": "Local 2.0 UI exceeds public 1.1.1; latest GitHub release API has no binary assets",
+      "fix": "Distinguish public 1.x and local preview on every guide; no fictitious download CTA",
+      "source": "FULL-AUDIT-REPORT.md",
+      "sources": [
+        "FULL-AUDIT-REPORT.md"
+      ]
+    },
+    {
+      "area": "Content freshness",
+      "severity": "Warning",
+      "confidence": "Confirmed",
+      "finding": "Live body \u201cFacts verified 2026-08-27\u201d; sitemap uses 2026-09-21 across inspected entries",
+      "evidence": "Live body \u201cFacts verified 2026-08-27\u201d; sitemap uses 2026-09-21 across inspected entries",
+      "fix": "Update only actually reviewed/changed Easy Write URLs; avoid resetting all site dates",
+      "source": "FULL-AUDIT-REPORT.md",
+      "sources": [
+        "FULL-AUDIT-REPORT.md"
+      ]
+    },
+    {
+      "area": "Unique value",
+      "severity": "Warning",
+      "confidence": "Confirmed",
+      "finding": "Direct competitors advertise local rewriting and formality",
+      "evidence": "Direct competitors advertise local rewriting and formality",
+      "fix": "Use original examples and product mechanics; remove unsupported \u201conly\u201d claims from proposed marketing",
+      "source": "FULL-AUDIT-REPORT.md",
+      "sources": [
+        "FULL-AUDIT-REPORT.md"
+      ]
+    },
+    {
+      "area": "llms.txt",
+      "severity": "Info",
+      "confidence": "Confirmed",
+      "finding": "Live request returns 404",
+      "evidence": "Live request returns 404",
+      "fix": "Optional documentation only; absence is not an indexing issue",
+      "source": "FULL-AUDIT-REPORT.md",
+      "sources": [
+        "FULL-AUDIT-REPORT.md"
+      ]
+    },
+    {
+      "area": "Crawlability",
+      "severity": "Pass",
+      "confidence": "Confirmed",
+      "finding": "Product HTML, robots.txt and sitemap return HTTP 200; no page noindex or X-Robots-Tag observed; canonical matches the product URL",
+      "evidence": "Product HTML, robots.txt and sitemap return HTTP 200; no page noindex or X-Robots-Tag observed; canonical matches the product URL",
+      "fix": "Preserve at approved deployment; check CDN/WAF treatment with owner tools",
+      "source": "FULL-AUDIT-REPORT.md",
+      "sources": [
+        "FULL-AUDIT-REPORT.md"
+      ]
+    },
+    {
+      "area": "Search crawlers",
+      "severity": "Pass",
+      "confidence": "Confirmed",
+      "finding": "robots.txt explicitly allows OAI-SearchBot; wildcard permits other public crawlers; GPTBot is deliberately blocked",
+      "evidence": "robots.txt explicitly allows OAI-SearchBot; wildcard permits other public crawlers; GPTBot is deliberately blocked",
+      "fix": "Preserve search/training distinction; no reason to enable training for discovery",
+      "source": "FULL-AUDIT-REPORT.md",
+      "sources": [
+        "FULL-AUDIT-REPORT.md"
+      ]
+    },
+    {
+      "area": "Structured data",
+      "severity": "Pass",
+      "confidence": "Confirmed",
+      "finding": "One JSON-LD block already exists on live product page",
+      "evidence": "One JSON-LD block already exists on live product page",
+      "fix": "Extend truthfully with Article/BreadcrumbList for guides; no invented ratings or FAQ/HowTo result promises",
+      "source": "FULL-AUDIT-REPORT.md",
+      "sources": [
+        "FULL-AUDIT-REPORT.md"
+      ]
+    }
+  ],
+  "dropped": [],
+  "raw_count": 9,
+  "verified_count": 9
+}

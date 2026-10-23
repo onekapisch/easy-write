@@ -30,7 +30,13 @@ uses existing Screen Recording permission and never requests it; it does not cap
 `EasyWrite --eval` runs a real model and needs Apple Intelligence ready.
 Cross-app Accessibility, VoiceOver and end-to-end signed updates require separate acceptance.
 
-## Publication
+## Website content and search evidence
+The native app has no web stack. Dated SEO research and draft snapshots live in `docs/seo/`.
+The OneKapisch website maintains deployable guide content separately in its existing static
+generator. Keep public 1.x source distinct from the local 2.0 preview. Do not claim exclusive
+features, verified search volumes, user outcomes or app compatibility without evidence.
+
+## Publication policy
 Preserve existing branches and dirty work. Stage only scoped changes. No merge, push,
 notarization submission, GitHub release, domain purchase or website deployment without explicit
 approval. Do not run `release.sh` as a test: it writes tags and creates a remote draft.

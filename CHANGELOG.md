@@ -4,6 +4,14 @@ All notable changes to Easy Write are documented here.
 
 ## [2.0] (unreleased)
 
+### Website research and content, 2026-10-23
+- Added source-backed SEO/GEO research, a 62-query candidate map with explicit evidence labels,
+  competitor fact checking and a prioritized 90-day content/distribution plan.
+- Drafted six substantial guides for the existing OneKapisch website and integrated deployable
+  copies in the website preview: selected-text translation, German register, offline choices,
+  Writing Tools shortcuts, custom actions and setup. Public 1.x and local 2.0 remain distinct.
+- No native app behavior, analytics, model inference, distribution or publication was changed.
+
 ### Launch preparation, 2026-10-23
 - Implemented the product-page preview in an isolated OneKapisch website branch,
   with release-state-aware source links and native media. No deployment performed.

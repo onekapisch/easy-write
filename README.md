@@ -185,6 +185,12 @@ Easy Write is one keystroke in any app, translates with the right tone, and runs
 
 ## Contributing
 
+**Website research and guides:** the [23 October search strategy](docs/seo/2026-10-23/SEO-STRATEGY.md)
+includes a qualitative keyword map, competitor fact check, content architecture and 90-day plan.
+Its six guide drafts are dated editorial snapshots. Deployable copies belong to the OneKapisch
+website's `studio-fable/content/easy-write/` collection. This work does not publish the website
+or release a 2.0 binary, and does not establish translation-quality or user-outcome claims.
+
 **2.0 launch media:** [asset guide](launch-assets/v2/README.md),
 [local gallery](launch-assets/v2/gallery.html), and [website proposal](launch-assets/v2/WEBSITE-REDESIGN.md).
 Reproduce the native screenshots and owned-window HUD recording with

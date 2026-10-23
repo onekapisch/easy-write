@@ -71,5 +71,9 @@ default source builds upgrade manually. Public-byte verification is a separate f
 - Direct canonical XML opening is unsupported by the in-app browser; its download check
   timed out. The Vercel file-tree API also returned 404 for this Git deployment. Therefore
   canonical-endpoint byte verification is not inferred from deployment status alone.
+- The browser subsequently displayed the canonical XML document: build 27 / 2.0.1,
+  4,006,824-byte enclosure, version-pinned download and matching payload/feed signature
+  attributes were visible, with build 24 retained. This confirms live metadata, not a raw-body
+  hash comparison; direct navigation remained unreliable. Temporary test tabs/server were closed.
 - Owner asked to check Settings → Updates → Check for Updates. Installed discovery and
   completed upgrade remain separate acceptance gates until that result is provided.

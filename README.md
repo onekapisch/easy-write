@@ -54,7 +54,8 @@ up, and it understands formality, which a plain dictionary translator can't.
 - 🧠 **Remembered per app** — formal in Mail, informal in Slack, without touching a setting.
 - ✨ **Actions** — your own instructions on a shortcut, shareable as a link.
 - 🏝️ **Notch HUD** — progress and results right at the top of the screen, with ⌘Z to undo.
-- 📥 **Notarized installer** with optional update checks. Installed automatic upgrades remain unverified.
+- 📥 **Notarized installer** with optional update checks. A user-initiated Sparkle upgrade to
+  2.0.2 is verified on the maintainer’s Mac; unattended updates and clean-Mac installs remain separate.
 
 See the full [changelog](CHANGELOG.md).
 

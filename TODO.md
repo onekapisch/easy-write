@@ -10,7 +10,9 @@
 - [x] Owner physical shortcut retry in Mail: reports translation or preview now works on local build 27.1.
 - [ ] Full replacement confirmation and native/browser regression acceptance.
 - [x] Prepare/notarize/publish owner-authorized 2.0.2 build 28; public GitHub payload/feed hashes match.
-- [ ] Deploy and verify the canonical 2.0.2 feed; test installed Sparkle upgrade separately.
+- [x] Deploy and verify canonical 2.0.2 feed bytes/signature and production downloads/guides.
+- [x] Installed Sparkle upgrade 27.1 → 28: discovery, download, installation, relaunch,
+  installed version, executable parity, signature, staple and Gatekeeper verified.
 
 ## Approved positioning
 

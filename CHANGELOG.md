@@ -7,6 +7,8 @@ All notable changes to Easy Write are documented here.
 ## [2.0.2] — 2026-10-23
 
 ### Public patch, 2026-10-24
+- Production website/feed are live and byte-verified. Installed Sparkle upgrade from local
+  27.1 to public 28 completed with relaunch and verified installed bundle/executable parity.
 - Published signed/notarized build 28 from commit `a83fb0b`. Versioned/stable GitHub DMGs
   and signed appcast were downloaded and match the verified candidate hashes. Downloaded
   DMG stapling/Gatekeeper and independent payload-signature verification pass.

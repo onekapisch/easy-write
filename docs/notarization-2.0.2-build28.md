@@ -30,7 +30,23 @@ Candidate: `dist/release-2.0.2-b28.5ignq9hc/` (ignored, immutable signed artifac
   `b125a856ce16b22cc1acbd692719c0725db0c5a337c22ab971789bfe9f657c8c`.
 - All three GitHub assets were downloaded and match VERIFIED.json. Downloaded DMG staple,
   Gatekeeper and independent payload-signature checks pass; downloaded feed signature verifies.
-- Canonical website feed deployment and installed upgrade are separate checks recorded below.
+- Website commit `1d44f3fe1a1e4b59412befcbcd79a1860aa2e7c6` reached Ready in production
+  deployment `dpl_G6gtgMDsJ6VH4iVkAJFgcr7h7Daw`. Canonical feed bytes match the hash above
+  and its Sparkle signature verifies. Product/schema, guides and shared-action links use 2.0.2.
+- Product and seven guide routes return HTTP 200. Production at 375px has no horizontal
+  overflow and all three download controls point to the versioned 2.0.2 DMG.
+- Website validation: build/lint/type-check, 25 general tests, 16 scoped tests, 69 browser
+  checks and 75 screenshots passed. Four pre-existing nonfatal warnings follow the documented
+  Orbit/no-WebGL policy; no warnings were suppressed for this patch.
+
+## Installed Sparkle upgrade
+
+Using the installed signed local 2.0.1 build 27.1, Check for Updates discovered 2.0.2 from
+the production feed. Install Update downloaded and installed the public payload, and the
+app relaunched as 2.0.2 build 28 (PID 97321). No update-consent checkbox was changed.
+The installed executable exactly matches the accepted candidate; strict deep signature,
+stapler validation and Gatekeeper assessment pass. This verifies a user-initiated upgrade
+on this Mac, not clean-Mac installation or unattended background-update acceptance.
 
 ## Physical acceptance scope
 

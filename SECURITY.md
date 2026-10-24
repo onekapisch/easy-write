@@ -65,6 +65,8 @@ and private keys stay in Keychain; local preparation does not export them.
 Public 2.0.2 build 28 adds WebKit text-marker capture without clipboard capture, marker
 serialization, selected-text diagnostics or network inference. The signed/notarized public
 payload matches its verified candidate; see `docs/notarization-2.0.2-build28.md` for evidence.
+Canonical signed feed bytes and a user-initiated installed Sparkle upgrade to build 28
+were verified on 2026-10-24 without changing consent. This does not certify unattended updates.
 
 `release.sh` defaults to a read-only plan. Explicit `--prepare` submits only the built app and
 DMG to Apple, uses existing Keychain credentials, and writes a new private candidate directory.

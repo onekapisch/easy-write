@@ -25,6 +25,13 @@ enum SelfTest {
         await requestSafety()
         contextBudget()
         appearanceReadability()
+        let evaluationDirectory = URL(fileURLWithPath: "/private/tmp/easywrite-evaluation-test")
+        check(Eval.outputURL(environment: ["EW_EVAL_OUTPUT_DIRECTORY": evaluationDirectory.path])
+              == evaluationDirectory.appendingPathComponent("easywrite-eval-results.csv"),
+              "evaluation honors an explicit absolute candidate directory")
+        check(Eval.outputURL(environment: ["EW_EVAL_OUTPUT_DIRECTORY": "relative"], temporaryDirectory: evaluationDirectory)
+              == evaluationDirectory.appendingPathComponent("easywrite-eval-results.csv"),
+              "evaluation rejects a relative override and retains the temporary-directory fallback")
         print("\n\(passes) passed, \(failures) failed")
         return failures == 0 ? 0 : 1
     }

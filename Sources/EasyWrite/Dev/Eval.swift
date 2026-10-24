@@ -151,13 +151,21 @@ enum Eval {
             csv += cols.map(escape).joined(separator: ",") + "\n"
         }
         // Outside the repo on purpose, so a run never leaves untracked files in the checkout.
-        let path = (NSTemporaryDirectory() as NSString).appendingPathComponent("easywrite-eval-results.csv")
+        let path = outputURL().path
         do {
             try csv.write(toFile: path, atomically: true, encoding: .utf8)
             print("\nSide-by-side output written to:\n  \(path)")
         } catch {
             print("\nCould not write CSV: \(error)")
         }
+    }
+
+    static func outputURL(environment: [String: String] = ProcessInfo.processInfo.environment,
+                          temporaryDirectory: URL = FileManager.default.temporaryDirectory) -> URL {
+        let directory = environment["EW_EVAL_OUTPUT_DIRECTORY"].flatMap {
+            $0.hasPrefix("/") ? URL(fileURLWithPath: $0, isDirectory: true) : nil
+        } ?? temporaryDirectory
+        return directory.appendingPathComponent("easywrite-eval-results.csv")
     }
 
     private static func escape(_ s: String) -> String {

@@ -186,7 +186,7 @@ def prepare(root, args):
             evaluation_dir = candidate / "evaluation"
             evaluation_dir.mkdir()
             evaluation = run([binary, "--eval"], timeout=900,
-                             env=dict(os.environ, TMPDIR=str(evaluation_dir) + "/"))
+                             env=dict(os.environ, EW_EVAL_OUTPUT_DIRECTORY=str(evaluation_dir)))
             validate_evaluation(evaluation, evaluation_dir / "easywrite-eval-results.csv")
         print("Submitting app to Apple", flush=True)
         archive = candidate / "app.zip"

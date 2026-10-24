@@ -19,6 +19,8 @@ All notable changes to Easy Write are documented here.
   subsequently authorized the public 2.0.2 build-28 patch; release verification is recorded separately.
 
 ### Changed, 2026-10-23
+- Fixed the release evaluation output directory after the first full preparation run exposed
+  macOS ignoring the TMPDIR override. The runner now passes an explicit developer-only path.
 - Hardened future release preparation: read-only default, explicit build numbers, isolated
   output and safe dmgbuild layout. Source version files and existing artifacts are untouched.
 - Added strict notarization-status, mounted-payload, update-signature and retained-feed-history

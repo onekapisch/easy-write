@@ -51,7 +51,8 @@ Example only. The example is not approval to submit or publish a new version:
 `EW_NOTARY_PROFILE` or `--profile` selects an existing Keychain profile. Never pass a
 password or private key in arguments. `--no-eval` explicitly skips the 40-sentence
 register evaluation, not self-tests or real-model smoke tests. Any skip is recorded.
-Evaluation results are synthetic and isolated under the candidate's evaluation folder.
+Evaluation results are synthetic and isolated under the candidate's evaluation folder through
+the developer-only `EW_EVAL_OUTPUT_DIRECTORY` override; macOS may ignore a TMPDIR override.
 
 ## Gates
 

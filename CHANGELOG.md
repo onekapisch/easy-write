@@ -6,6 +6,14 @@ All notable changes to Easy Write are documented here.
 
 ## [2.0.2] — 2026-10-23
 
+### Public patch, 2026-10-24
+- Published signed/notarized build 28 from commit `a83fb0b`. Versioned/stable GitHub DMGs
+  and signed appcast were downloaded and match the verified candidate hashes. Downloaded
+  DMG stapling/Gatekeeper and independent payload-signature verification pass.
+- The release runner completed all gates after correcting the evaluation output path:
+  125 self-tests, six real-model smoke scenarios, 40 evaluation rows, zero model errors
+  and zero detected formal-register leaks. This is not an overall translation accuracy score.
+
 ### Fixed, 2026-10-23
 - Added WebKit text-marker selection support for rich-text editors such as Mail's composer.
   Mail exposes no ordinary selected-text/character-range values in the reproduced case.

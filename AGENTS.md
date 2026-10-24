@@ -64,6 +64,9 @@ The owner explicitly approved this launch. GitHub download bytes, the deployed p
 signed feed and shared-action utility have been verified. Future publication still requires
 its own approval; do not rebuild or replace immutable release assets for documentation edits.
 Homebrew is not live.
+The owner authorized public 2.0.2 build 28 for Mail capture on 2026-10-24. Its GitHub release
+bytes match the verified candidate; retain immutable assets and record feed/upgrade evidence
+in `docs/notarization-2.0.2-build28.md` rather than inferring installation from publication.
 Do not mark clean-Mac installation, physical compatibility, VoiceOver or installed Sparkle
 upgrade acceptance complete without separate evidence. Pre-Sparkle 1.x upgrades manually;
 source builds keep updates disabled by default.

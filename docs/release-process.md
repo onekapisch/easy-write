@@ -98,7 +98,9 @@ node --check tools/verify-update.mjs
 
 Tests exercise real parsers, feed construction and cryptographic verification. Apple/GitHub
 side effects are not performed. External-command failure tests use controlled fakes.
-The first full `--prepare` run remains an integration gate for the next approved release.
+The first full `--prepare` run exposed macOS ignoring TMPDIR for the evaluation harness.
+After adding the explicit developer output path, 2.0.2 build 28 completed the full preparation
+pipeline with no skipped evaluation. See `notarization-2.0.2-build28.md` for accepted artifacts.
 
 ## Verification performed, 2026-10-23
 

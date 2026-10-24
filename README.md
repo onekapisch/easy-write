@@ -11,7 +11,7 @@ tone you choose (German *Sie* vs *du*, French *vous* vs *tu*, …). Or run your 
 grammar, make it shorter, reply politely. Powered entirely by Apple's **on-device** model (Apple
 Intelligence). **No accounts. No API keys. No cloud.** Your text never leaves your Mac.
 
-**Easy Write 2.0.1.** [Download free for macOS](https://github.com/onekapisch/easy-write/releases/download/v2.0.1/EasyWrite-2.0.1.dmg).
+**Easy Write 2.0.2.** [Download free for macOS](https://github.com/onekapisch/easy-write/releases/download/v2.0.2/EasyWrite-2.0.2.dmg).
 Developer-ID signed and notarized. Requires Apple Silicon, macOS 26+, and Apple Intelligence ready.
 See [launch status](docs/launch-handoff.md) for verification evidence and compatibility limits.
 
@@ -57,6 +57,9 @@ up, and it understands formality, which a plain dictionary translator can't.
 - 📥 **Notarized installer** with optional update checks. Installed automatic upgrades remain unverified.
 
 See the full [changelog](CHANGELOG.md).
+
+2.0.2 fixes selected-text capture in Mail’s rich-text composer while retaining source-window,
+field, range and text checks before replacement. See [release verification](docs/notarization-2.0.2-build28.md).
 
 ### Appearance fix in 2.0.1
 

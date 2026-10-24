@@ -68,4 +68,5 @@ The successful owner retry above is separate evidence from those incomplete auto
 
 Native fields, other WebKit editors, changed window/selection, clipboard copies during inference,
 VoiceOver and eventual signed update installation retain their independent acceptance requirements.
-No native app release, GitHub push/tag, notarization submission or website publication occurred.
+The initial local-fix work performed no publication. The owner subsequently authorized the
+public 2.0.2 build-28 patch; see `notarization-2.0.2-build28.md` for the separate release evidence.

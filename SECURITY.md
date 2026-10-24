@@ -62,6 +62,10 @@ and private keys stay in Keychain; local preparation does not export them.
 
 ## Maintainer release tooling
 
+Public 2.0.2 build 28 adds WebKit text-marker capture without clipboard capture, marker
+serialization, selected-text diagnostics or network inference. The signed/notarized public
+payload matches its verified candidate; see `docs/notarization-2.0.2-build28.md` for evidence.
+
 `release.sh` defaults to a read-only plan. Explicit `--prepare` submits only the built app and
 DMG to Apple, uses existing Keychain credentials, and writes a new private candidate directory.
 It does not export signing keys, alter source versions, delete old candidates or publish to GitHub.

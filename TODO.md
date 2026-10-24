@@ -9,13 +9,14 @@
   the released app in `dist/local-mail-selection.Ol9Szh/released-backup/`.
 - [x] Owner physical shortcut retry in Mail: reports translation or preview now works on local build 27.1.
 - [ ] Full replacement confirmation and native/browser regression acceptance.
-- [ ] Prepare/notarize/publish owner-authorized 2.0.2 build 28; verify public payload and signed feed.
+- [x] Prepare/notarize/publish owner-authorized 2.0.2 build 28; public GitHub payload/feed hashes match.
+- [ ] Deploy and verify the canonical 2.0.2 feed; test installed Sparkle upgrade separately.
 
 ## Approved positioning
 
 - [x] Use "Translate and rewrite without switching apps." in maintained product copy.
 - [x] Publish the website and GitHub positioning with owner approval. Verified live 2026-10-23.
-- [ ] Include prepared About/Studio copy in the next signed app release. Do not replace 2.0.1.
+- [x] Include approved About/Studio copy in signed 2.0.2; immutable 2.0.1 remains unchanged.
 - [ ] Refresh exported launch artwork from the updated templates before the next media campaign.
 
 ## 2.0.1 appearance patch

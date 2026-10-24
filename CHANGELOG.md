@@ -4,6 +4,13 @@ All notable changes to Easy Write are documented here.
 
 ## Unreleased
 
+### Documentation, 2026-10-24
+- Added prominent website/download, guide and OneKapisch app-catalogue links to the README;
+  set the public repository's About website to the canonical Easy Write product page.
+- Aligned installation version, size, checksum and Mail-fix status with the immutable 2.0.2 release.
+- Documented release-download and repository-traffic counters, including verification/update
+  traffic and the absence of app telemetry or Easy Write website click measurement.
+
 ## [2.0.2] — 2026-10-23
 
 ### Public patch, 2026-10-24

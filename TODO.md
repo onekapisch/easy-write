@@ -1,5 +1,12 @@
 # Release checklist
 
+## Discovery and measurement
+
+- [x] Add canonical website/download, guides and other-app discovery links to the public repository.
+- [x] Document GitHub DMG download counters separately from repository views, clicks and installations.
+- [ ] Decide whether aggregate website download-button measurement should replace the current
+  no-analytics rule. Historical clicks cannot be reconstructed from GitHub download counters.
+
 ## P0: Mail selection compatibility fix
 
 - [x] Reproduce Mail's missing ordinary selection values and available WebKit marker API without

@@ -11,9 +11,11 @@ tone you choose (German *Sie* vs *du*, French *vous* vs *tu*, …). Or run your 
 grammar, make it shorter, reply politely. Powered entirely by Apple's **on-device** model (Apple
 Intelligence). **No accounts. No API keys. No cloud.** Your text never leaves your Mac.
 
-**Easy Write 2.0.2.** [Download free for macOS](https://github.com/onekapisch/easy-write/releases/download/v2.0.2/EasyWrite-2.0.2.dmg).
+**Easy Write 2.0.2.** [Website & download](https://www.onekapisch.com/products/easy-write/) · [Direct DMG](https://github.com/onekapisch/easy-write/releases/download/v2.0.2/EasyWrite-2.0.2.dmg).
 Developer-ID signed and notarized. Requires Apple Silicon, macOS 26+, and Apple Intelligence ready.
 See [launch status](docs/launch-handoff.md) for verification evidence and compatibility limits.
+
+**[Setup & writing guides](https://www.onekapisch.com/products/easy-write/guides/) · [Explore all OneKapisch apps](https://www.onekapisch.com/products/)**
 
 ![macOS 26+](https://img.shields.io/badge/macOS-26%2B-black?logo=apple&logoColor=white)
 ![Apple Silicon](https://img.shields.io/badge/Apple%20Silicon-required-black?logo=apple&logoColor=white)
@@ -107,18 +109,18 @@ private, nothing to set up, register-aware).
 
 ## ⬇️ Install
 
-**Official manual DMG install (2.0.1, build 27).**
+**Official manual DMG install (2.0.2, build 28).**
 
 1. Quit any running copy of Easy Write or EasyWrite before installing or upgrading.
-2. Download [EasyWrite-2.0.1.dmg](https://github.com/onekapisch/easy-write/releases/download/v2.0.1/EasyWrite-2.0.1.dmg),
+2. Download [EasyWrite-2.0.2.dmg](https://github.com/onekapisch/easy-write/releases/download/v2.0.2/EasyWrite-2.0.2.dmg),
    open it, and drag **Easy Write.app** to **Applications**. Replace the existing copy if prompted.
 3. Launch **Easy Write** from Applications. Grant access in System Settings → Privacy & Security →
    Accessibility. If an old grant no longer works, remove the stale entry and enable the installed copy.
 4. Enable Apple Intelligence and wait until its model is ready. The welcome window checks
    Accessibility and model readiness, then offers a practice swap. Use disposable text first.
 
-The installer is 4,006,824 bytes. SHA-256:
-`be47cf44102634baa07c79dac0dbe390ddc8e755ef2c75d18d48864ebf1ead03`.
+The installer is 4,008,406 bytes. SHA-256:
+`cc3a7dcd9e9327c536646ec2ed03b01962a5271180131d592286de1636288bd1`.
 The [product page](https://www.onekapisch.com/products/easy-write/) is the canonical site.
 Homebrew is **not live**; no Homebrew installation is offered for this launch.
 
@@ -128,7 +130,7 @@ Use the version tag below to build this release.
 ```bash
 git clone https://github.com/onekapisch/easy-write.git
 cd easy-write
-git checkout v2.0.1
+git checkout v2.0.2
 ./setup-signing.sh      # once, if you don't have a Developer ID: keeps the Accessibility grant across rebuilds
 ./build.sh              # compile + bundle + sign → "Easy Write.app"
 cp -R "Easy Write.app" /Applications/
@@ -140,17 +142,19 @@ automatically. Your settings move over automatically. macOS asks for Accessibili
 because the app is now signed by OneKapisch. If the old "EasyWrite" entry is still in
 System Settings → Privacy & Security → Accessibility, remove it, then delete the old
 `EasyWrite.app` from Applications. Optional update checks in 2.0 concern future releases and
-require consent; a successful installed Sparkle upgrade has not yet been verified.
+require consent. A user-initiated installed upgrade to 2.0.2 is verified on the maintainer's Mac;
+unattended updates and clean-Mac installation remain separate acceptance checks.
 
 ## Usage
 
-**Mail selection compatibility in current source (unreleased):** rich-text Mail selections use
-WebKit text markers instead of ordinary character-range attributes. The source fix reads those
+**Mail selection compatibility in 2.0.2:** rich-text Mail selections use
+WebKit text markers instead of ordinary character-range attributes. The patch reads those
 markers directly, keeps capture off the clipboard, and preserves target validation before paste.
-It is not included in the public 2.0.1 download. See [verification notes](docs/mail-selection-fix.md).
+See [verification notes](docs/mail-selection-fix.md) for the owner retry and remaining compatibility checks.
 
 **Maintainers:** see the [release process](docs/release-process.md). The release script defaults
 to a read-only plan; explicit preparation uses isolated candidates and never publishes automatically.
+See [download and traffic measurement](docs/download-metrics.md) for GitHub counters and their limits.
 
 | Shortcut | Action |
 |:---:|---|

@@ -1,5 +1,12 @@
 # Security & Privacy
 
+## Download measurement
+
+Maintainers can read GitHub's existing release-asset counters and repository traffic aggregates.
+This adds no app telemetry or website tracking. Counters include repeat requests, update payloads
+and maintainer verification; they do not identify unique users, installations or active usage.
+The README's website, guide and app-catalogue links open ordinary public web pages.
+
 ## Website research documents
 
 The dated `docs/seo/` package uses public search/vendor evidence and authored synthetic examples.

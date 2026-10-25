@@ -2,6 +2,9 @@
 
 ## r/MacOSApps launch preparation
 
+- [x] Prepare a separate r/macapps PCP draft; keep the two communities' rules distinct.
+- [ ] Before an r/macapps main-feed post, verify local karma, promotion cooldown and a
+  qualifying trust/transparency path, including required public identity/privacy/terms links.
 - [x] Research community-specific rules/examples and draft the post/visual brief under `docs/marketing/`.
 - [ ] Verify five community comment karma, previous submission history and repository-maturity guidance.
 - [ ] Capture and verify one real 2.0.2 select → tone → preview → replacement demo with disposable text.

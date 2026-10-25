@@ -5,6 +5,9 @@ All notable changes to Easy Write are documented here.
 ## Unreleased
 
 ### Marketing research, 2026-10-25
+- Adapted the owner's r/macapps draft to Problem/Comparison/Pricing with the [OS] title
+  prefix, verified shortcut wording and fair DeepL comparison. Flagged unverified main-feed
+  eligibility and transparency-link gaps; no submission or website policy changes performed.
 - Researched r/MacOSApps rules, selected successful/low-traction posts and comment concerns.
   Prepared an English launch draft, real-demo brief and qualified Germany-time posting window.
 - Kept timing hypotheses, indexed vote snapshots, account eligibility and workflow-recording

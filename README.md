@@ -229,6 +229,8 @@ Easy Write is one keystroke in any app, translates with the right tone, and runs
 **Community launch research:** [r/MacOSApps brief](docs/marketing/2026-10-25-r-macosapps-research.md)
 and [proposed post](docs/marketing/2026-10-25-r-macosapps-post.md) contain dated public evidence,
 copy and a visual plan. They are drafts, not evidence of publication or measured optimal timing.
+The separate [r/macapps PCP draft](docs/marketing/2026-10-25-r-macapps-pcp-post.md) follows
+that community's Problem/Comparison/Pricing format and records outstanding eligibility checks.
 
 **Website research and guides:** the [23 October search strategy](docs/seo/2026-10-23/SEO-STRATEGY.md)
 includes a qualitative keyword map, competitor fact check, content architecture and 90-day plan.

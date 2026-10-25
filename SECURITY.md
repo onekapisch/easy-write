@@ -9,6 +9,10 @@ The README's website, guide and app-catalogue links open ordinary public web pag
 
 ## Website research documents
 
+The `docs/marketing/` Reddit brief uses public community posts and synthetic example ideas.
+It adds no tracking, account integration, message sending or text collection. Record only
+owned disposable text in any eventual workflow demo.
+
 The dated `docs/seo/` package uses public search/vendor evidence and authored synthetic examples.
 It adds no app network requests, diagnostics or text retention. Deployable guides are maintained
 in the separate OneKapisch website; those routes do not add analytics or submit visitor text.

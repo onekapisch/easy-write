@@ -1,5 +1,12 @@
 # Release checklist
 
+## r/MacOSApps launch preparation
+
+- [x] Research community-specific rules/examples and draft the post/visual brief under `docs/marketing/`.
+- [ ] Verify five community comment karma, previous submission history and repository-maturity guidance.
+- [ ] Capture and verify one real 2.0.2 select → tone → preview → replacement demo with disposable text.
+- [ ] Owner review of copy and AI-assistance disclosure before any Reddit submission.
+
 ## Discovery and measurement
 
 - [x] Add canonical website/download, guides and other-app discovery links to the public repository.

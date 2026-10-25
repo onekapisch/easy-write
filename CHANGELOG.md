@@ -4,6 +4,12 @@ All notable changes to Easy Write are documented here.
 
 ## Unreleased
 
+### Marketing research, 2026-10-25
+- Researched r/MacOSApps rules, selected successful/low-traction posts and comment concerns.
+  Prepared an English launch draft, real-demo brief and qualified Germany-time posting window.
+- Kept timing hypotheses, indexed vote snapshots, account eligibility and workflow-recording
+  gaps explicit. No Reddit submission, scheduling, telemetry or release changes performed.
+
 ### Documentation, 2026-10-24
 - Added prominent website/download, guide and OneKapisch app-catalogue links to the README;
   set the public repository's About website to the canonical Easy Write product page.

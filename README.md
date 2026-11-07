@@ -122,6 +122,7 @@ private, nothing to set up, register-aware).
 The installer is 4,008,406 bytes. SHA-256:
 `cc3a7dcd9e9327c536646ec2ed03b01962a5271180131d592286de1636288bd1`.
 The [product page](https://www.onekapisch.com/products/easy-write/) is the canonical site.
+
 Or with Homebrew (Homebrew 7 asks you to trust a third-party tap once):
 
 ```bash

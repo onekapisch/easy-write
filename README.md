@@ -6,7 +6,7 @@
 
 ### Translate and rewrite without switching apps.
 
-Select text in any app, press a shortcut, and it's **replaced in place** with the translation, in the
+Select text in apps that expose it through macOS Accessibility, press a shortcut, and it's **replaced in place** with the translation, in the
 tone you choose (German *Sie* vs *du*, French *vous* vs *tu*, …). Or run your own actions: fix the
 grammar, make it shorter, reply politely. Powered entirely by Apple's **on-device** model (Apple
 Intelligence). **No accounts. No API keys. No cloud.** Your text never leaves your Mac.
@@ -27,7 +27,7 @@ See [launch status](docs/launch-handoff.md) for verification evidence and compat
 
 **[🧠 How it works](HOW_IT_WORKS.md) · [⬇️ Install](#️-install) · [🆚 How it compares](#-how-it-compares) · [🐛 Report a bug / request a feature](../../issues)**
 
-![Easy Write — type in any app, press one shortcut, and the text is replaced in place](docs/demo.gif)
+![Easy Write — type in most apps, press one shortcut, and the text is replaced in place](docs/demo.gif)
 
 </div>
 
@@ -74,7 +74,7 @@ makes an update available; it does not force installation or override update con
 
 ## What you get
 
-- ⚡ **Translate in place** — select → shortcut → replaced, in any app
+- ⚡ **Translate in place** — select → shortcut → replaced, in most apps
 - 🗣️ **Formal / informal / natural** — German *Sie* vs *du*, French *vous* vs *tu*, Spanish *usted* vs *tú*…
 - 📖 **Read mode** — translate text you can't edit into your own language, in a card you can pin or have read aloud
 - 🌍 **13 languages** — German, French, Spanish, Italian, Portuguese, Dutch, Turkish, Polish, Russian, English, Japanese, Chinese, Arabic
@@ -82,7 +82,7 @@ makes an update available; it does not force installation or override update con
 - 📚 **Glossary & style notes** — exact terms and your preferences in every result
 - 🕘 **Opt-in history**: originals and results stay local; disabling it deletes the history file
 - ⌨️ **Custom shortcuts** — rebind everything
-- ♿️ **VoiceOver** — labelled controls and spoken results
+- ♿️ **VoiceOver labels** on the main controls. Full VoiceOver testing is still open.
 - 🔒 **Local AI** — no account, no API key, no telemetry; optional updates and external links use the network, never your selected text
 
 ## 🆚 How it compares
@@ -92,12 +92,12 @@ private, nothing to set up, register-aware).
 
 | | **Easy Write** | DeepL | Google Translate | Apple Translate | Ollama-based tools |
 |---|:---:|:---:|:---:|:---:|:---:|
-| Runs on-device / private | ✅ | ❌ cloud | ❌ cloud | ✅ | ✅ |
-| No account or API key | ✅ | ❌ | ⚠️ | ✅ | ⚠️ needs setup |
-| Formal vs informal (Sie/du) | ✅ | Pro only | ❌ | ❌ | ✅ |
+| Runs on-device / private | ✅ | ❌ cloud | ❌ cloud | optional On-Device Mode | ✅ |
+| No account or API key | ✅ | ⚠️ optional for basic use | ⚠️ | ✅ | ⚠️ needs setup |
+| Formal vs informal (Sie/du) | ✅ | Pro only | varies by rollout | ❌ | ✅ |
 | Replace selection in place | ✅ | app only | ❌ | ✅ | varies |
 | Cross-app text access | supported Accessibility fields | ✅ | ❌ | ⚠️ some | varies |
-| Your own rewrite actions | ✅ | ❌ | ❌ | ❌ | varies |
+| Your own rewrite actions | ✅ | separate DeepL Write | ❌ | ❌ | varies |
 | Setup | manual DMG install, or source build | account | — | built-in | install Ollama + model |
 | Open source | ✅ | ❌ | ❌ | ❌ | ✅ |
 | Price | **Free** | Free / Pro | Free | Free | Free |
@@ -122,7 +122,15 @@ private, nothing to set up, register-aware).
 The installer is 4,008,406 bytes. SHA-256:
 `cc3a7dcd9e9327c536646ec2ed03b01962a5271180131d592286de1636288bd1`.
 The [product page](https://www.onekapisch.com/products/easy-write/) is the canonical site.
-Homebrew is **not live**; no Homebrew installation is offered for this launch.
+Or with Homebrew (Homebrew 7 asks you to trust a third-party tap once):
+
+```bash
+brew tap onekapisch/tap
+brew trust onekapisch/tap
+brew install --cask onekapisch/tap/easy-write
+```
+
+Remove it with `brew uninstall --zap --cask onekapisch/tap/easy-write`.
 
 **Build from source (still supported).** Default source builds disable update configuration.
 Use the version tag below to build this release.
@@ -220,17 +228,17 @@ sandboxing. Source builds remain supported; a signed, notarized DMG is available
 *Apple Intelligence & Siri* shows it's ready (it needs free storage and a network connection). The
 panel and the welcome window update on their own when it's done.
 
-**How is this different from Apple's built-in Translate or Writing Tools?** Apple's Translate opens
-a popover you copy from and can't do formal vs informal. Writing Tools rewrites through a menu.
-Easy Write is one keystroke in any app, translates with the right tone, and runs your own actions.
+**How is this different from Apple's built-in Translate or Writing Tools?** Apple's Translate can
+replace text in supported fields but has no dedicated formal/informal picker in that workflow. Writing Tools rewrites through a menu.
+Easy Write is one keystroke in most apps, translates with the right tone, and runs your own actions.
 
 ## Contributing
 
 **Website research and guides:** the [23 October search strategy](docs/seo/2026-10-23/SEO-STRATEGY.md)
 includes a qualitative keyword map, competitor fact check, content architecture and 90-day plan.
 Its six guide drafts are dated editorial snapshots. Deployable copies belong to the OneKapisch
-website's `studio-fable/content/easy-write/` collection. This work does not publish the website
-or release a 2.0 binary, and does not establish translation-quality or user-outcome claims.
+website's `studio-fable/content/easy-write/` collection. It does not establish translation-quality
+or user-outcome claims.
 
 **2.0 launch media:** [asset guide](launch-assets/v2/README.md),
 [local gallery](launch-assets/v2/gallery.html), and [website proposal](launch-assets/v2/WEBSITE-REDESIGN.md).

@@ -71,8 +71,8 @@ enum Snapshots {
 
         // C · Notch HUD
         let phases: [(String, NotchHUD.Phase)] = [
-            ("c-hud-working", .working(title: "German", detail: "Informal")),
-            ("c-hud-done", .done(title: "Replaced", detail: "8 words", keycap: "⌘Z", hint: "to undo")),
+            ("c-hud-working", .working(title: Languages.named("de").displayName, detail: Tone.informal.title)),
+            ("c-hud-done", .done(title: String(localized: "Paste sent"), detail: String(localized: "\(8) words"), keycap: "⌘Z", hint: String(localized: "to undo"))),
             ("c-hud-problem", .problem(message: "Select some text first", keycap: nil, hint: nil)),
         ]
         for (name, phase) in phases {
@@ -82,12 +82,12 @@ enum Snapshots {
         }
         let flat = NotchHUD.Model()
         flat.hasNotch = false; flat.notchWidth = 120; flat.topInset = 30; flat.expanded = true
-        flat.phase = .done(title: "Replaced", detail: "8 words", keycap: "⌘Z", hint: "to undo")
+        flat.phase = .done(title: String(localized: "Paste sent"), detail: String(localized: "\(8) words"), keycap: "⌘Z", hint: String(localized: "to undo"))
         await shoot(ScreenTop(notch: false) { HUDView(model: flat) }, "c-hud-external-display", dir)
 
         // D · Reader card
         let reader = ReaderPanel.Model()
-        reader.header = .translation(from: "German", to: "English")
+        reader.header = .translation(from: Languages.named("de").displayName, to: Languages.named("en").displayName)
         reader.text = "Unfortunately, the delivery is delayed by two days. We will let you know as soon as the package has been shipped."
         reader.original = "Die Lieferung verzögert sich leider um zwei Tage. Wir melden uns, sobald das Paket versendet wurde."
         reader.canReplace = false
@@ -98,7 +98,7 @@ enum Snapshots {
         reader.showOriginal = true
         await shoot(Wallpaper { ReaderCard(model: reader, panel: nil) }, "d-reader-action", dir)
         // The case that used to be cut off mid-sentence: a long result on read-only text.
-        reader.header = .translation(from: "German", to: "English")
+        reader.header = .translation(from: Languages.named("de").displayName, to: Languages.named("en").displayName)
         reader.text = "Model S and Model X built before 2021 receive a clear answer right from the beginning: they do not have a mobile phone key, therefore the app cannot unlock them on approach. Owners of these cars can use the key fob or the key card instead, and the app still works for climate, charging and location. For cars built after 2021, the phone key is set up in the app under Locks, and it takes about two minutes."
         reader.original = "Model S und Model X, die vor 2021 gebaut wurden, bekommen gleich zu Beginn eine klare Antwort: Sie haben keinen Handyschlüssel."
         reader.canReplace = false

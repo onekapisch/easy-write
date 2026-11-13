@@ -86,6 +86,7 @@ struct MenuPanelView: View {
                 }
                 Text("Easy Write \(Self.version) · Apple Intelligence")
                     .font(.system(size: 11.5)).foregroundStyle(EW.accentText)
+                    .lineLimit(1).minimumScaleFactor(0.85)
             }
             .accessibilityElement(children: .combine)
             Spacer()
@@ -99,25 +100,25 @@ struct MenuPanelView: View {
     }
 
     private var status: (title: String, color: Color) {
-        if !state.accessibility { return ("Needs Accessibility", EW.bad) }
+        if !state.accessibility { return (String(localized: "Needs Accessibility"), EW.bad) }
         switch state.model {
-        case .preparing:  return ("Preparing Apple Intelligence", EW.warn)
-        case .notEnabled: return ("Apple Intelligence is off", EW.warn)
-        case .ineligible: return ("This Mac can’t run it", EW.bad)
-        case .unknown:    return ("Apple Intelligence unavailable", EW.warn)
-        case .ready:      return state.busy ? ("Working…", EW.accent) : ("Ready · On-device", EW.good)
+        case .preparing:  return (String(localized: "Preparing Apple Intelligence"), EW.warn)
+        case .notEnabled: return (String(localized: "Apple Intelligence is off"), EW.warn)
+        case .ineligible: return (String(localized: "This Mac can’t run it"), EW.bad)
+        case .unknown:    return (String(localized: "Apple Intelligence unavailable"), EW.warn)
+        case .ready:      return state.busy ? (String(localized: "Working…"), EW.accent) : (String(localized: "Ready · On-device"), EW.good)
         }
     }
 
     private var stats: some View {
         HStack(spacing: 0) {
-            stat(store.stats.swaps, "swaps")
+            stat(store.stats.swaps, String(localized: "swaps"))
             divider
-            stat(store.stats.words, "words")
+            stat(store.stats.words, String(localized: "words"))
             divider
-            stat(store.stats.languages.count, store.stats.languages.count == 1 ? "language" : "languages")
+            stat(store.stats.languages.count, store.stats.languages.count == 1 ? String(localized: "language") : String(localized: "languages"))
             divider
-            stat(store.stats.apps.count, store.stats.apps.count == 1 ? "app" : "apps")
+            stat(store.stats.apps.count, store.stats.apps.count == 1 ? String(localized: "app") : String(localized: "apps"))
         }
         .padding(.vertical, 9)
         .ewCard()
@@ -170,7 +171,7 @@ struct MenuPanelView: View {
         }
     }
 
-    private func fixCard(title: String, detail: String, button: String, tint: Color, action: @escaping () -> Void) -> some View {
+    private func fixCard(title: LocalizedStringKey, detail: LocalizedStringKey, button: LocalizedStringKey, tint: Color, action: @escaping () -> Void) -> some View {
         HStack(spacing: 10) {
             IconSquare(symbol: tint == EW.bad ? "lock.fill" : "hourglass", tint: tint, size: 28)
             VStack(alignment: .leading, spacing: 2) {
@@ -227,15 +228,15 @@ struct MenuPanelView: View {
     private var tiles: some View {
         LazyVGrid(columns: [GridItem(.flexible(), spacing: 8), GridItem(.flexible(), spacing: 8)], spacing: 8) {
             tile("Translate", symbol: "globe", tint: EW.accentText,
-                 key: store.shortcut(for: .translate)?.label, line: store.twoWay ? "both directions" : "into \(target.name)") {
+                 key: store.shortcut(for: .translate)?.label, line: store.twoWay ? String(localized: "both directions") : String(localized: "into \(target.displayName)")) {
                 PanelController.shared.dismiss { Runner.shared.translateSmart() }
             }
             tile("Read", symbol: "eye", tint: EW.blue,
-                 key: store.shortcut(for: .read)?.label, line: "into \(home.name)") {
+                 key: store.shortcut(for: .read)?.label, line: String(localized: "into \(home.displayName)")) {
                 PanelController.shared.dismiss { Runner.shared.read() }
             }
             tile("Actions", symbol: "sparkles", tint: EW.pink, key: nil,
-                 line: store.actions.count == 1 ? "1 saved" : "\(store.actions.count) saved") {
+                 line: String(localized: "\(store.actions.count) saved")) {
                 PanelController.shared.dismiss { SettingsController.shared.show(.actions) }
             }
             tile("History", symbol: "clock", tint: EW.good, key: nil, line: historyLine) {
@@ -245,12 +246,13 @@ struct MenuPanelView: View {
     }
 
     private var historyLine: String {
-        guard store.historyEnabled else { return "Off" }
-        guard let last = history.entries.first else { return "Nothing yet" }
-        return "Used " + RelativeDateTimeFormatter().localizedString(for: last.date, relativeTo: Date())
+        guard store.historyEnabled else { return String(localized: "Off") }
+        guard let last = history.entries.first else { return String(localized: "Nothing yet") }
+        let when = RelativeDateTimeFormatter().localizedString(for: last.date, relativeTo: Date())
+        return String(localized: "Used \(when)")
     }
 
-    private func tile(_ title: String, symbol: String, tint: Color, key: String?, line: String,
+    private func tile(_ title: LocalizedStringKey, symbol: String, tint: Color, key: String?, line: String,
                       action: @escaping () -> Void) -> some View {
         Button(action: action) {
             VStack(alignment: .leading, spacing: 7) {
@@ -304,7 +306,7 @@ struct LanguageChip: View {
         Button {
             let menu = NSMenu()
             for lang in Languages.all {
-                let item = NSMenuItem(title: lang.name, action: nil, keyEquivalent: "")
+                let item = NSMenuItem(title: lang.displayName, action: nil, keyEquivalent: "")
                 item.state = lang.code == code ? .on : .off
                 item.representedObject = lang.code
                 item.target = MenuTarget.shared
@@ -316,15 +318,16 @@ struct LanguageChip: View {
         } label: {
             HStack(spacing: 6) {
                 LangBadge(code: code)
-                Text(Languages.named(code).name).font(.system(size: 12.5, weight: .semibold)).foregroundStyle(EW.text)
+                Text(Languages.named(code).displayName).font(.system(size: 12.5, weight: .semibold)).foregroundStyle(EW.text)
                 Image(systemName: "chevron.down").font(.system(size: 9, weight: .bold)).foregroundStyle(EW.dim)
             }
             .padding(.horizontal, 8).padding(.vertical, 4)
+            .fixedSize()
             .background(EW.controlFill, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .accessibilityLabel("Translate into \(Languages.named(code).name)")
+        .accessibilityLabel("Translate into \(Languages.named(code).displayName)")
         .accessibilityHint("Opens a list of languages")
     }
 }

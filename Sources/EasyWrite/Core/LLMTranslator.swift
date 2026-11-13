@@ -46,29 +46,23 @@ final class LLMTranslator {
         var message: String {
             switch self {
             case .deviceNotEligible:
-                return "Apple Intelligence isn’t supported on this Mac. It needs Apple Silicon "
-                     + "(M1 or newer) and macOS 26."
+                return String(localized: "Apple Intelligence isn’t supported on this Mac. It needs Apple Silicon (M1 or newer) and macOS 26.")
             case .notEnabled:
-                return "Apple Intelligence is turned off. Enable it in System Settings → "
-                     + "Apple Intelligence & Siri, then try again."
+                return String(localized: "Apple Intelligence is turned off. Enable it in System Settings → Apple Intelligence & Siri, then try again.")
             case .modelNotReady:
-                return "Apple Intelligence is still setting up — it downloads its model in the "
-                     + "background the first time you enable it, which can take a while. Open System "
-                     + "Settings → Apple Intelligence & Siri, wait until it finishes preparing, then "
-                     + "try again. (Needs enough free storage and a network connection to download.)"
+                return String(localized: "Apple Intelligence is still setting up — it downloads its model in the background the first time you enable it, which can take a while. Open System Settings → Apple Intelligence & Siri, wait until it finishes preparing, then try again. (Needs enough free storage and a network connection to download.)")
             case .other:
-                return "Apple Intelligence isn’t available right now. Check System Settings → "
-                     + "Apple Intelligence & Siri, then try again."
+                return String(localized: "Apple Intelligence isn’t available right now. Check System Settings → Apple Intelligence & Siri, then try again.")
             }
         }
 
         /// One line for the notch HUD.
         var short: String {
             switch self {
-            case .deviceNotEligible: "This Mac can’t run Apple Intelligence"
-            case .notEnabled:        "Turn on Apple Intelligence first"
-            case .modelNotReady:     "Apple Intelligence is still preparing"
-            case .other:             "Apple Intelligence isn’t available"
+            case .deviceNotEligible: String(localized: "This Mac can’t run Apple Intelligence")
+            case .notEnabled:        String(localized: "Turn on Apple Intelligence first")
+            case .modelNotReady:     String(localized: "Apple Intelligence is still preparing")
+            case .other:             String(localized: "Apple Intelligence isn’t available")
             }
         }
     }
@@ -459,20 +453,20 @@ final class LLMTranslator {
 
     /// Turns any error from a job into one sentence a person can act on.
     nonisolated static func describe(_ error: Error) -> String {
-        if error is TimeoutError { return "That took too long. Try a shorter selection." }
-        if error is EmptyResultError { return "The model returned nothing. Try again." }
-        if error is ContextBudgetError { return "Too much text or guidance. Shorten the selection, glossary or style notes." }
-        if error is IncompleteResultError { return "The result may be cut off. Try a shorter selection or instruction." }
+        if error is TimeoutError { return String(localized: "That took too long. Try a shorter selection.") }
+        if error is EmptyResultError { return String(localized: "The model returned nothing. Try again.") }
+        if error is ContextBudgetError { return String(localized: "Too much text or guidance. Shorten the selection, glossary or style notes.") }
+        if error is IncompleteResultError { return String(localized: "The result may be cut off. Try a shorter selection or instruction.") }
         if let g = error as? LanguageModelSession.GenerationError {
             switch g {
-            case .exceededContextWindowSize:   return "That selection is too long for the on-device model."
-            case .guardrailViolation, .refusal: return "Apple’s on-device model declined this text."
-            case .unsupportedLanguageOrLocale: return "Apple Intelligence doesn’t support this language yet."
-            case .assetsUnavailable:           return "Apple Intelligence is still preparing its model."
-            case .rateLimited, .concurrentRequests: return "The model is busy. Try again in a moment."
-            default:                           return "The on-device model couldn’t finish this one."
+            case .exceededContextWindowSize:   return String(localized: "That selection is too long for the on-device model.")
+            case .guardrailViolation, .refusal: return String(localized: "Apple’s on-device model declined this text.")
+            case .unsupportedLanguageOrLocale: return String(localized: "Apple Intelligence doesn’t support this language yet.")
+            case .assetsUnavailable:           return String(localized: "Apple Intelligence is still preparing its model.")
+            case .rateLimited, .concurrentRequests: return String(localized: "The model is busy. Try again in a moment.")
+            default:                           return String(localized: "The on-device model couldn’t finish this one.")
             }
         }
-        return "Something went wrong. Try again."
+        return String(localized: "Something went wrong. Try again.")
     }
 }

@@ -73,7 +73,7 @@ final class ReaderPanel {
 
     fileprivate func copy() {
         Runner.shared.replacer.copyForUser(model.text)
-        NotchHUD.shared.done("Copied")
+        NotchHUD.shared.done(String(localized: "Copied"))
         close()
     }
 
@@ -307,7 +307,8 @@ struct ReaderCard: View {
 
     private var accessibilityTitle: String {
         switch model.header {
-        case .translation(let from, let to): "Translation\(from.map { " from \($0)" } ?? "") into \(to)"
+        case .translation(let from?, let to): String(localized: "Translation from \(from) into \(to)")
+        case .translation(nil, let to): String(localized: "Translation into \(to)")
         case .action(let name): name
         }
     }
@@ -315,7 +316,7 @@ struct ReaderCard: View {
 
 /// Compact pill: one line, never wraps, sized to its label.
 private struct CardButton: View {
-    let title: String
+    let title: LocalizedStringKey
     let symbol: String
     var primary = false
     let action: () -> Void
@@ -349,7 +350,7 @@ private struct CardButton: View {
 /// Small icon-only control for the card header.
 private struct HeaderButton: View {
     let symbol: String
-    let label: String
+    let label: LocalizedStringKey
     var active = false
     let action: () -> Void
     @State private var hover = false

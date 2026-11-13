@@ -8,9 +8,9 @@ enum Tone: String, Codable, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .formal:   "Formal"
-        case .informal: "Informal"
-        case .natural:  "Natural"
+        case .formal:   String(localized: "Formal")
+        case .informal: String(localized: "Informal")
+        case .natural:  String(localized: "Natural")
         }
     }
 
@@ -36,7 +36,7 @@ enum Tone: String, Codable, CaseIterable, Identifiable {
 struct WriteAction: Codable, Identifiable, Equatable {
     enum Output: String, Codable, CaseIterable {
         case replace, popup
-        var title: String { self == .replace ? "Replace selection" : "Show in popup" }
+        var title: String { self == .replace ? String(localized: "Replace selection") : String(localized: "Show in popup") }
     }
 
     var id = UUID()
@@ -46,29 +46,25 @@ struct WriteAction: Codable, Identifiable, Equatable {
     var shortcut: Store.Shortcut?
 
     static let presets: [WriteAction] = [
-        WriteAction(name: "Fix grammar",
-                    instruction: "Correct spelling, grammar and punctuation. Keep the wording, tone and language "
-                               + "the same, and change as little as possible.",
+        WriteAction(name: String(localized: "Fix grammar"),
+                    instruction: String(localized: "Correct spelling, grammar and punctuation. Keep the wording, tone and language the same, and change as little as possible."),
                     output: .replace,
                     shortcut: .init(keyCode: 5, modifiers: KeyDisplay.option | KeyDisplay.cmd)),   // ⌥⌘G
-        WriteAction(name: "Make it shorter",
-                    instruction: "Make this shorter and clearer. Keep every fact and the same language and tone.",
+        WriteAction(name: String(localized: "Make it shorter"),
+                    instruction: String(localized: "Make this shorter and clearer. Keep every fact and the same language and tone."),
                     output: .replace, shortcut: nil),
-        WriteAction(name: "Reply politely",
-                    instruction: "Write a short, warm reply to this message in the same language. Answer any "
-                               + "question in it. Keep it under three sentences.",
+        WriteAction(name: String(localized: "Reply politely"),
+                    instruction: String(localized: "Write a short, warm reply to this message in the same language. Answer any question in it. Keep it under three sentences."),
                     output: .popup,
                     shortcut: .init(keyCode: 15, modifiers: KeyDisplay.control | KeyDisplay.option)), // ⌃⌥R
-        WriteAction(name: "Explain the grammar",
-                    instruction: "Explain in simple English how the grammar of this sentence works, including "
-                               + "word order and any formal or informal forms. Use short bullet points.",
+        WriteAction(name: String(localized: "Explain the grammar"),
+                    instruction: String(localized: "Explain in simple English how the grammar of this sentence works, including word order and any formal or informal forms. Use short bullet points."),
                     output: .popup, shortcut: nil),
-        WriteAction(name: "Sound native",
-                    instruction: "Rewrite this so it sounds like natural, idiomatic English written by a native "
-                               + "speaker. Keep the meaning and the level of formality.",
+        WriteAction(name: String(localized: "Sound native"),
+                    instruction: String(localized: "Rewrite this so it sounds like natural, idiomatic English written by a native speaker. Keep the meaning and the level of formality."),
                     output: .replace, shortcut: nil),
-        WriteAction(name: "Japanese keigo",
-                    instruction: "Translate this into polite business Japanese using appropriate keigo.",
+        WriteAction(name: String(localized: "Japanese keigo"),
+                    instruction: String(localized: "Translate this into polite business Japanese using appropriate keigo."),
                     output: .replace, shortcut: nil),
     ]
 }

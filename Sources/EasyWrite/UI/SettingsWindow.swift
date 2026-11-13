@@ -9,20 +9,20 @@ enum SettingsPage: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .general:   "General"
-        case .languages: "Languages"
-        case .actions:   "Actions"
-        case .shortcuts: "Shortcuts"
-        case .glossary:  "Glossary"
-        case .history:   "History & Privacy"
-        case .updates:   "Updates"
-        case .about:     "About"
-        case .studio:    "Studio"
+        case .general:   String(localized: "General")
+        case .languages: String(localized: "Languages")
+        case .actions:   String(localized: "Actions")
+        case .shortcuts: String(localized: "Shortcuts")
+        case .glossary:  String(localized: "Glossary")
+        case .history:   String(localized: "History & Privacy")
+        case .updates:   String(localized: "Updates")
+        case .about:     String(localized: "About")
+        case .studio:    String(localized: "Studio")
         }
     }
 
     /// Short label for the sidebar, which doesn't widen to fit longer titles.
-    var sidebarTitle: String { self == .history ? "History" : title }
+    var sidebarTitle: String { self == .history ? String(localized: "History") : title }
 
     var symbol: String {
         switch self {
@@ -57,7 +57,7 @@ final class SettingsController {
             let host = NSHostingController(rootView: SettingsView(nav: nav, store: .shared, history: .shared,
                                                                   updates: .shared, recorder: .shared))
             let w = NSWindow(contentViewController: host)
-            w.title = "Easy Write Settings"
+            w.title = String(localized: "Easy Write Settings")
             w.styleMask = [.titled, .closable, .miniaturizable, .fullSizeContentView]
             w.toolbarStyle = .unified
             w.isReleasedWhenClosed = false
@@ -117,7 +117,11 @@ struct ShortcutField: View {
             Button {
                 recorder.toggle(id) { set($0) }
             } label: {
-                Text(recorder.recordingID == id ? "Press keys…" : value?.label ?? "Record shortcut")
+                Group {
+                    if recorder.recordingID == id { Text("Press keys…") }
+                    else if let label = value?.label { Text(verbatim: label) }
+                    else { Text("Record shortcut") }
+                }
                     .monospacedDigit()
                     .frame(minWidth: 120)
             }
@@ -188,7 +192,7 @@ private struct GeneralPage: View {
             Section("Translate") {
                 Toggle(isOn: $store.twoWay) {
                     Text("Translate both directions")
-                    Text("If the text is already in \(Languages.named(store.targetCode).name), \(store.shortcut(for: .translate)?.label ?? "Translate") turns it into \(Languages.named(store.homeCode).name) instead.")
+                    Text("If the text is already in \(Languages.named(store.targetCode).displayName), \(store.shortcut(for: .translate)?.label ?? String(localized: "Translate")) turns it into \(Languages.named(store.homeCode).displayName) instead.")
                 }
                 Toggle(isOn: $store.rememberPerApp) {
                     Text("Remember the tone for each app")
@@ -198,7 +202,7 @@ private struct GeneralPage: View {
                     ForEach(store.appPreferences.sorted { $0.value.appName < $1.value.appName }, id: \.key) { id, pref in
                         LabeledContent(pref.appName) {
                             HStack {
-                                Text("\(Languages.named(pref.code).name) · \(pref.tone.title)").foregroundStyle(.secondary)
+                                Text("\(Languages.named(pref.code).displayName) · \(pref.tone.title)").foregroundStyle(.secondary)
                                 Button { store.appPreferences[id] = nil } label: { Image(systemName: "minus.circle") }
                                     .buttonStyle(.borderless)
                                     .accessibilityLabel("Forget \(pref.appName)")
@@ -220,7 +224,7 @@ private struct GeneralPage: View {
             if on { try SMAppService.mainApp.register() } else { try SMAppService.mainApp.unregister() }
             loginError = nil
         } catch {
-            loginError = "Couldn’t change this: \(error.localizedDescription)"
+            loginError = String(localized: "Couldn’t change this: \(error.localizedDescription)")
             launchAtLogin = SMAppService.mainApp.status == .enabled
         }
     }
@@ -235,7 +239,7 @@ private struct LanguagesPage: View {
         Form {
             Section("Translate into") {
                 Picker("Language", selection: $store.targetCode) {
-                    ForEach(Languages.all) { Text($0.name).tag($0.code) }
+                    ForEach(Languages.all) { Text($0.displayName).tag($0.code) }
                 }
                 Picker("Tone", selection: $store.defaultTone) {
                     ForEach(Tone.allCases) { t in
@@ -249,7 +253,7 @@ private struct LanguagesPage: View {
             }
             Section("Your language") {
                 Picker("Your language", selection: $store.homeCode) {
-                    ForEach(Languages.all) { Text($0.name).tag($0.code) }
+                    ForEach(Languages.all) { Text($0.displayName).tag($0.code) }
                 }
                 Text("Read mode translates into this language, and two-way translate turns text back into it.")
                     .font(.caption).foregroundStyle(.secondary)
@@ -358,7 +362,8 @@ private struct ActionsPage: View {
     }
 
     private func addAction() {
-        let a = WriteAction(name: "New action", instruction: "Describe what to do with the selected text.",
+        let a = WriteAction(name: String(localized: "New action"),
+                            instruction: String(localized: "Describe what to do with the selected text."),
                             output: .popup, shortcut: nil)
         store.actions.append(a)
         nav.actionID = a.id
@@ -388,7 +393,7 @@ private struct ActionsPage: View {
     private func importLink() {
         guard let url = URL(string: importText.trimmingCharacters(in: .whitespacesAndNewlines)),
               ActionLink.decode(url) != nil else {
-            importError = "That isn’t an Easy Write action link."
+            importError = String(localized: "That isn’t an Easy Write action link.")
             return
         }
         importError = nil
@@ -535,7 +540,7 @@ private struct HistoryPage: View {
         let panel = NSOpenPanel()
         panel.allowedContentTypes = [.application]
         panel.directoryURL = URL(fileURLWithPath: "/Applications")
-        panel.prompt = "Exclude"
+        panel.prompt = String(localized: "Exclude")
         guard panel.runModal() == .OK, let url = panel.url, let id = Bundle(url: url)?.bundleIdentifier,
               !store.historyExcluded.contains(id) else { return }
         store.historyExcluded.append(id)
@@ -583,11 +588,11 @@ private struct UpdatesPage: View {
                     Toggle("Check for updates automatically", isOn: Binding(
                         get: { updates.automaticallyChecks }, set: { updates.automaticallyChecks = $0 }))
                     LabeledContent("Last checked") {
-                        Text(updates.lastCheck?.formatted(date: .abbreviated, time: .shortened) ?? "Never")
+                        Text(updates.lastCheck?.formatted(date: .abbreviated, time: .shortened) ?? String(localized: "Never"))
                     }
                     Button("Check now") { updates.checkNow() }
                 } else {
-                    Text("This source build does not check for updates. Pull the latest code and run build.sh. Signed downloads are being prepared for the 2.0 release.")
+                    Text("This copy was built from source, so it doesn’t check for updates. For automatic updates, use the signed download from onekapisch.com.")
                         .foregroundStyle(.secondary)
                 }
             }

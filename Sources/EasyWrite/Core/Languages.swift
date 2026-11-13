@@ -16,6 +16,14 @@ struct Lang: Identifiable {
     /// *rest* of the paradigm — possessives and imperatives — so spell the whole thing out.
     var formalSpec: String? = nil
     var informalSpec: String? = nil
+
+    /// The language's name for people, in the language the interface is shown in ("Deutsch" in the
+    /// German UI). `name` stays English because it goes into the model's instructions.
+    var displayName: String {
+        let ui = Locale(identifier: Bundle.main.preferredLocalizations.first ?? "en")
+        guard let n = ui.localizedString(forLanguageCode: code) else { return name }
+        return n.prefix(1).capitalized(with: ui) + n.dropFirst()
+    }
 }
 
 enum Languages {

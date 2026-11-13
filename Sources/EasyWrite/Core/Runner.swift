@@ -39,7 +39,7 @@ final class Runner {
         let lang: Lang
         let tone: Tone
         let reversed: Bool
-        var label: String { reversed ? "\(lang.name) · translated back" : "\(lang.name) · \(tone.title)" }
+        var label: String { reversed ? String(localized: "\(lang.displayName) · translated back") : "\(lang.displayName) · \(tone.title)" }
     }
 
     enum Delivery {
@@ -69,7 +69,7 @@ final class Runner {
             BarController.shared.show(c, preselect: .translate(code: lang.code, tone: tone))
             return
         }
-        perform(.translate(lang, tone), c, label: "\(lang.name) · \(tone.title)", kind: .translate,
+        perform(.translate(lang, tone), c, label: "\(lang.displayName) · \(tone.title)", kind: .translate,
                 language: lang.code, memory: (lang.code, tone), delivery: .replace)
     }
 
@@ -83,9 +83,9 @@ final class Runner {
             let t = Languages.named(store.targetCode)
             target = t.code == home.code ? Languages.named("en") : t
         }
-        let from = c.detected.flatMap { $0.confidence >= 0.5 ? Languages.named($0.code).name : nil }
-        let header = ReaderPanel.Header.translation(from: from == target.name ? nil : from, to: target.name)
-        perform(.translate(target, .natural), c, label: target.name, kind: .read, language: target.code,
+        let from = c.detected.flatMap { $0.confidence >= 0.5 ? Languages.named($0.code).displayName : nil }
+        let header = ReaderPanel.Header.translation(from: from == target.displayName ? nil : from, to: target.displayName)
+        perform(.translate(target, .natural), c, label: target.displayName, kind: .read, language: target.code,
                 memory: nil, delivery: .reader(header, speech: target.code, editable: replacer.focusedIsEditable()))
     }
 
@@ -128,14 +128,15 @@ final class Runner {
         guard let app = c.app, front?.processIdentifier == app.processIdentifier,
               let target = c.target, replacer.replaceSelection(with: result, target: target) else {
             replacer.restoreClipboard()
-            hud.problem("Selection changed or cannot be verified. Result shown instead.")
+            hud.problem(String(localized: "Selection changed or cannot be verified. Result shown instead."))
             ReaderPanel.shared.show(result, original: c.text, header: .action(label),
                                     speechCode: language ?? store.homeCode, canReplace: false,
                                     at: c.mouse, onReplace: {})
             return
         }
         // Posting a key is not an acknowledgement from the destination app.
-        hud.done("Paste sent", detail: c.words == 1 ? "1 word" : "\(c.words) words", keycap: "⌘Z", hint: "to undo")
+        hud.done(String(localized: "Paste sent"), detail: String(localized: "\(c.words) words"), keycap: "⌘Z",
+                 hint: String(localized: "to undo"))
         if let m = memory { store.remember(code: m.0, tone: m.1, for: c.bundleID, appName: c.appName) }
         if recordHistory {
             record(result, c, label: label, kind: kind, language: language, replaced: true)
@@ -148,7 +149,7 @@ final class Runner {
     func deliverCopy(_ result: String, _ c: Captured, label: String, kind: HistoryEntry.Kind,
                      language: String?, memory: (String, Tone)?) {
         replacer.copyForUser(result)
-        hud.done("Copied", detail: label)
+        hud.done(String(localized: "Copied"), detail: label)
         if let m = memory { store.remember(code: m.0, tone: m.1, for: c.bundleID, appName: c.appName) }
         record(result, c, label: label, kind: kind, language: language, replaced: false)
     }
@@ -170,12 +171,12 @@ final class Runner {
         // while, and there should always be a way out.
         if AppState.shared.busy {
             currentJob?.cancel()
-            hud.problem("Stopped")
+            hud.problem(String(localized: "Stopped"))
             return nil
         }
         guard !BarController.shared.isOpen else { return nil }
         guard AXIsProcessTrusted() else {
-            hud.problem("Easy Write needs Accessibility")
+            hud.problem(String(localized: "Easy Write needs Accessibility"))
             WelcomeController.shared.show()
             return nil
         }
@@ -198,11 +199,11 @@ final class Runner {
         guard let text = target?.text ?? replacer.selectedText(),
               !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             replacer.restoreClipboard()
-            hud.problem("Select text in an app that exposes its selection to Accessibility")
+            hud.problem(String(localized: "Select text in an app that exposes its selection to Accessibility"))
             return nil
         }
         replacer.restoreClipboard()
-        return Captured(text: text, app: app, appName: app?.localizedName ?? "this app",
+        return Captured(text: text, app: app, appName: app?.localizedName ?? String(localized: "this app"),
                         bundleID: app?.bundleIdentifier, words: LanguageDetector.wordCount(text),
                         detected: LanguageDetector.detect(text), anchor: replacer.selectionBounds(), mouse: mouse,
                         target: target?.text == text ? target : nil)
@@ -220,7 +221,7 @@ final class Runner {
             defer { AppState.shared.busy = false; currentJob = nil }
             do {
                 let result = try await llm.run(c.text, job: job) { i, n in
-                    self.hud.working(label, detail: "part \(i) of \(n)")
+                    self.hud.working(label, detail: String(localized: "part \(i) of \(n)"))
                 }
                 try Task.checkCancellation()           // stopped while the last piece finished
                 switch delivery {

@@ -33,6 +33,8 @@ if [ "${EW_ENABLE_UPDATES:-0}" != "1" ]; then
 fi
 [ -f AppIcon.icns ] && cp AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 cp Resources/Studio/*.png "$APP/Contents/Resources/"     # Studio page tiles (make-studio-icons.py output)
+# Interface text: English and German. Compiles the string catalog into en.lproj and de.lproj.
+xcrun xcstringstool compile Resources/Localizable.xcstrings --output-directory "$APP/Contents/Resources" >/dev/null
 
 # Sparkle (updates). The app isn't sandboxed, so Sparkle's XPC services aren't needed.
 SPARKLE=".build/release/Sparkle.framework"          # .build/release links to the real product folder

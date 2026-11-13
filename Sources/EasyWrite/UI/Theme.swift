@@ -92,8 +92,11 @@ struct Keycap: View {
 
     /// "⌥⌘T" → "Option Command T", so VoiceOver reads shortcuts properly.
     static func spoken(_ s: String) -> String {
-        let names: [Character: String] = ["⌃": "Control", "⌥": "Option", "⇧": "Shift", "⌘": "Command",
-                                          "↩": "Return", "↑": "Up", "↓": "Down"]
+        let names: [Character: String] = [
+            "⌃": String(localized: "Control"), "⌥": String(localized: "Option"),
+            "⇧": String(localized: "Shift"), "⌘": String(localized: "Command"),
+            "↩": String(localized: "Return"), "↑": String(localized: "Up"), "↓": String(localized: "Down"),
+        ]
         return s.map { names[$0] ?? String($0) }.joined(separator: " ")
     }
 }
@@ -241,7 +244,7 @@ struct EWButtonStyle: ButtonStyle {
 
 struct IconButton: View {
     let symbol: String
-    let label: String
+    let label: LocalizedStringKey
     let action: () -> Void
 
     var body: some View {

@@ -17,7 +17,16 @@ final class BarModel: ObservableObject {
             case action(UUID)
             case ask(String)
         }
-        enum Group: String { case translate = "Translate", actions = "Actions", ask = "Ask" }
+        enum Group: String {
+            case translate = "Translate", actions = "Actions", ask = "Ask"
+            var title: String {
+                switch self {
+                case .translate: String(localized: "Translate")
+                case .actions:   String(localized: "Actions")
+                case .ask:       String(localized: "Ask")
+                }
+            }
+        }
 
         let kind: Kind
         let group: Group
@@ -171,13 +180,13 @@ final class BarModel: ObservableObject {
             let tokens = q.split(separator: " ").map(String.init)
             for lang in Languages.all {
                 for tone in Tone.allCases {
-                    let hay = "\(lang.name) \(lang.code) \(tone.title) \(tone.pronoun(in: lang) ?? "")"
+                    let hay = "\(lang.name) \(lang.displayName) \(lang.code) \(tone.title) \(tone.pronoun(in: lang) ?? "")"
                     if Self.matches(tokens, hay) { list.append(translateItem(lang, tone)) }
                 }
             }
             list += store.actions.filter { Self.matches(tokens, $0.name) }.map(actionItem)
             list.append(Item(kind: .ask(query), group: .ask, title: query,
-                             subtitle: "Run as an instruction"))
+                             subtitle: String(localized: "Run as an instruction")))
         }
         items = list
         if !list.contains(where: { $0.id == selectedID }) { selectedID = list.first?.id }
@@ -185,7 +194,7 @@ final class BarModel: ObservableObject {
 
     private func translateItem(_ lang: Lang, _ tone: Tone, badge: String? = nil) -> Item {
         Item(kind: .translate(code: lang.code, tone: tone), group: .translate,
-             title: "\(lang.name) · \(tone.title)", subtitle: tone.pronoun(in: lang), badge: badge)
+             title: "\(lang.displayName) · \(tone.title)", subtitle: tone.pronoun(in: lang), badge: badge)
     }
 
     private func actionItem(_ a: WriteAction) -> Item {
@@ -321,7 +330,7 @@ final class BarController {
         case .action:
             label = item.title; kind = .action
         case .ask(let s):
-            label = "Ask: \(s)"; kind = .ask
+            label = String(localized: "Ask: \(s)"); kind = .ask
         }
         // Give the source app a moment to take keyboard focus back before pasting.
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.06) {
@@ -435,7 +444,7 @@ struct BarView: View {
                 Spacer(minLength: 8)
                 HStack(spacing: 5) {
                     if let d = model.detectedName { chip(d) }
-                    if let w = model.captured?.words { chip(w == 1 ? "1 word" : "\(w) words") }
+                    if let w = model.captured?.words { chip(String(localized: "\(w) words")) }
                     if let a = model.captured?.appName { chip(a) }
                 }
             }
@@ -466,7 +475,7 @@ struct BarView: View {
                 LazyVStack(alignment: .leading, spacing: 2) {
                     ForEach(Array(list.enumerated()), id: \.element.id) { i, item in
                         if i == 0 || list[i - 1].group != item.group {
-                            Text(item.group.rawValue.uppercased())
+                            Text(item.group.title.uppercased())
                                 .font(.system(size: 10, weight: .semibold)).tracking(0.7)
                                 .foregroundStyle(Color(hex: 0x7D7993))
                                 .padding(.horizontal, 16).padding(.top, i == 0 ? 8 : 12).padding(.bottom, 4)
@@ -560,6 +569,8 @@ struct BarView: View {
                     .disabled(model.preview.text == nil)
             }
             .labelStyle(.titleAndIcon)
+            .lineLimit(1)
+            .fixedSize()
             .disabled(model.selected == nil)
         }
         .padding(.horizontal, 16).padding(.vertical, 14)
@@ -567,12 +578,14 @@ struct BarView: View {
     }
 
     private var previewTitle: String {
-        guard let item = model.selected else { return "Preview" }
+        guard let item = model.selected else { return String(localized: "Preview") }
         switch item.kind {
         case .translate(let code, let tone):
-            return "Preview · \(Languages.named(code).name), \(tone.title.lowercased())"
-        case .action, .ask:
-            return "Preview · \(item.group == .ask ? "your instruction" : item.title)"
+            return String(localized: "Preview · \(Languages.named(code).displayName), \(tone.title)")
+        case .action:
+            return String(localized: "Preview · \(item.title)")
+        case .ask:
+            return String(localized: "Preview · your instruction")
         }
     }
 
@@ -593,7 +606,7 @@ struct BarView: View {
         .padding(.horizontal, 16).padding(.vertical, 9)
     }
 
-    private func hint(_ key: String, _ text: String) -> some View {
+    private func hint(_ key: String, _ text: LocalizedStringKey) -> some View {
         HStack(spacing: 5) {
             Keycap(text: key, size: 10)
             Text(text).font(.system(size: 11)).foregroundStyle(Color(hex: 0x7D7993))

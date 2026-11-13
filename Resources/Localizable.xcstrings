@@ -1,0 +1,3312 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "": {
+      "localizations": {},
+      "shouldTranslate": false
+    },
+    " (shared)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " (geteilt)"
+          }
+        }
+      }
+    },
+    " — privacy-first software studio, built in Germany.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " — Software-Studio mit Fokus auf Privatsphäre, aus Deutschland."
+          }
+        }
+      }
+    },
+    " ▍": {
+      "localizations": {},
+      "shouldTranslate": false
+    },
+    "%@ is used more than once. Only one of them will work.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ist mehrfach belegt. Nur einer davon funktioniert."
+          }
+        }
+      }
+    },
+    "%@ tone": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ton %@"
+          }
+        }
+      }
+    },
+    "%@ · %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ · %2$@"
+          }
+        }
+      },
+      "shouldTranslate": false
+    },
+    "%@ · translated back": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · zurückübersetzt"
+          }
+        }
+      }
+    },
+    "%@%@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@%2$@"
+          }
+        }
+      },
+      "shouldTranslate": false
+    },
+    "%@, %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@, %2$@"
+          }
+        }
+      },
+      "shouldTranslate": false
+    },
+    "%@, this app, %@ in the studio's day": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@, diese App, um %2$@ im Tag des Studios"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@, this app, %2$@ in the studio's day"
+          }
+        }
+      }
+    },
+    "%lld": {
+      "localizations": {},
+      "shouldTranslate": false
+    },
+    "%lld saved": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld gesichert"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld gesichert"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld saved"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld saved"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld words": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Wort"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Wörter"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld word"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld words"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "+": {
+      "localizations": {},
+      "shouldTranslate": false
+    },
+    "+%lld": {
+      "localizations": {},
+      "shouldTranslate": false
+    },
+    "1 day": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 Tag"
+          }
+        }
+      }
+    },
+    "30 days": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 Tage"
+          }
+        }
+      }
+    },
+    "7 days": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 Tage"
+          }
+        }
+      }
+    },
+    "A": {
+      "localizations": {},
+      "shouldTranslate": false
+    },
+    "A whole day, covered.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein ganzer Tag, abgedeckt."
+          }
+        }
+      }
+    },
+    "AI usage, spend and limits — live in the menu bar.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KI-Nutzung, Kosten und Limits — live in der Menüleiste."
+          }
+        }
+      }
+    },
+    "AND": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UND"
+          }
+        }
+      }
+    },
+    "About": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Über"
+          }
+        }
+      }
+    },
+    "About Easy Write": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Über Easy Write"
+          }
+        }
+      }
+    },
+    "Accessibility": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bedienungshilfen"
+          }
+        }
+      }
+    },
+    "Action added": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktion hinzugefügt"
+          }
+        }
+      }
+    },
+    "Actions": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktionen"
+          }
+        }
+      }
+    },
+    "Add": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hinzufügen"
+          }
+        }
+      }
+    },
+    "Add Action": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktion hinzufügen"
+          }
+        }
+      }
+    },
+    "Add a shared action": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geteilte Aktion hinzufügen"
+          }
+        }
+      }
+    },
+    "Add app": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App hinzufügen"
+          }
+        }
+      }
+    },
+    "Add term": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Begriff hinzufügen"
+          }
+        }
+      }
+    },
+    "Add “%@” to Easy Write?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%@“ zu Easy Write hinzufügen?"
+          }
+        }
+      }
+    },
+    "Allow": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erlauben"
+          }
+        }
+      }
+    },
+    "Allow Accessibility": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bedienungshilfen erlauben"
+          }
+        }
+      }
+    },
+    "Allowed": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erlaubt"
+          }
+        }
+      }
+    },
+    "Allowed. You’re set.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erlaubt. Alles bereit."
+          }
+        }
+      }
+    },
+    "Already see Easy Write in the list from an older version? Remove it with the minus button, then add it again. This version is signed differently, so macOS treats it as a new app.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Steht Easy Write von einer älteren Version schon in der Liste? Entferne den Eintrag mit der Minustaste und füge ihn neu hinzu. Diese Version ist anders signiert, deshalb behandelt macOS sie als neue App."
+          }
+        }
+      }
+    },
+    "Always write": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Immer schreiben"
+          }
+        }
+      }
+    },
+    "And much more — see every OneKapisch product": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Und vieles mehr — alle OneKapisch-Produkte ansehen"
+          }
+        }
+      }
+    },
+    "Anything else about how you write, e.g. “Keep it short. I’m a software engineer writing to colleagues.”": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alles andere zu deinem Schreibstil, z. B. „Halte es kurz. Ich bin Softwareentwickler und schreibe an Kolleg:innen.“"
+          }
+        }
+      }
+    },
+    "Apple Intelligence": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence"
+          }
+        }
+      }
+    },
+    "Apple Intelligence doesn’t support this language yet.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence unterstützt diese Sprache noch nicht."
+          }
+        }
+      }
+    },
+    "Apple Intelligence is off": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence ist aus"
+          }
+        }
+      }
+    },
+    "Apple Intelligence is preparing": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence wird vorbereitet"
+          }
+        }
+      }
+    },
+    "Apple Intelligence is still preparing": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence wird noch vorbereitet"
+          }
+        }
+      }
+    },
+    "Apple Intelligence is still preparing its model.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence bereitet sein Modell noch vor."
+          }
+        }
+      }
+    },
+    "Apple Intelligence is still setting up — it downloads its model in the background the first time you enable it, which can take a while. Open System Settings → Apple Intelligence & Siri, wait until it finishes preparing, then try again. (Needs enough free storage and a network connection to download.)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence wird noch eingerichtet — beim ersten Einschalten lädt es sein Modell im Hintergrund, das kann eine Weile dauern. Öffne Systemeinstellungen → Apple Intelligence & Siri, warte, bis die Vorbereitung abgeschlossen ist, und versuche es dann erneut. (Für den Download sind genug freier Speicher und eine Netzwerkverbindung nötig.)"
+          }
+        }
+      }
+    },
+    "Apple Intelligence is turned off. Enable it in System Settings → Apple Intelligence & Siri, then try again.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence ist ausgeschaltet. Schalte es in Systemeinstellungen → Apple Intelligence & Siri ein und versuche es dann erneut."
+          }
+        }
+      }
+    },
+    "Apple Intelligence isn’t available": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence ist nicht verfügbar"
+          }
+        }
+      }
+    },
+    "Apple Intelligence isn’t available right now. Check System Settings → Apple Intelligence & Siri, then try again.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence ist gerade nicht verfügbar. Prüfe Systemeinstellungen → Apple Intelligence & Siri und versuche es dann erneut."
+          }
+        }
+      }
+    },
+    "Apple Intelligence isn’t supported on this Mac. It needs Apple Silicon (M1 or newer) and macOS 26.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence wird auf diesem Mac nicht unterstützt. Nötig sind Apple Silicon (M1 oder neuer) und macOS 26."
+          }
+        }
+      }
+    },
+    "Apple Intelligence unavailable": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence nicht verfügbar"
+          }
+        }
+      }
+    },
+    "Apple’s on-device model declined this text.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apples On-Device-Modell hat diesen Text abgelehnt."
+          }
+        }
+      }
+    },
+    "Ask": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fragen"
+          }
+        }
+      }
+    },
+    "Ask: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Frage: %@"
+          }
+        }
+      }
+    },
+    "Brighter than macOS allows. Darker than its minimum.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heller als macOS erlaubt. Dunkler als sein Minimum."
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbrechen"
+          }
+        }
+      }
+    },
+    "Check for updates": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach Updates suchen"
+          }
+        }
+      }
+    },
+    "Check for updates automatically": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automatisch nach Updates suchen"
+          }
+        }
+      }
+    },
+    "Check now": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jetzt suchen"
+          }
+        }
+      }
+    },
+    "Chime · Minimizer · Unfold AI · Tank Alert · Nudge · Models 4 Breakfast, and more.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chime · Minimizer · Unfold AI · Tank Alert · Nudge · Models 4 Breakfast und mehr."
+          }
+        }
+      }
+    },
+    "Chime, Minimizer, Unfold AI, Nudge, Models 4 Breakfast and more": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chime, Minimizer, Unfold AI, Nudge, Models 4 Breakfast und mehr"
+          }
+        }
+      }
+    },
+    "Clear all": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alles löschen"
+          }
+        }
+      }
+    },
+    "Click, then press a new key combination": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klicke und drücke dann eine neue Tastenkombination"
+          }
+        }
+      }
+    },
+    "Close": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schließen"
+          }
+        }
+      }
+    },
+    "Command": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Befehlstaste"
+          }
+        }
+      }
+    },
+    "Control": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Control"
+          }
+        }
+      }
+    },
+    "Copied": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopiert"
+          }
+        }
+      }
+    },
+    "Copies a link to a page on onekapisch.com that shows this action, with a button to add it to Easy Write. The action travels inside the link; nothing is uploaded.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopiert einen Link zu einer Seite auf onekapisch.com, die diese Aktion zeigt und einen Button zum Hinzufügen zu Easy Write hat. Die Aktion steckt im Link selbst; es wird nichts hochgeladen."
+          }
+        }
+      }
+    },
+    "Copy": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopieren"
+          }
+        }
+      }
+    },
+    "Copy result": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ergebnis kopieren"
+          }
+        }
+      }
+    },
+    "Correct spelling, grammar and punctuation. Keep the wording, tone and language the same, and change as little as possible.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Korrigiere Rechtschreibung, Grammatik und Zeichensetzung. Behalte Wortwahl, Ton und Sprache bei und ändere so wenig wie möglich."
+          }
+        }
+      }
+    },
+    "Could not delete history. Check folder permissions.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verlauf konnte nicht gelöscht werden. Prüfe die Ordnerrechte."
+          }
+        }
+      }
+    },
+    "Could not save history. Check folder permissions.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verlauf konnte nicht gesichert werden. Prüfe die Ordnerrechte."
+          }
+        }
+      }
+    },
+    "Couldn’t change this: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das ließ sich nicht ändern: %@"
+          }
+        }
+      }
+    },
+    "Cut": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausschneiden"
+          }
+        }
+      }
+    },
+    "Delete": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rückschritt"
+          }
+        }
+      }
+    },
+    "Delete action": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktion löschen"
+          }
+        }
+      }
+    },
+    "Describe what to do with the selected text.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschreibe, was mit dem ausgewählten Text passieren soll."
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erledigt"
+          }
+        }
+      }
+    },
+    "Down": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pfeil nach unten"
+          }
+        }
+      }
+    },
+    "Downloading": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird geladen"
+          }
+        }
+      }
+    },
+    "ENTER THE STUDIO ↗": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ZUM STUDIO ↗"
+          }
+        }
+      }
+    },
+    "Easy Write": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Easy Write"
+          }
+        }
+      }
+    },
+    "Easy Write %@ · Apple Intelligence": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Easy Write %@ · Apple Intelligence"
+          }
+        }
+      }
+    },
+    "Easy Write Settings": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Easy Write – Einstellungen"
+          }
+        }
+      }
+    },
+    "Easy Write can’t read your selection yet.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Easy Write kann deine Auswahl noch nicht lesen."
+          }
+        }
+      }
+    },
+    "Easy Write copies the text you select and pastes the result back. macOS asks you to allow that once, in Privacy & Security → Accessibility.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Easy Write liest den Text, den du auswählst, und setzt das Ergebnis wieder ein. macOS fragt dich einmal danach, unter Datenschutz & Sicherheit → Bedienungshilfen."
+          }
+        }
+      }
+    },
+    "Easy Write needs Accessibility": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Easy Write braucht Bedienungshilfen"
+          }
+        }
+      }
+    },
+    "Easy Write uses the language model built into macOS. It runs on this Mac, so nothing you write is uploaded.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Easy Write nutzt das Sprachmodell, das in macOS eingebaut ist. Es läuft auf diesem Mac, nichts von dem, was du schreibst, wird hochgeladen."
+          }
+        }
+      }
+    },
+    "Easy Write uses these exact words in every translation and action. Good for product names, job titles, and words you spell your own way, like E-Mail → Mail.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Easy Write verwendet genau diese Wörter in jeder Übersetzung und Aktion. Praktisch für Produktnamen, Berufsbezeichnungen und Wörter, die du auf deine Art schreibst, etwa E-Mail → Mail."
+          }
+        }
+      }
+    },
+    "Edit": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bearbeiten"
+          }
+        }
+      }
+    },
+    "Exclude": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausschließen"
+          }
+        }
+      }
+    },
+    "Explain in simple English how the grammar of this sentence works, including word order and any formal or informal forms. Use short bullet points.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erkläre in einfachem Deutsch, wie die Grammatik dieses Satzes funktioniert, inklusive Satzstellung und förmlicher oder informeller Formen. Nutze kurze Stichpunkte."
+          }
+        }
+      }
+    },
+    "Explain the grammar": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grammatik erklären"
+          }
+        }
+      }
+    },
+    "Finish": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fertig"
+          }
+        }
+      }
+    },
+    "Finish without trying": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ohne Test beenden"
+          }
+        }
+      }
+    },
+    "Fix grammar": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grammatik korrigieren"
+          }
+        }
+      }
+    },
+    "Forget %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ vergessen"
+          }
+        }
+      }
+    },
+    "Formal": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Förmlich"
+          }
+        }
+      }
+    },
+    "Free": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gratis"
+          }
+        }
+      }
+    },
+    "Free and open source under the MIT License. Made by OneKapisch in Germany.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kostenlos und Open Source unter der MIT-Lizenz. Gemacht von OneKapisch in Deutschland."
+          }
+        }
+      }
+    },
+    "From first coffee to lights-out.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vom ersten Kaffee bis Licht aus."
+          }
+        }
+      }
+    },
+    "General": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allgemein"
+          }
+        }
+      }
+    },
+    "Glossary": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Glossar"
+          }
+        }
+      }
+    },
+    "Hey! Text me when you land.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hey! Schreib mir, wenn du gelandet bist."
+          }
+        }
+      }
+    },
+    "Hide original": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Original ausblenden"
+          }
+        }
+      }
+    },
+    "Hide original text": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Originaltext ausblenden"
+          }
+        }
+      }
+    },
+    "History": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verlauf"
+          }
+        }
+      }
+    },
+    "History & Privacy": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verlauf & Datenschutz"
+          }
+        }
+      }
+    },
+    "If the text is already in %@, %@ turns it into %@ instead.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ist der Text schon auf %1$@, macht %2$@ stattdessen %3$@ daraus."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "If the text is already in %1$@, %2$@ turns it into %3$@ instead."
+          }
+        }
+      }
+    },
+    "In place": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Direkt ersetzen"
+          }
+        }
+      }
+    },
+    "Informal": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Informell"
+          }
+        }
+      }
+    },
+    "Instruction": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anweisung"
+          }
+        }
+      }
+    },
+    "Into": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach"
+          }
+        }
+      }
+    },
+    "It may be incomplete. Ask the person who shared it to copy the link again.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Er ist möglicherweise unvollständig. Bitte die Person, die ihn geteilt hat, den Link erneut zu kopieren."
+          }
+        }
+      }
+    },
+    "It runs Easy Write, entirely on this Mac.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es betreibt Easy Write, komplett auf diesem Mac."
+          }
+        }
+      }
+    },
+    "It runs this instruction on text you select:\n\n“%@”\n\nIt starts by showing results in a popup, so it never changes your text until you switch it to Replace in Settings → Actions.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sie wendet diese Anweisung auf den Text an, den du auswählst:\n\n„%@“\n\nErgebnisse erscheinen zuerst in einem Pop-up. Sie ändert deinen Text also erst, wenn du sie in Einstellungen → Aktionen auf Ersetzen umstellst."
+          }
+        }
+      }
+    },
+    "It’s turned on and still downloading its model. This happens once and can take a while. It needs free storage and a network connection.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es ist eingeschaltet und lädt sein Modell noch. Das passiert einmal und kann eine Weile dauern. Nötig sind freier Speicher und eine Netzwerkverbindung."
+          }
+        }
+      }
+    },
+    "Japanese keigo": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Japanisch (Keigo)"
+          }
+        }
+      }
+    },
+    "Keep for": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aufbewahren"
+          }
+        }
+      }
+    },
+    "Keep on screen": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auf dem Bildschirm halten"
+          }
+        }
+      }
+    },
+    "Know where you are — without internet or signal.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wisse, wo du bist — ohne Internet oder Empfang."
+          }
+        }
+      }
+    },
+    "Language": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprache"
+          }
+        }
+      }
+    },
+    "Languages": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprachen"
+          }
+        }
+      }
+    },
+    "Last checked": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zuletzt gesucht"
+          }
+        }
+      }
+    },
+    "Link copied": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link kopiert"
+          }
+        }
+      }
+    },
+    "Make it shorter": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kürzer fassen"
+          }
+        }
+      }
+    },
+    "Make this shorter and clearer. Keep every fact and the same language and tone.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formuliere das kürzer und klarer. Behalte alle Fakten, die Sprache und den Ton bei."
+          }
+        }
+      }
+    },
+    "More": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mehr"
+          }
+        }
+      }
+    },
+    "Name": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name"
+          }
+        }
+      }
+    },
+    "Natural": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Natürlich"
+          }
+        }
+      }
+    },
+    "Natural keeps the tone of the text you selected. Formal and Informal set it, for example Sie or du in German.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Natürlich behält den Ton des ausgewählten Texts bei. Förmlich und Informell legen ihn fest, im Deutschen etwa Sie oder du."
+          }
+        }
+      }
+    },
+    "Needed to read your selection": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nötig, um deine Auswahl zu lesen"
+          }
+        }
+      }
+    },
+    "Needs Accessibility": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Braucht Bedienungshilfen"
+          }
+        }
+      }
+    },
+    "Never": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie"
+          }
+        }
+      }
+    },
+    "Never keep text from": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Niemals Text speichern von"
+          }
+        }
+      }
+    },
+    "New action": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neue Aktion"
+          }
+        }
+      }
+    },
+    "Next": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weiter"
+          }
+        }
+      }
+    },
+    "No action selected": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Aktion ausgewählt"
+          }
+        }
+      }
+    },
+    "No matches.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Treffer."
+          }
+        }
+      }
+    },
+    "No preview yet": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Vorschau"
+          }
+        }
+      }
+    },
+    "Not available yet": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch nicht verfügbar"
+          }
+        }
+      }
+    },
+    "Not supported": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht unterstützt"
+          }
+        }
+      }
+    },
+    "Not supported here": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hier nicht unterstützt"
+          }
+        }
+      }
+    },
+    "Nothing changes until you press ↩": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nichts ändert sich, bis du ↩ drückst"
+          }
+        }
+      }
+    },
+    "Nothing yet": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch nichts"
+          }
+        }
+      }
+    },
+    "Nothing yet.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch nichts."
+          }
+        }
+      }
+    },
+    "Off": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus"
+          }
+        }
+      }
+    },
+    "Off by default. Enabling this stores original text and results as local, unencrypted history. Turning it off deletes that history. At most %lld results.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Standardmäßig aus. Wenn du es einschaltest, werden Originaltexte und Ergebnisse als lokaler, unverschlüsselter Verlauf gespeichert. Beim Ausschalten wird dieser Verlauf gelöscht. Höchstens %lld Ergebnisse."
+          }
+        }
+      }
+    },
+    "On-device": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auf dem Gerät"
+          }
+        }
+      }
+    },
+    "One studio. ": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Studio. "
+          }
+        }
+      }
+    },
+    "OneKapisch": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OneKapisch"
+          }
+        }
+      }
+    },
+    "Open": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffnen"
+          }
+        }
+      }
+    },
+    "Open Accessibility Settings": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bedienungshilfen öffnen"
+          }
+        }
+      }
+    },
+    "Open Apple Intelligence Settings": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence-Einstellungen öffnen"
+          }
+        }
+      }
+    },
+    "Open Easy Write Bar": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Easy Write Bar öffnen"
+          }
+        }
+      }
+    },
+    "Open at login": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bei der Anmeldung öffnen"
+          }
+        }
+      }
+    },
+    "Open onekapisch.com": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "onekapisch.com öffnen"
+          }
+        }
+      }
+    },
+    "Opens a list of languages": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffnet eine Liste der Sprachen"
+          }
+        }
+      }
+    },
+    "Option": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wahltaste"
+          }
+        }
+      }
+    },
+    "Optional update checks contact onekapisch.com without your text. Opening a Studio or support link visits that website in your browser. Translation and rewriting stay on your Mac.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die optionale Update-Suche kontaktiert onekapisch.com ohne deinen Text. Ein Studio- oder Support-Link öffnet die Website in deinem Browser. Übersetzen und Umschreiben bleiben auf deinem Mac."
+          }
+        }
+      }
+    },
+    "Original": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Original"
+          }
+        }
+      }
+    },
+    "Original: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Original: %@"
+          }
+        }
+      }
+    },
+    "Paste": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einsetzen"
+          }
+        }
+      }
+    },
+    "Paste a link": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link einsetzen"
+          }
+        }
+      }
+    },
+    "Paste sent": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eingesetzt"
+          }
+        }
+      }
+    },
+    "Pick a tone in the Bar and Easy Write remembers it for that app.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wähle in der Bar einen Ton, und Easy Write merkt ihn sich für diese App."
+          }
+        }
+      }
+    },
+    "Pick one on the left, or add a new one.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wähle links eine aus oder füge eine neue hinzu."
+          }
+        }
+      }
+    },
+    "Popup": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pop-up"
+          }
+        }
+      }
+    },
+    "Practice text": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übungstext"
+          }
+        }
+      }
+    },
+    "Preparing Apple Intelligence": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence wird vorbereitet"
+          }
+        }
+      }
+    },
+    "Press a key combination, or Esc to cancel": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Drücke eine Tastenkombination oder Esc zum Abbrechen"
+          }
+        }
+      }
+    },
+    "Press keys…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tasten drücken …"
+          }
+        }
+      }
+    },
+    "Preview": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorschau"
+          }
+        }
+      }
+    },
+    "Preview before replacing": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorschau vor dem Ersetzen"
+          }
+        }
+      }
+    },
+    "Preview · %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorschau · %@"
+          }
+        }
+      }
+    },
+    "Preview · %@, %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorschau · %1$@, %2$@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Preview · %1$@, %2$@"
+          }
+        }
+      }
+    },
+    "Preview · your instruction": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorschau · deine Anweisung"
+          }
+        }
+      }
+    },
+    "Preview: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorschau: %@"
+          }
+        }
+      }
+    },
+    "Privacy": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datenschutz"
+          }
+        }
+      }
+    },
+    "Privacy-first apps for Mac, iPhone and the web — designed and built in Germany.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacy-first Apps für Mac, iPhone und Web — entworfen und entwickelt in Deutschland."
+          }
+        }
+      }
+    },
+    "Quit Easy Write": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Easy Write beenden"
+          }
+        }
+      }
+    },
+    "Read": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lesen"
+          }
+        }
+      }
+    },
+    "Read in your language": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In deiner Sprache lesen"
+          }
+        }
+      }
+    },
+    "Read mode translates into this language, and two-way translate turns text back into it.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Lesemodus übersetzt in diese Sprache, und die Übersetzung in beide Richtungen holt Text in diese Sprache zurück."
+          }
+        }
+      }
+    },
+    "Ready on this Mac": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bereit auf diesem Mac"
+          }
+        }
+      }
+    },
+    "Ready on this Mac.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bereit auf diesem Mac."
+          }
+        }
+      }
+    },
+    "Ready · On-device": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bereit · Auf dem Gerät"
+          }
+        }
+      }
+    },
+    "Recent": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zuletzt"
+          }
+        }
+      }
+    },
+    "Record shortcut": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurzbefehl aufnehmen"
+          }
+        }
+      }
+    },
+    "Redo": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wiederholen"
+          }
+        }
+      }
+    },
+    "Remember the tone for each app": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ton für jede App merken"
+          }
+        }
+      }
+    },
+    "Remembered": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemerkt"
+          }
+        }
+      }
+    },
+    "Remembered for %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemerkt für %@"
+          }
+        }
+      }
+    },
+    "Remove": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entfernen"
+          }
+        }
+      }
+    },
+    "Remove shortcut": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurzbefehl entfernen"
+          }
+        }
+      }
+    },
+    "Remove term": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Begriff entfernen"
+          }
+        }
+      }
+    },
+    "Replace": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ersetzen"
+          }
+        }
+      }
+    },
+    "Replace selection": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auswahl ersetzen"
+          }
+        }
+      }
+    },
+    "Reply politely": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Höflich antworten"
+          }
+        }
+      }
+    },
+    "Reset the counters in the panel": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zähler im Panel zurücksetzen"
+          }
+        }
+      }
+    },
+    "Restore the built-in actions": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mitgelieferte Aktionen wiederherstellen"
+          }
+        }
+      }
+    },
+    "Result": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ergebnis"
+          }
+        }
+      }
+    },
+    "Return": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeilenschalter"
+          }
+        }
+      }
+    },
+    "Rewrite this so it sounds like natural, idiomatic English written by a native speaker. Keep the meaning and the level of formality.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formuliere das so um, dass es wie natürliches, idiomatisches Englisch von Muttersprachler:innen klingt. Behalte Bedeutung und Förmlichkeit bei."
+          }
+        }
+      }
+    },
+    "Run as an instruction": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Als Anweisung ausführen"
+          }
+        }
+      }
+    },
+    "STEP %lld OF 3": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SCHRITT %lld VON 3"
+          }
+        }
+      }
+    },
+    "Save originals and results on this Mac": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Originale und Ergebnisse auf diesem Mac sichern"
+          }
+        }
+      }
+    },
+    "Search": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suchen"
+          }
+        }
+      }
+    },
+    "Search languages and actions, or type an instruction": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprachen und Aktionen suchen oder eine Anweisung eingeben"
+          }
+        }
+      }
+    },
+    "Select All": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alles auswählen"
+          }
+        }
+      }
+    },
+    "Select text in an app that exposes its selection to Accessibility": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wähle Text in einer App aus, die ihre Auswahl für Bedienungshilfen freigibt"
+          }
+        }
+      }
+    },
+    "Selection": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auswahl"
+          }
+        }
+      }
+    },
+    "Selection changed or cannot be verified. Result shown instead.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auswahl geändert oder nicht prüfbar. Ergebnis wird stattdessen angezeigt."
+          }
+        }
+      }
+    },
+    "Settings": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einstellungen"
+          }
+        }
+      }
+    },
+    "Settings…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einstellungen …"
+          }
+        }
+      }
+    },
+    "Share action": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktion teilen"
+          }
+        }
+      }
+    },
+    "Shift": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Umschalttaste"
+          }
+        }
+      }
+    },
+    "Shortcut": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurzbefehl"
+          }
+        }
+      }
+    },
+    "Shortcut %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurzbefehl %@"
+          }
+        }
+      }
+    },
+    "Shortcuts": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurzbefehle"
+          }
+        }
+      }
+    },
+    "Shortcuts open the Bar with the result ready, instead of replacing right away.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurzbefehle öffnen die Bar mit fertigem Ergebnis, statt sofort zu ersetzen."
+          }
+        }
+      }
+    },
+    "Shortcuts work in every app. Pick combinations other apps don’t use: ⌥⌘I, for example, opens the developer tools in Chrome.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurzbefehle funktionieren in jeder App. Wähle Kombinationen, die andere Apps nicht nutzen: ⌥⌘I zum Beispiel öffnet in Chrome die Entwicklertools."
+          }
+        }
+      }
+    },
+    "Show in popup": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Im Pop-up zeigen"
+          }
+        }
+      }
+    },
+    "Show original text": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Originaltext einblenden"
+          }
+        }
+      }
+    },
+    "Show the welcome window": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Willkommensfenster zeigen"
+          }
+        }
+      }
+    },
+    "Six apps, one standard: privacy-first, no accounts, built in Germany.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sechs Apps, ein Standard: Privatsphäre zuerst, keine Konten, entwickelt in Deutschland."
+          }
+        }
+      }
+    },
+    "Skip for now": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jetzt überspringen"
+          }
+        }
+      }
+    },
+    "Something went wrong. Try again.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etwas ist schiefgelaufen. Versuche es erneut."
+          }
+        }
+      }
+    },
+    "Sound native": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wie Muttersprache klingen"
+          }
+        }
+      }
+    },
+    "Source on GitHub": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quellcode auf GitHub"
+          }
+        }
+      }
+    },
+    "Space": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leertaste"
+          }
+        }
+      }
+    },
+    "Speak": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorlesen"
+          }
+        }
+      }
+    },
+    "Still downloading": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird noch geladen"
+          }
+        }
+      }
+    },
+    "Stop": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stopp"
+          }
+        }
+      }
+    },
+    "Stopped": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gestoppt"
+          }
+        }
+      }
+    },
+    "Studio": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Studio"
+          }
+        }
+      }
+    },
+    "Style notes": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stilhinweise"
+          }
+        }
+      }
+    },
+    "Support: support@onekapisch.com": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Support: support@onekapisch.com"
+          }
+        }
+      }
+    },
+    "THE ONEKAPISCH STUDIO": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DAS ONEKAPISCH STUDIO"
+          }
+        }
+      }
+    },
+    "Terms": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Begriffe"
+          }
+        }
+      }
+    },
+    "Text me when you land.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schreib mir, wenn du gelandet bist."
+          }
+        }
+      }
+    },
+    "That isn’t an Easy Write action link.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das ist kein Link zu einer Easy Write-Aktion."
+          }
+        }
+      }
+    },
+    "That selection is too long for the on-device model.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Auswahl ist zu lang für das On-Device-Modell."
+          }
+        }
+      }
+    },
+    "That took too long. Try a shorter selection.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das hat zu lange gedauert. Versuche eine kürzere Auswahl."
+          }
+        }
+      }
+    },
+    "That’s it. Select text anywhere and press %@.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das war’s. Wähle irgendwo Text aus und drücke %@."
+          }
+        }
+      }
+    },
+    "The clipboard manager that never slows your Mac down.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Zwischenablage, die deinen Mac nie ausbremst."
+          }
+        }
+      }
+    },
+    "The language and tone you pick in the Bar become the default for that app.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Sprache und der Ton, die du in der Bar wählst, werden zum Standard für diese App."
+          }
+        }
+      }
+    },
+    "The model is busy. Try again in a moment.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Modell ist beschäftigt. Versuche es gleich noch einmal."
+          }
+        }
+      }
+    },
+    "The model is still downloading. This only happens once.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Modell wird noch geladen. Das passiert nur einmal."
+          }
+        }
+      }
+    },
+    "The model returned nothing. Try again.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Modell hat nichts geliefert. Versuche es erneut."
+          }
+        }
+      }
+    },
+    "The on-device model couldn’t finish this one.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das On-Device-Modell konnte das nicht abschließen."
+          }
+        }
+      }
+    },
+    "The result may be cut off. Try a shorter selection or instruction.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Ergebnis ist eventuell abgeschnitten. Versuche eine kürzere Auswahl oder Anweisung."
+          }
+        }
+      }
+    },
+    "The sentence below is already selected. Press %@, and Easy Write replaces it right here.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Satz unten ist schon ausgewählt. Drücke %@, und Easy Write ersetzt ihn direkt hier."
+          }
+        }
+      }
+    },
+    "This Mac can’t run Apple Intelligence": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieser Mac kann Apple Intelligence nicht ausführen"
+          }
+        }
+      }
+    },
+    "This Mac can’t run Apple Intelligence. It needs Apple Silicon (M1 or newer) and macOS 26.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieser Mac kann Apple Intelligence nicht ausführen. Nötig sind Apple Silicon (M1 oder neuer) und macOS 26."
+          }
+        }
+      }
+    },
+    "This Mac can’t run it": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieser Mac kann es nicht ausführen"
+          }
+        }
+      }
+    },
+    "This copy was built from source, so it doesn’t check for updates. For automatic updates, use the signed download from onekapisch.com.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Kopie wurde aus dem Quellcode gebaut und sucht daher nicht nach Updates. Für automatische Updates nutze den signierten Download von onekapisch.com."
+          }
+        }
+      }
+    },
+    "This link isn’t a valid Easy Write action": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieser Link ist keine gültige Easy Write-Aktion"
+          }
+        }
+      }
+    },
+    "Tone": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ton"
+          }
+        }
+      }
+    },
+    "Too much text or guidance. Shorten the selection, glossary or style notes.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zu viel Text oder Vorgaben. Kürze die Auswahl, das Glossar oder die Stilhinweise."
+          }
+        }
+      }
+    },
+    "Translate": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzen"
+          }
+        }
+      }
+    },
+    "Translate (both directions)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzen (beide Richtungen)"
+          }
+        }
+      }
+    },
+    "Translate and rewrite without switching apps.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzen und umschreiben, ohne die App zu wechseln."
+          }
+        }
+      }
+    },
+    "Translate both directions": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In beide Richtungen übersetzen"
+          }
+        }
+      }
+    },
+    "Translate into": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzen nach"
+          }
+        }
+      }
+    },
+    "Translate into %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzen nach %@"
+          }
+        }
+      }
+    },
+    "Translate or rewrite the selection": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auswahl übersetzen oder umschreiben"
+          }
+        }
+      }
+    },
+    "Translate this into polite business Japanese using appropriate keigo.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetze das in höfliches Geschäftsjapanisch mit passendem Keigo."
+          }
+        }
+      }
+    },
+    "Translate · Formal": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzen · Förmlich"
+          }
+        }
+      }
+    },
+    "Translate · Informal": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzen · Informell"
+          }
+        }
+      }
+    },
+    "Translate · Natural": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzen · Natürlich"
+          }
+        }
+      }
+    },
+    "Translate, rewrite, or describe a change": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzen, umschreiben oder eine Änderung beschreiben"
+          }
+        }
+      }
+    },
+    "Translation from %@ into %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzung aus dem %1$@ ins %2$@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Translation from %1$@ into %2$@"
+          }
+        }
+      }
+    },
+    "Translation into %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzung ins %@"
+          }
+        }
+      }
+    },
+    "Try a swap": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Probier es aus"
+          }
+        }
+      }
+    },
+    "Try again": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erneut versuchen"
+          }
+        }
+      }
+    },
+    "Try your first swap": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Probier es zum ersten Mal"
+          }
+        }
+      }
+    },
+    "Turn on Apple Intelligence": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence einschalten"
+          }
+        }
+      }
+    },
+    "Turn on Apple Intelligence first": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schalte zuerst Apple Intelligence ein"
+          }
+        }
+      }
+    },
+    "Turned off": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausgeschaltet"
+          }
+        }
+      }
+    },
+    "Type an instruction, then press ↩.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gib eine Anweisung ein und drücke dann ↩."
+          }
+        }
+      }
+    },
+    "Type anything else to run it once as an instruction": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippe etwas anderes, um es einmalig als Anweisung auszuführen"
+          }
+        }
+      }
+    },
+    "Undo": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widerrufen"
+          }
+        }
+      }
+    },
+    "Unpin": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lösen"
+          }
+        }
+      }
+    },
+    "Up": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pfeil nach oben"
+          }
+        }
+      }
+    },
+    "Updates": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Updates"
+          }
+        }
+      }
+    },
+    "Used %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Genutzt %@"
+          }
+        }
+      }
+    },
+    "Version %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Version %@"
+          }
+        }
+      }
+    },
+    "Waiting for permission": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Warte auf Erlaubnis"
+          }
+        }
+      }
+    },
+    "Waiting for you": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wartet auf dich"
+          }
+        }
+      }
+    },
+    "Welcome to Easy Write": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Willkommen bei Easy Write"
+          }
+        }
+      }
+    },
+    "Window": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fenster"
+          }
+        }
+      }
+    },
+    "Word": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wort"
+          }
+        }
+      }
+    },
+    "Working": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arbeitet"
+          }
+        }
+      }
+    },
+    "Working…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arbeitet …"
+          }
+        }
+      }
+    },
+    "Write a short, warm reply to this message in the same language. Answer any question in it. Keep it under three sentences.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schreib eine kurze, herzliche Antwort auf diese Nachricht in derselben Sprache. Beantworte Fragen darin. Bleib unter drei Sätzen."
+          }
+        }
+      }
+    },
+    "Written like you’d ask a person. It runs on the text you select, on this Mac.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formuliert, als würdest du eine Person fragen. Sie läuft auf dem ausgewählten Text, auf diesem Mac."
+          }
+        }
+      }
+    },
+    "YOU ARE HERE": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DU BIST HIER"
+          }
+        }
+      }
+    },
+    "Your Mac’s battery, beautifully understood.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Batterie deines Macs, endlich verständlich."
+          }
+        }
+      }
+    },
+    "Your language": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Sprache"
+          }
+        }
+      }
+    },
+    "app": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App"
+          }
+        }
+      }
+    },
+    "apps": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apps"
+          }
+        }
+      }
+    },
+    "both directions": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "hin und zurück"
+          }
+        }
+      }
+    },
+    "choose": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "auswählen"
+          }
+        }
+      }
+    },
+    "close": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "schließen"
+          }
+        }
+      }
+    },
+    "copy": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kopieren"
+          }
+        }
+      }
+    },
+    "into %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nach %@"
+          }
+        }
+      }
+    },
+    "language": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprache"
+          }
+        }
+      }
+    },
+    "languages": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprachen"
+          }
+        }
+      }
+    },
+    "much more": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vieles mehr"
+          }
+        }
+      }
+    },
+    "onekapisch.com": {
+      "localizations": {},
+      "shouldTranslate": false
+    },
+    "part %lld of %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teil %1$lld von %2$lld"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "part %1$lld of %2$lld"
+          }
+        }
+      }
+    },
+    "replace": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ersetzen"
+          }
+        }
+      }
+    },
+    "see them all": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "alle ansehen"
+          }
+        }
+      }
+    },
+    "swaps": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ersetzungen"
+          }
+        }
+      }
+    },
+    "this app": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "diese App"
+          }
+        }
+      }
+    },
+    "to undo": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "zum Widerrufen"
+          }
+        }
+      }
+    },
+    "try again": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "erneut versuchen"
+          }
+        }
+      }
+    },
+    "words": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wörter"
+          }
+        }
+      }
+    },
+    "· %@": {
+      "localizations": {},
+      "shouldTranslate": false
+    },
+    "· %@ · %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "· %1$@ · %2$@"
+          }
+        }
+      },
+      "shouldTranslate": false
+    },
+    "“%@”": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%@“"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

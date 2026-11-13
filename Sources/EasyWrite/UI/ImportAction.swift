@@ -11,8 +11,8 @@ final class ImportController {
         guard let action = ActionLink.decode(url) else {
             NSApp.activate(ignoringOtherApps: true)
             let alert = NSAlert()
-            alert.messageText = "This link isn’t a valid Easy Write action"
-            alert.informativeText = "It may be incomplete. Ask the person who shared it to copy the link again."
+            alert.messageText = String(localized: "This link isn’t a valid Easy Write action")
+            alert.informativeText = String(localized: "It may be incomplete. Ask the person who shared it to copy the link again.")
             alert.runModal()
             return
         }
@@ -22,22 +22,22 @@ final class ImportController {
     private func confirm(_ action: WriteAction) {
         NSApp.activate(ignoringOtherApps: true)
         let alert = NSAlert()
-        alert.messageText = "Add “\(action.name)” to Easy Write?"
-        alert.informativeText = """
+        alert.messageText = String(localized: "Add “\(action.name)” to Easy Write?")
+        alert.informativeText = String(localized: """
         It runs this instruction on text you select:
 
         “\(action.instruction)”
 
         It starts by showing results in a popup, so it never changes your text until you switch it to Replace in Settings → Actions.
-        """
-        alert.addButton(withTitle: "Add Action")
-        alert.addButton(withTitle: "Cancel")
+        """)
+        alert.addButton(withTitle: String(localized: "Add Action"))
+        alert.addButton(withTitle: String(localized: "Cancel"))
         guard alert.runModal() == .alertFirstButtonReturn else { return }
 
         var a = action
-        if Store.shared.actions.contains(where: { $0.name == a.name }) { a.name += " (shared)" }
+        if Store.shared.actions.contains(where: { $0.name == a.name }) { a.name += String(localized: " (shared)") }
         Store.shared.actions.append(a)
-        NotchHUD.shared.done("Action added", detail: a.name)
+        NotchHUD.shared.done(String(localized: "Action added"), detail: a.name)
         SettingsController.shared.show(.actions, action: a.id)
     }
 }
@@ -50,30 +50,30 @@ enum MainMenu {
 
         let appItem = NSMenuItem()
         let app = NSMenu()
-        app.addItem(withTitle: "About Easy Write", action: #selector(AppDelegate.showAbout), keyEquivalent: "")
+        app.addItem(withTitle: String(localized: "About Easy Write"), action: #selector(AppDelegate.showAbout), keyEquivalent: "")
         app.addItem(.separator())
-        app.addItem(withTitle: "Settings…", action: #selector(AppDelegate.showSettings), keyEquivalent: ",")
+        app.addItem(withTitle: String(localized: "Settings…"), action: #selector(AppDelegate.showSettings), keyEquivalent: ",")
         app.addItem(.separator())
-        app.addItem(withTitle: "Quit Easy Write", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        app.addItem(withTitle: String(localized: "Quit Easy Write"), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         appItem.submenu = app
         main.addItem(appItem)
 
         let editItem = NSMenuItem()
-        let edit = NSMenu(title: "Edit")
-        edit.addItem(withTitle: "Undo", action: Selector(("undo:")), keyEquivalent: "z")
-        let redo = edit.addItem(withTitle: "Redo", action: Selector(("redo:")), keyEquivalent: "z")
+        let edit = NSMenu(title: String(localized: "Edit"))
+        edit.addItem(withTitle: String(localized: "Undo"), action: Selector(("undo:")), keyEquivalent: "z")
+        let redo = edit.addItem(withTitle: String(localized: "Redo"), action: Selector(("redo:")), keyEquivalent: "z")
         redo.keyEquivalentModifierMask = [.command, .shift]
         edit.addItem(.separator())
-        edit.addItem(withTitle: "Cut", action: #selector(NSText.cut(_:)), keyEquivalent: "x")
-        edit.addItem(withTitle: "Copy", action: #selector(NSText.copy(_:)), keyEquivalent: "c")
-        edit.addItem(withTitle: "Paste", action: #selector(NSText.paste(_:)), keyEquivalent: "v")
-        edit.addItem(withTitle: "Select All", action: #selector(NSText.selectAll(_:)), keyEquivalent: "a")
+        edit.addItem(withTitle: String(localized: "Cut"), action: #selector(NSText.cut(_:)), keyEquivalent: "x")
+        edit.addItem(withTitle: String(localized: "Copy"), action: #selector(NSText.copy(_:)), keyEquivalent: "c")
+        edit.addItem(withTitle: String(localized: "Paste"), action: #selector(NSText.paste(_:)), keyEquivalent: "v")
+        edit.addItem(withTitle: String(localized: "Select All"), action: #selector(NSText.selectAll(_:)), keyEquivalent: "a")
         editItem.submenu = edit
         main.addItem(editItem)
 
         let windowItem = NSMenuItem()
-        let window = NSMenu(title: "Window")
-        window.addItem(withTitle: "Close", action: #selector(NSWindow.performClose(_:)), keyEquivalent: "w")
+        let window = NSMenu(title: String(localized: "Window"))
+        window.addItem(withTitle: String(localized: "Close"), action: #selector(NSWindow.performClose(_:)), keyEquivalent: "w")
         windowItem.submenu = window
         main.addItem(windowItem)
 

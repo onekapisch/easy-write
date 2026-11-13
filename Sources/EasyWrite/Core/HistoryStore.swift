@@ -65,7 +65,7 @@ final class HistoryStore: ObservableObject {
         do {
             if FileManager.default.fileExists(atPath: fileURL.path) { try FileManager.default.removeItem(at: fileURL) }
         } catch {
-            NotchHUD.shared.problem("Could not delete history. Check folder permissions.")
+            NotchHUD.shared.problem(String(localized: "Could not delete history. Check folder permissions."))
         }
     }
 
@@ -92,7 +92,7 @@ final class HistoryStore: ObservableObject {
             try data.write(to: fileURL, options: .atomic)
             try FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: fileURL.path)
         } catch {
-            NotchHUD.shared.problem("Could not save history. Check folder permissions.")
+            NotchHUD.shared.problem(String(localized: "Could not save history. Check folder permissions."))
         }
     }
 }

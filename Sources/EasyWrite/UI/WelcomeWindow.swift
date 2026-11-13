@@ -15,7 +15,7 @@ final class WelcomeController {
             })
             let w = NSWindow(contentViewController: host)
             w.identifier = Self.windowID
-            w.title = "Welcome to Easy Write"
+            w.title = String(localized: "Welcome to Easy Write")
             w.styleMask = [.titled, .closable, .fullSizeContentView]
             w.titlebarAppearsTransparent = true
             w.appearance = NSAppearance(named: .darkAqua)
@@ -75,21 +75,21 @@ struct WelcomeView: View {
                 Wordmark(size: 15)
             }
             .padding(.horizontal, 10).padding(.bottom, 14).padding(.top, 6)
-            stepRow(.access, "Accessibility", done: state.accessibility,
-                    note: state.accessibility ? "Allowed" : "Needed to read your selection")
-            stepRow(.model, "Apple Intelligence", done: state.model == .ready, note: modelNote)
-            stepRow(.practice, "Try a swap", done: practiced, note: practiced ? "Done" : "Waiting for you")
+            stepRow(.access, String(localized: "Accessibility"), done: state.accessibility,
+                    note: state.accessibility ? String(localized: "Allowed") : String(localized: "Needed to read your selection"))
+            stepRow(.model, String(localized: "Apple Intelligence"), done: state.model == .ready, note: modelNote)
+            stepRow(.practice, String(localized: "Try a swap"), done: practiced, note: practiced ? String(localized: "Done") : String(localized: "Waiting for you"))
         }
         .padding(.horizontal, 14).padding(.top, 40).padding(.bottom, 14)
     }
 
     private var modelNote: String {
         switch state.model {
-        case .ready:      "Ready on this Mac"
-        case .preparing:  "Still downloading"
-        case .notEnabled: "Turned off"
-        case .ineligible: "Not supported here"
-        case .unknown:    "Not available yet"
+        case .ready:      String(localized: "Ready on this Mac")
+        case .preparing:  String(localized: "Still downloading")
+        case .notEnabled: String(localized: "Turned off")
+        case .ineligible: String(localized: "Not supported here")
+        case .unknown:    String(localized: "Not available yet")
         }
     }
 
@@ -186,14 +186,15 @@ struct WelcomeView: View {
             title("Try your first swap")
             let key = store.shortcut(for: .translate)?.label ?? "⌥⌘T"
             para("The sentence below is already selected. Press \(key), and Easy Write replaces it right here.")
-            PracticeField(text: "Hey! Text me when you land.", selecting: "Text me when you land.")
+            PracticeField(text: String(localized: "Hey! Text me when you land."),
+                          selecting: String(localized: "Text me when you land."))
                 .frame(height: 64)
                 .background(Color(hex: 0x121117), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
                 .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).strokeBorder(Color.white.opacity(0.08)))
             HStack(spacing: 10) {
-                Text("Into").font(.system(size: 12)).foregroundStyle(EW.dim)
+                Text("Into").font(.system(size: 12)).foregroundStyle(EW.dim).fixedSize()
                 LanguageChip(code: $store.targetCode)
-                ToneControl(tone: $store.defaultTone, lang: Languages.named(store.targetCode)).frame(width: 260)
+                ToneControl(tone: $store.defaultTone, lang: Languages.named(store.targetCode)).frame(width: 250)
             }
             if practiced {
                 statusLine("That’s it. Select text anywhere and press \(key).", color: EW.good)
@@ -225,16 +226,16 @@ struct WelcomeView: View {
 
     // MARK: Text helpers
 
-    private func title(_ s: String) -> some View {
+    private func title(_ s: LocalizedStringKey) -> some View {
         Text(s).font(.system(size: 21, weight: .bold)).foregroundStyle(EW.text)
     }
 
-    private func para(_ s: String) -> some View {
+    private func para(_ s: LocalizedStringKey) -> some View {
         Text(s).font(.system(size: 13)).foregroundStyle(Color(hex: 0xA9A5BC)).lineSpacing(2)
             .fixedSize(horizontal: false, vertical: true)
     }
 
-    private func statusLine(_ s: String, color: Color, pulsing: Bool = false) -> some View {
+    private func statusLine(_ s: LocalizedStringKey, color: Color, pulsing: Bool = false) -> some View {
         HStack(spacing: 8) {
             StatusDot(color: color).opacity(pulsing ? 0.9 : 1)
             Text(s).font(.system(size: 12.5, weight: .medium)).foregroundStyle(EW.text)
@@ -262,7 +263,7 @@ struct PracticeField: NSViewRepresentable {
         tv.textContainerInset = NSSize(width: 12, height: 12)
         tv.insertionPointColor = NSColor(EW.accent)
         tv.selectedTextAttributes = [.backgroundColor: NSColor(Color(hex: 0x5082FF, opacity: 0.45))]
-        tv.setAccessibilityLabel("Practice text")
+        tv.setAccessibilityLabel(String(localized: "Practice text"))
         DispatchQueue.main.async {
             if let r = text.range(of: selecting) { tv.setSelectedRange(NSRange(r, in: text)) }
             tv.window?.makeFirstResponder(tv)

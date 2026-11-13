@@ -4,6 +4,22 @@ All notable changes to Easy Write are documented here.
 
 ## Unreleased
 
+### German interface, 2026-11-13
+- The interface now follows the Mac's language: English or German (du-form, macOS German
+  terms such as Bedienungshilfen and Kurzbefehl). Language names, plurals ("1 Wort",
+  "8 Wörter") and the built-in actions' names and instructions are localized; model prompts
+  stay English.
+- Strings live in `Resources/Localizable.xcstrings`; `build.sh` compiles it into `en.lproj`
+  and `de.lproj`, and `Info.plist` declares both. `tools/test_localization.py` fails on
+  missing German, drafts, stale keys or mismatched placeholders.
+- On a Mac set to German, the first-run target language is English instead of German.
+- Fixed German layout: Bar buttons stay on one line, the panel's version line no longer wraps,
+  the welcome window's language row fits.
+- Corrected the source-build note in Settings → Updates to point to the signed download.
+- Verified: release build, `--selftest` (125 passed), `--smoketest`, shell syntax, DMG,
+  appearance, positioning, release and localization tests, and German and English snapshots.
+  Not yet checked in a running app on a German Mac beyond snapshots.
+
 ### Marketing research, 2026-10-25
 - Adapted the owner's r/macapps draft to Problem/Comparison/Pricing with the [OS] title
   prefix, verified shortcut wording and fair DeepL comparison. Flagged unverified main-feed

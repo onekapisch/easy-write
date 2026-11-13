@@ -25,12 +25,12 @@ final class Store: ObservableObject {
         var id: String { rawValue }
         var title: String {
             switch self {
-            case .bar:       "Open Easy Write Bar"
-            case .translate: "Translate (both directions)"
-            case .read:      "Read in your language"
-            case .formal:    "Translate · Formal"
-            case .informal:  "Translate · Informal"
-            case .natural:   "Translate · Natural"
+            case .bar:       String(localized: "Open Easy Write Bar")
+            case .translate: String(localized: "Translate (both directions)")
+            case .read:      String(localized: "Read in your language")
+            case .formal:    String(localized: "Translate · Formal")
+            case .informal:  String(localized: "Translate · Informal")
+            case .natural:   String(localized: "Translate · Natural")
             }
         }
     }
@@ -97,8 +97,11 @@ final class Store: ObservableObject {
         d = defaults
         Self.migrateFromV1IfNeeded(into: defaults, from: legacy)
 
-        targetCode = d.string(forKey: K.target) ?? "de"
-        homeCode = d.string(forKey: K.home) ?? Self.systemLanguageCode()
+        let system = Self.systemLanguageCode()
+        // First run: someone on a German Mac writes German, so translating *into* German would be
+        // backwards. They get English as the target; everyone else keeps German, the original default.
+        targetCode = d.string(forKey: K.target) ?? (system == "de" ? "en" : "de")
+        homeCode = d.string(forKey: K.home) ?? system
         defaultTone = d.string(forKey: K.tone).flatMap(Tone.init) ?? .natural
         previewBeforeReplace = d.bool(forKey: K.preview)
         twoWay = d.object(forKey: K.twoWay) as? Bool ?? true

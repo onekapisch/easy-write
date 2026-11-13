@@ -8,6 +8,13 @@
     <string>Easy Write</string>
     <key>CFBundleIdentifier</key>
     <string>com.onekapisch.easywrite</string>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
+    <key>CFBundleLocalizations</key>
+    <array>
+        <string>en</string>
+        <string>de</string>
+    </array>
     <key>CFBundleExecutable</key>
     <string>EasyWrite</string>
     <key>CFBundleIconFile</key>

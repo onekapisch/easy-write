@@ -1947,11 +1947,12 @@
       }
     },
     "Ready · On-device": {
+      "comment": "Kept in English in every language on purpose (brand look).",
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bereit · Auf dem Gerät"
+            "value": "Ready · On-device"
           }
         }
       }

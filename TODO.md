@@ -1,5 +1,13 @@
 # Release checklist
 
+## 2.1.0 German interface release
+
+- [x] German string catalog and placeholder checks; native menu and Settings inspected live.
+- [x] Correct German sidebar truncation with an enforced List minimum and wider Settings window.
+- [ ] Prepare new notarized build 30; unpublished build 29 is retained, not distributed.
+- [ ] Publish the exact accepted candidate, matching EN/DE downloads and signed feed.
+- [ ] Verify installed 2.0.2 → 2.1.0 Sparkle discovery, installation and relaunch.
+
 ## r/MacOSApps launch preparation
 
 - [x] Prepare a separate r/macapps PCP draft; keep the two communities' rules distinct.

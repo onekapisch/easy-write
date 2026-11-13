@@ -15,6 +15,8 @@ with opaque panel/card/control foundations and contrast-tested semantic colors. 
 vibrant dark appearance or rely on the desktop behind a popover for its text contrast.
 Settings and onboarding use existing native
 controls. Respect Reduce Motion and preserve VoiceOver labels. No unrelated redesigns.
+Settings uses a 900-point minimum window and an enforced 190-point List sidebar minimum;
+an ideal split-column width alone can compress German labels. Keep developer captures aligned.
 
 ## Safety
 Never log selected text. History requires explicit consent. Never paste unless the source

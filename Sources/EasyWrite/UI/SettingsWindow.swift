@@ -61,7 +61,7 @@ final class SettingsController {
             w.styleMask = [.titled, .closable, .miniaturizable, .fullSizeContentView]
             w.toolbarStyle = .unified
             w.isReleasedWhenClosed = false
-            w.setContentSize(NSSize(width: 820, height: 560))
+            w.setContentSize(NSSize(width: 900, height: 560))
             w.center()
             window = w
         }
@@ -147,7 +147,8 @@ struct SettingsView: View {
             List(SettingsPage.allCases, selection: $nav.page) { page in
                 Label(page.sidebarTitle, systemImage: page.symbol).tag(page)
             }
-            .navigationSplitViewColumnWidth(215)
+            .frame(minWidth: 190)
+            .navigationSplitViewColumnWidth(min: 190, ideal: 215, max: 260)
             .toolbar(removing: .sidebarToggle)
         } detail: {
             Group {
@@ -165,7 +166,7 @@ struct SettingsView: View {
             }
             .navigationTitle((nav.page ?? .general).title)
         }
-        .frame(minWidth: 820, minHeight: 560)
+        .frame(minWidth: 900, minHeight: 560)
         .tint(EW.accent)                                    // toggles, pickers and selection in Easy Write violet
         .onDisappear { recorder.stop() }
     }

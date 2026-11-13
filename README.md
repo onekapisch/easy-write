@@ -11,7 +11,7 @@ tone you choose (German *Sie* vs *du*, French *vous* vs *tu*, …). Or run your 
 grammar, make it shorter, reply politely. Powered entirely by Apple's **on-device** model (Apple
 Intelligence). **No accounts. No API keys. No cloud.** Your text never leaves your Mac.
 
-**Easy Write 2.0.2.** [Website & download](https://www.onekapisch.com/products/easy-write/) · [Direct DMG](https://github.com/onekapisch/easy-write/releases/download/v2.0.2/EasyWrite-2.0.2.dmg).
+**Easy Write 2.1.0.** [Website & download](https://www.onekapisch.com/products/easy-write/) · [Direct DMG](https://github.com/onekapisch/easy-write/releases/download/v2.1.0/EasyWrite-2.1.0.dmg).
 Developer-ID signed and notarized. Requires Apple Silicon, macOS 26+, and Apple Intelligence ready.
 See [launch status](docs/launch-handoff.md) for verification evidence and compatibility limits.
 
@@ -47,7 +47,13 @@ difference between polite and rude.
 **Easy Write uses the AI already built into macOS 26** — so it's private *and* there's nothing to set
 up, and it understands formality, which a plain dictionary translator can't.
 
-## What's new in 2.0
+## What's new in 2.1
+
+- **German interface:** menus, Settings, the Bar, reader and notifications follow your Mac's language.
+- **Localized names and counts:** language choices, built-in actions and word counts appear in English or German.
+- **Useful first-run default:** German Macs start with English as the target. Existing preferences are retained.
+
+### Also included from 2.0
 
 - 🔎 **Easy Write Bar** (`⌥⌘K`) — every language, tone and action next to your selection. Type to
   filter, or type any instruction and run it once. The result streams in before anything changes.
@@ -61,8 +67,9 @@ up, and it understands formality, which a plain dictionary translator can't.
 
 See the full [changelog](CHANGELOG.md).
 
-2.0.2 fixes selected-text capture in Mail’s rich-text composer while retaining source-window,
-field, range and text checks before replacement. See [release verification](docs/notarization-2.0.2-build28.md).
+2.0.2 fixed selected-text capture in Mail’s rich-text composer while retaining source-window,
+field, range and text checks before replacement. That fix is retained in 2.1.0.
+See [Mail patch verification](docs/notarization-2.0.2-build28.md).
 
 ### Appearance fix in 2.0.1
 
@@ -109,18 +116,18 @@ private, nothing to set up, register-aware).
 
 ## ⬇️ Install
 
-**Official manual DMG install (2.0.2, build 28).**
+**Official manual DMG install (2.1.0, build 30).**
 
 1. Quit any running copy of Easy Write or EasyWrite before installing or upgrading.
-2. Download [EasyWrite-2.0.2.dmg](https://github.com/onekapisch/easy-write/releases/download/v2.0.2/EasyWrite-2.0.2.dmg),
+2. Download [EasyWrite-2.1.0.dmg](https://github.com/onekapisch/easy-write/releases/download/v2.1.0/EasyWrite-2.1.0.dmg),
    open it, and drag **Easy Write.app** to **Applications**. Replace the existing copy if prompted.
 3. Launch **Easy Write** from Applications. Grant access in System Settings → Privacy & Security →
    Accessibility. If an old grant no longer works, remove the stale entry and enable the installed copy.
 4. Enable Apple Intelligence and wait until its model is ready. The welcome window checks
    Accessibility and model readiness, then offers a practice swap. Use disposable text first.
 
-The installer is 4,008,406 bytes. SHA-256:
-`cc3a7dcd9e9327c536646ec2ed03b01962a5271180131d592286de1636288bd1`.
+The installer is approximately 4 MB. Verify it against the release's
+[SHA-256 checksums](https://github.com/onekapisch/easy-write/releases/download/v2.1.0/SHA256SUMS.txt).
 The [product page](https://www.onekapisch.com/products/easy-write/) is the canonical site.
 
 Or with Homebrew (Homebrew 7 asks you to trust a third-party tap once):
@@ -139,7 +146,7 @@ Use the version tag below to build this release.
 ```bash
 git clone https://github.com/onekapisch/easy-write.git
 cd easy-write
-git checkout v2.0.2
+git checkout v2.1.0
 ./setup-signing.sh      # once, if you don't have a Developer ID: keeps the Accessibility grant across rebuilds
 ./build.sh              # compile + bundle + sign → "Easy Write.app"
 cp -R "Easy Write.app" /Applications/
@@ -156,7 +163,7 @@ unattended updates and clean-Mac installation remain separate acceptance checks.
 
 ## Usage
 
-**Mail selection compatibility in 2.0.2:** rich-text Mail selections use
+**Mail selection compatibility, retained from 2.0.2:** rich-text Mail selections use
 WebKit text markers instead of ordinary character-range attributes. The patch reads those
 markers directly, keeps capture off the clipboard, and preserves target validation before paste.
 See [verification notes](docs/mail-selection-fix.md) for the owner retry and remaining compatibility checks.

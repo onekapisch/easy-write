@@ -77,7 +77,9 @@ Sparkle upgrade where possible. Then, with owner publication approval:
 
 1. Tag the manifest's exact source commit. Push only that approved commit/tag.
 2. Create a draft GitHub release for that existing tag with `--verify-tag`; attach the exact
-   versioned and stable DMGs, signed appcast and release notes. Do not regenerate the files.
+   versioned and stable DMGs, signed appcast and release notes. Generate `SHA256SUMS.txt`
+   from those final accepted files, compare it with `VERIFIED.json`, and attach it as well
+   whenever the README links to that checksum asset. Do not regenerate the signed files.
 3. Review and publish the draft. Download and compare the public payload against the manifest.
 4. Deploy the matching signed feed byte-for-byte and update version-pinned website links.
 5. Test actual update discovery, download, installation and relaunch. A current-version

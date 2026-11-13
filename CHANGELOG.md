@@ -22,6 +22,10 @@ All notable changes to Easy Write are documented here.
 
 ## [2.1.0] — 2026-11-13
 
+### Fixed
+- Enforced the Settings sidebar minimum width so German labels such as "Kurzbefehle"
+  stay visible in the live native window. Build 30 supersedes the unpublished build-29 candidate.
+
 ### Added
 - Easy Write now speaks German. The interface follows your Mac's language: menu panel,
   Easy Write Bar, reader, welcome window, Settings and notifications are in German on a

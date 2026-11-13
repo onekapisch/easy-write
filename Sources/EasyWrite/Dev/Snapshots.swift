@@ -116,13 +116,13 @@ enum Snapshots {
             nav.page = page
             if page == .actions { nav.actionID = store.actions[2].id }
             await shoot(SettingsView(nav: nav, store: store, history: history, updates: updates, recorder: .shared),
-                        "f-settings-\(page.rawValue)", dir, dark: false, size: NSSize(width: 820, height: 560))
+                        "f-settings-\(page.rawValue)", dir, dark: false, size: NSSize(width: 900, height: 560))
         }
 
         let studioNav = SettingsNav()
         studioNav.page = .studio
         await shoot(SettingsView(nav: studioNav, store: store, history: history, updates: updates, recorder: .shared),
-                    "f-settings-studio-dark", dir, dark: true, size: NSSize(width: 820, height: 560))
+                    "f-settings-studio-dark", dir, dark: true, size: NSSize(width: 900, height: 560))
 
         print("Snapshots written to \(dir)")
     }

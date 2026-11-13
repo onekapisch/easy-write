@@ -1,5 +1,11 @@
 # Security & Privacy
 
+## German interface, 2.1.0
+
+English and German interface strings are bundled locally. Language selection adds no service,
+permission, telemetry or text retention. Model instructions retain their existing English wording.
+Build 30 also widens Settings for localized labels without changing translation or paste safeguards.
+
 ## Download measurement
 
 Maintainers can read GitHub's existing release-asset counters and repository traffic aggregates.

@@ -3,6 +3,10 @@
 Prepared 2026-11-13 with owner approval. **Status: prepared, not published.** No tag, push,
 GitHub release or feed deployment has happened.
 
+Superseded before publication: live UI inspection found the German Settings sidebar truncated
+"Kurzbefehle". Build 30 includes a wider Settings window and enforced sidebar minimum.
+Keep this accepted build-29 candidate immutable; it is not the artifact selected for publication.
+
 - Source commit: `e86725d7ad60e959c30684a58f1040056f0f6741` (branch `feat/german-ui`)
 - Candidate: `dist/release-2.1.0-b29.fb9e0cjw/`
 - Previous feed: live `appcast.xml` fetched 2026-11-13 (newest item 2.0.2 / 28),

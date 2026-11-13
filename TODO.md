@@ -4,7 +4,8 @@
 
 - [x] German string catalog and placeholder checks; native menu and Settings inspected live.
 - [x] Correct German sidebar truncation with an enforced List minimum and wider Settings window.
-- [ ] Prepare new notarized build 30; unpublished build 29 is retained, not distributed.
+- [x] Prepare new notarized build 30; unpublished build 29 is retained, not distributed.
+- [x] Owner confirms live German Bar opens and is readable; live Settings labels/controls verified.
 - [ ] Publish the exact accepted candidate, matching EN/DE downloads and signed feed.
 - [ ] Verify installed 2.0.2 → 2.1.0 Sparkle discovery, installation and relaunch.
 

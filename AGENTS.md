@@ -65,7 +65,8 @@ For the verified build-24 packaging procedure and artifact hashes, see
 The owner explicitly approved this launch. GitHub download bytes, the deployed product page,
 signed feed and shared-action utility have been verified. Future publication still requires
 its own approval; do not rebuild or replace immutable release assets for documentation edits.
-Homebrew is not live.
+The public cask is `onekapisch/homebrew-tap/Casks/easy-write.rb`; align its version/hash
+with approved releases without changing other casks. Old release records retain their dated scope.
 The owner authorized public 2.0.2 build 28 for Mail capture on 2026-10-24. Its GitHub release
 bytes match the verified candidate; retain immutable assets and record feed/upgrade evidence
 in `docs/notarization-2.0.2-build28.md` rather than inferring installation from publication.

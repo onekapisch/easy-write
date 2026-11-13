@@ -22,6 +22,14 @@ All notable changes to Easy Write are documented here.
 
 ## [2.1.0] — 2026-11-13
 
+### Release verification
+- Published immutable build 30 with matching public DMG/checksum/feed signatures and Homebrew cask.
+- Deployed matching English/German website downloads and the signed update feed.
+- Verified a real installed 2.0.2 build-28 Sparkle upgrade: discovery, download, installation,
+  relaunch as 2.1.0 build 30, strict code signature, notarization ticket and Gatekeeper acceptance.
+  Installed executable bytes match the accepted candidate. Unattended updates, clean-Mac
+  installation, VoiceOver and broader app compatibility remain separate checks.
+
 ### Fixed
 - Enforced the Settings sidebar minimum width so German labels such as "Kurzbefehle"
   stay visible in the live native window. Build 30 supersedes the unpublished build-29 candidate.

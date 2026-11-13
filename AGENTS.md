@@ -73,3 +73,7 @@ in `docs/notarization-2.0.2-build28.md` rather than inferring installation from 
 Do not mark clean-Mac installation, physical compatibility, VoiceOver or installed Sparkle
 upgrade acceptance complete without separate evidence. Pre-Sparkle 1.x upgrades manually;
 source builds keep updates disabled by default.
+The owner-authorized 2.1.0 build 30 was published on 2026-11-13. Public GitHub assets,
+Homebrew cask and EN/DE website downloads match the accepted candidate. An installed
+2.0.2 build-28 Sparkle upgrade to build 30 passed on the maintainer's Mac; see
+`docs/notarization-2.1.0-build30.md`. Keep clean-Mac and VoiceOver gates separate.

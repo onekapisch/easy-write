@@ -62,8 +62,8 @@ up, and it understands formality, which a plain dictionary translator can't.
 - 🧠 **Remembered per app** — formal in Mail, informal in Slack, without touching a setting.
 - ✨ **Actions** — your own instructions on a shortcut, shareable as a link.
 - 🏝️ **Notch HUD** — progress and results right at the top of the screen, with ⌘Z to undo.
-- 📥 **Notarized installer** with optional update checks. A user-initiated Sparkle upgrade to
-  2.0.2 is verified on the maintainer’s Mac; unattended updates and clean-Mac installs remain separate.
+- 📥 **Notarized installer** with optional update checks. A user-initiated Sparkle upgrade from
+  2.0.2 to 2.1.0 is verified on the maintainer’s Mac; unattended updates and clean-Mac installs remain separate.
 
 See the full [changelog](CHANGELOG.md).
 
@@ -158,7 +158,7 @@ automatically. Your settings move over automatically. macOS asks for Accessibili
 because the app is now signed by OneKapisch. If the old "EasyWrite" entry is still in
 System Settings → Privacy & Security → Accessibility, remove it, then delete the old
 `EasyWrite.app` from Applications. Optional update checks in 2.0 concern future releases and
-require consent. A user-initiated installed upgrade to 2.0.2 is verified on the maintainer's Mac;
+require consent. A user-initiated installed upgrade from 2.0.2 to 2.1.0 is verified on the maintainer's Mac;
 unattended updates and clean-Mac installation remain separate acceptance checks.
 
 ## Usage

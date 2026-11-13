@@ -6,8 +6,8 @@
 - [x] Correct German sidebar truncation with an enforced List minimum and wider Settings window.
 - [x] Prepare new notarized build 30; unpublished build 29 is retained, not distributed.
 - [x] Owner confirms live German Bar opens and is readable; live Settings labels/controls verified.
-- [ ] Publish the exact accepted candidate, matching EN/DE downloads and signed feed.
-- [ ] Verify installed 2.0.2 → 2.1.0 Sparkle discovery, installation and relaunch.
+- [x] Publish the exact accepted candidate, matching EN/DE downloads and signed feed; public payload hashes/signatures verified.
+- [x] Verify installed 2.0.2 build 28 → 2.1.0 build 30 Sparkle discovery, download, installation and relaunch on the maintainer's Mac.
 
 ## r/MacOSApps launch preparation
 

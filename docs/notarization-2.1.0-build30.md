@@ -32,9 +32,32 @@ Candidate: `dist/release-2.1.0-b30.nw5oepq5/`.
   formal-register leaks. This is not a meaning/naturalness or general accuracy certification.
 - Feed leads with version 30 / 2.1.0 and preserves prior releases. Do not edit signed bytes.
 
-## Remaining publication and physical gates
+## Publication and installed-upgrade evidence, 2026-11-13
 
-Publish the exact accepted source tag and assets before deploying the matching signed feed
-and EN/DE downloads. Public payload/download consistency and an installed 2.0.2-to-2.1.0
-Sparkle upgrade must be verified after publication. Clean-Mac installation, VoiceOver and
-the broader host-app compatibility matrix remain separate, uncompleted checks.
+- Public release: <https://github.com/onekapisch/easy-write/releases/tag/v2.1.0>.
+  The annotated tag resolves to the accepted source commit above. Versioned/stable DMGs,
+  signed `appcast.xml` and generated `SHA256SUMS.txt` are attached; no accepted bytes rebuilt.
+- Public DMG/feed downloads match the hashes above. Public checksum asset SHA-256:
+  `fe247c9a0ddff6e510e777dfdc66145bce13592ad9da905a14e472b4bbc43f53`.
+  Sparkle payload and feed signature verification passed on downloaded files.
+- Homebrew cask version/hash updated in `onekapisch/homebrew-tap` commit
+  `e7571564eb7ffc4efe9bd0336c0f8c317dd49a5b`; Ruby syntax passed. A Homebrew installation
+  was not performed.
+- Website release commit `8a9c91f0f09038f8e0f499bdc866c5e17ba918b3` deployed Ready as
+  `dpl_ECsXR9btNGBj6wCQDVYbnNXT5LVy` to <https://www.onekapisch.com/products/easy-write/>.
+  English/German download links and schema version are 2.1.0. Both routes fit at 375px.
+  Build/lint/type checks, 25 general tests, 23 scoped tests and 98 browser checks passed;
+  browser evidence contains 90 screenshots and four documented nonfatal Orbit warnings.
+- The installed `/Applications/Easy Write.app` began at 2.0.2 build 28. Settings → Updates
+  discovered 2.1.0 from the live feed. Install Update downloaded it, then Install and Relaunch
+  replaced the app and launched 2.1.0 build 30. A further check reports up to date.
+- Strict/deep code signature verification, Gatekeeper Notarized Developer ID assessment and
+  stapler validation passed on the installed app. Installed executable SHA-256 equals the
+  accepted candidate: `9229aa665f0fb0672d2527147e38c44773d7c439f8cbdc0403bc7bd48def31c9`.
+- Only the installed app remains running. Update preferences, history consent and system
+  language were not changed. Local proof images remain ignored, not public marketing assets.
+
+## Remaining physical gates
+
+Clean-Mac installation, unattended update behavior, VoiceOver and the broader host-app
+compatibility matrix remain separate, uncompleted checks. Publication does not force updates.
